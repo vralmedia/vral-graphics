@@ -225,7 +225,8 @@
   }
 
   function waUrl(text) {
-    return "https://wa.me/" + DATA.waDigits + "?text=" + encodeURIComponent(text);
+    var body = text == null || text === "" ? buildBrief() : String(text);
+    return "https://wa.me/" + DATA.waDigits + "?text=" + encodeURIComponent(body);
   }
 
   function openWa(needContact) {

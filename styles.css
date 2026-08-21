@@ -228,11 +228,34 @@ p:last-child {
   font-size: 1.12rem;
 }
 
+.how__list {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  max-width: 40rem;
+}
+
+.how__list li {
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.25rem;
+}
+
+.how__list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.how__list span {
+  color: var(--mute);
+}
+
 .run,
 .stock,
 .plot,
 .chrome-bay,
 .board,
+.how,
 .brief-bay {
   width: min(1120px, calc(100% - 2.4rem));
   margin: 0 auto;

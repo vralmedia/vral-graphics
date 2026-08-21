@@ -241,8 +241,59 @@ p:last-child {
   font-size: 1.12rem;
 }
 
+.strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  width: 100%;
+  background: var(--line);
+  border-top: 1px solid var(--line);
+}
+
+.strip img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: var(--bg);
+}
+
+.print,
+.about,
 .how {
   display: block;
+}
+
+.print__grid {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 1.2rem;
+}
+
+.print__grid figure,
+.work figure {
+  margin: 0;
+}
+
+.print__grid img,
+.work img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #f4f4f4;
+  border: 1px solid var(--line);
+}
+
+.work {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.about p {
+  max-width: 46rem;
 }
 
 .how__list {
@@ -269,9 +320,8 @@ p:last-child {
 
 .run,
 .stock,
-.plot,
-.chrome-bay,
-.board,
+.print,
+.about,
 .how,
 .brief-bay {
   width: min(1120px, calc(100% - 2.4rem));
@@ -636,8 +686,15 @@ figcaption strong {
 
   .run__track,
   .stock__head,
-  .brief-bay {
-    grid-template-columns: 1fr;
+  .brief-bay,
+  .print__grid,
+  .work,
+  .strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .strip img {
+    height: 140px;
   }
 
   .run__rule {
@@ -704,6 +761,16 @@ figcaption strong {
   #lang {
     flex: none;
     margin-left: auto;
+  }
+
+  .print__grid,
+  .work,
+  .strip {
+    grid-template-columns: 1fr;
+  }
+
+  .strip img:nth-child(n + 3) {
+    display: none;
   }
 
   .hero {

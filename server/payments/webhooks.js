@@ -5,10 +5,14 @@ var crypto = require("node:crypto");
 function verifyHmac(rawBody, receivedSignature, secret) {
   if (!Buffer.isBuffer(rawBody)) throw new TypeError("rawBody must be a Buffer");
   if (typeof receivedSignature !== "string" || !secret) return false;
-  var expected = crypto.createHmac("sha256", secret).update(rawBody).digest("hex");
-  var actual = receivedSignature.replace(/^sha256=/, "");
-  var a = Buffer.from(expected, "hex"), b = Buffer.from(actual, "hex");
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
+  var expected = crypto.createHmac("sha256", secret).update(rawBody).digest();
+  var actual = receivedSignature.replace(/^sha256=/i, "").trim();
+  // Intuit commonly sends base64; hex and sha256=<value> are accepted for
+  // generic adapters while comparison remains constant-time.
+  return [expected.toString("base64"), expected.toString("hex")].some(function (encoded) {
+    var a = Buffer.from(encoded), b = Buffer.from(actual);
+    return a.length === b.length && crypto.timingSafeEqual(a, b);
+  });
 }
 
 function parseVerifiedEvent(rawBody, signature, secret) {

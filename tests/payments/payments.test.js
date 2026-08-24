@@ -3,10 +3,13 @@
 var test = require("node:test");
 var assert = require("node:assert/strict");
 var crypto = require("node:crypto");
-var quote = require("../../server/payments/offers").quote;
+var offerModule = require("../../server/payments/offers");
+var quote = offerModule.quote;
+var quoteSpecial = offerModule.quoteSpecial;
 var checkout = require("../../server/payments/checkout");
 var quickbooks = require("../../server/payments/quickbooks");
 var webhooks = require("../../server/payments/webhooks");
+var reconciliation = require("../../server/payments/reconciliation");
 
 var catalogue = { cards: { active: true, name: "Cards", unitCents: 250 } };
 
@@ -92,4 +95,84 @@ test("webhook verifies an HMAC before JSON parsing", function () {
   assert.deepEqual(webhooks.parseVerifiedEvent(body, "sha256=" + signature, secret), { id: "evt_1" });
   assert.throws(function () { webhooks.parseVerifiedEvent(body, "bad", secret); }, { code: "INVALID_SIGNATURE" });
   assert.throws(function () { webhooks.parseVerifiedEvent(body, signature, ""); }, { code: "WEBHOOK_BLOCKED" });
+});
+
+test("server Specials catalogue prices 2,500 at 139 dollars and taxes printing only", function () {
+  var result = quoteSpecial({ printingSku: "flyer_2500", design: "front_back" });
+  assert.equal(result.subtotalCents, 13900);
+  assert.equal(result.taxableCents, 13900);
+  assert.equal(result.taxCents, 973);
+  assert.equal(result.designFrontCents, 7500);
+  assert.equal(result.designBackCents, 1000);
+  assert.equal(result.totalCents, 23373);
+  assert.equal(result.processingFeeCents, null);
+});
+
+test("free 1,000 printing requires Vral design and still charges design", function () {
+  assert.throws(function () { quoteSpecial({ printingSku: "flyer_1000_free", design: "front" }); }, /requires Vral design/);
+  var result = quoteSpecial({ quantity: 1000, design: "front", designByVral: true });
+  assert.equal(result.printingSku, "flyer_1000_free_when_vral_designs");
+  assert.equal(result.subtotalCents, 0);
+  assert.equal(result.taxCents, 0);
+  assert.equal(result.designFeeCents, 7500);
+  assert.equal(result.totalCents, 7500);
+});
+
+test("checkout replays an atomically reserved hosted session by idempotency key", async function () {
+  var gatewayCalls = 0;
+  var output = await checkout.createCheckout({ cart: [{ sku: "cards", quantity: 1 }], idempotencyKey: "d".repeat(16) }, {
+    catalogue: catalogue,
+    orderRepository: { reservePending: function () { return { id: "order_existing", status: "pending_payment", quote: { totalCents: 250 }, checkoutId: "qb_session_1", checkoutUrl: "https://payments.example/1" }; } },
+    gateway: { provider: "quickbooks_payments", createHostedCheckout: function () { gatewayCalls += 1; } }
+  });
+  assert.equal(output.replayed, true);
+  assert.equal(output.checkoutId, "qb_session_1");
+  assert.equal(gatewayCalls, 0);
+});
+
+test("Specials checkout sends the server quote to QuickBooks Payments", async function () {
+  var captured;
+  var output = await checkout.createSpecialCheckout({ printingSku: "flyer_2500", design: "front_back", idempotencyKey: "e".repeat(16) }, {
+    orderRepository: { reservePending: function (record) { assert.equal(record.quote.totalCents, 23373); return { id: "order_special" }; } },
+    gateway: { provider: "quickbooks_payments", createHostedCheckout: function (request) { captured = request; return { id: "qb_session_special", url: "https://payments.example/special" }; } }
+  });
+  assert.equal(output.status, "pending_payment");
+  assert.equal(captured.provider, "quickbooks_payments");
+  assert.equal(captured.amountCents, 23373);
+});
+
+test("QuickBooks hosted adapter is blocked without realm and access token", async function () {
+  var adapter = quickbooks.createHostedCheckoutAdapter({ createHostedCheckout: async function () { throw new Error("must not call transport"); } }, {});
+  await assert.rejects(adapter.createHostedCheckout({ amountCents: 1 }), { code: "QUICKBOOKS_BLOCKED", statusCode: 503 });
+});
+
+test("webhook accepts Intuit-style base64 HMAC after raw-body verification", function () {
+  var body = Buffer.from('{"id":"evt_b64"}'), secret = "webhook-secret";
+  var signature = crypto.createHmac("sha256", secret).update(body).digest("base64");
+  assert.deepEqual(webhooks.parseVerifiedEvent(body, signature, secret), { id: "evt_b64" });
+});
+
+test("verified payment marks the order paid before optional CRM delivery", async function () {
+  var calls = [];
+  var order = { id: "order_paid", status: "pending_payment", paymentVerified: false, totalCents: 23373 };
+  var result = await reconciliation.reconcileVerifiedPayment({ id: "pay_evt_1", orderId: "order_paid", status: "succeeded", amountCents: 23373, currency: "USD", paymentVerified: true }, {
+    orderRepository: {
+      findById: async function () { return order; },
+      markPaid: async function (id, patch) { calls.push(["markPaid", id]); order = Object.assign({}, order, patch); return order; }
+    },
+    crmHook: async function (paid) { calls.push(["crm", paid.status]); return { ok: true }; }
+  });
+  assert.deepEqual(calls, [["markPaid", "order_paid"], ["crm", "paid"]]);
+  assert.equal(result.status, "paid");
+  assert.equal(result.order.paymentVerified, true);
+  assert.equal(result.crm.status, "DELIVERED");
+  assert.equal(result.quickbooks.status, "BLOCKED");
+});
+
+test("unverified or mismatched payments never call markPaid", async function () {
+  var marked = 0;
+  var repository = { findById: async function () { return { id: "order_guard", status: "pending_payment", totalCents: 1000 }; }, markPaid: async function () { marked += 1; return {}; } };
+  await assert.rejects(reconciliation.reconcileVerifiedPayment({ id: "pay_bad", orderId: "order_guard", status: "succeeded", amountCents: 999, currency: "USD" }, { orderRepository: repository }), { code: "PAYMENT_NOT_VERIFIED" });
+  await assert.rejects(reconciliation.reconcileVerifiedPayment({ id: "pay_wrong_amount", orderId: "order_guard", status: "succeeded", amountCents: 999, currency: "USD", paymentVerified: true }, { orderRepository: repository }), /does not match/);
+  assert.equal(marked, 0);
 });

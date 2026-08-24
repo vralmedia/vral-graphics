@@ -1,0 +1,36 @@
+{
+  "wave": "luna-2026-08-24",
+  "local_preview": "http://127.0.0.1:4526/",
+  "live_url": "https://vral-vision-spark.lovable.app",
+  "node_tests": "33/33 pass",
+  "local": {
+    "hero": "Quality Printing for Less.",
+    "en_es": "pass (VERIFY)",
+    "field_mode": "blocked copy present",
+    "specials_2500_both": {
+      "printing": "$139.00",
+      "front": "$75.00",
+      "back": "$10.00",
+      "tax": "$9.73",
+      "total": "$233.73"
+    },
+    "journey_brief_ready": true,
+    "reload": true,
+    "skip_link_keyboard": "proof local-mobile-390-keyboard-skip.png",
+    "viewports": ["390", "768", "1440"]
+  },
+  "live": {
+    "http": 200,
+    "hero": "Printing for Less.",
+    "mike_461_7465": false,
+    "old_whatsapp_591_1017": true,
+    "matches_local": false
+  },
+  "proofs": [
+    "local-mobile-390-landing.png",
+    "local-mobile-390-keyboard-skip.png",
+    "local-mobile-390-brief-ready.png",
+    "local-tablet-768-smoke.png",
+    "local-desktop-1440-smoke.png"
+  ]
+}

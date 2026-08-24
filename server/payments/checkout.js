@@ -17,23 +17,43 @@ function createCheckout(input, dependencies) {
   if (!input || typeof input.idempotencyKey !== "string" || !/^[A-Za-z0-9_-]{16,128}$/.test(input.idempotencyKey)) {
     throw new TypeError("a 16–128 character idempotencyKey is required");
   }
-  var quote = offers.quote(input.cart, dependencies.catalogue, dependencies.pricing);
+  var quote = input.offer === "specials" ? offers.quoteSpecial(input.special || input) : offers.quote(input.cart, dependencies.catalogue, dependencies.pricing);
   var gateway = dependencies.gateway;
   if (!gateway || typeof gateway.createHostedCheckout !== "function") throw missingCredentials(["PAYMENT_GATEWAY_ADAPTER"]);
+  if (gateway.provider && gateway.provider !== "quickbooks_payments" && gateway.provider !== "quickbooks") {
+    throw missingCredentials(["QUICKBOOKS_PAYMENTS_GATEWAY_ADAPTER"]);
+  }
   return orders.reservePendingOrder({ idempotencyKey: input.idempotencyKey, orderReference: input.orderReference, quote: quote }, dependencies.orderRepository).then(function (order) {
+    // A repository hit for an existing idempotency key is replay-safe. Never
+    // create a second hosted session when the first one was persisted.
+    if (order.checkoutId && order.checkoutUrl) {
+      return { orderId: order.id, status: "pending_payment", checkoutId: order.checkoutId, checkoutUrl: order.checkoutUrl, quote: order.quote || quote, replayed: true };
+    }
     return Promise.resolve(gateway.createHostedCheckout({
-    idempotencyKey: input.idempotencyKey,
-    amountCents: quote.totalCents,
-    currency: quote.currency,
-    lines: quote.lines.map(function (line) { return { sku: line.sku, quantity: line.quantity, unitCents: line.unitCents }; }),
-    metadata: { orderReference: order.id }
+      provider: "quickbooks_payments",
+      idempotencyKey: input.idempotencyKey,
+      amountCents: quote.totalCents,
+      currency: quote.currency,
+      lines: quote.lines.map(function (line) { return { sku: line.sku, name: line.name, quantity: line.quantity, unitCents: line.unitCents, lineCents: line.lineCents }; }),
+      metadata: { orderReference: order.id }
     })).then(function (session) {
     if (!session || typeof session.id !== "string" || typeof session.url !== "string" || !/^https:\/\//.test(session.url)) {
       throw new Error("Gateway returned an invalid hosted checkout session");
+    }
+    if (dependencies.orderRepository && typeof dependencies.orderRepository.attachCheckout === "function") {
+      return Promise.resolve(dependencies.orderRepository.attachCheckout(order.id, { checkoutId: session.id, checkoutUrl: session.url, status: "pending_payment" })).then(function (saved) {
+        if (saved && saved.status && saved.status !== "pending_payment") throw new Error("Order repository changed checkout status unexpectedly");
+        return { orderId: order.id, status: "pending_payment", checkoutId: session.id, checkoutUrl: session.url, quote: quote };
+      });
     }
     return { orderId: order.id, status: "pending_payment", checkoutId: session.id, checkoutUrl: session.url, quote: quote };
     });
   });
 }
 
-module.exports = { createCheckout: createCheckout, missingCredentials: missingCredentials };
+function createSpecialCheckout(input, dependencies) {
+  input = Object.assign({}, input, { offer: "specials" });
+  return createCheckout(input, dependencies);
+}
+
+module.exports = { createCheckout: createCheckout, createSpecialCheckout: createSpecialCheckout, missingCredentials: missingCredentials };

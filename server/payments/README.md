@@ -1,13 +1,20 @@
-# Payment/order integration status
+# Payment/order integration contract
 
-The current repository has no deployed backend, payment provider account, product-price catalogue, order database, or QuickBooks credentials. Therefore this directory supplies only safe server-side adapters and validation; it does not make a real checkout or accounting claim.
+This directory is the server-side payment boundary for Specials. It never trusts browser prices, never stores card data, never adds a guessed processing-fee percentage, and never returns a paid order before a verified provider event has atomically finalized it.
 
-All amounts are integer USD cents. Tax is rounded once on the product subtotal only; shipping and the server-policy `designFeeCents` are outside the tax base.
+## Server-owned Specials
 
-## BLOCKED before production
+- Flyers: 1,000 `$99`, 2,500 `$139`, 5,000 `$159`.
+- `flyer_1000_free_when_vral_designs` is `$0` printing only when `designByVral: true`; the customer still pays design.
+- Design is `$75` front or `$85` front + back (`$75 + $10`).
+- Tax is 7% of printing only. Design is outside the tax base.
+- `processingFeeCents` is intentionally `null`; QuickBooks calculates any provider fee.
 
-- [ ] Configure a server-owned, versioned catalogue and tax/shipping policy (never accept browser prices).
-- [ ] Implement a real payment gateway adapter, secret storage, and an atomic `orderRepository.reservePending` idempotency store.
-- [ ] Set `PAYMENT_WEBHOOK_SECRET`; verify raw request bytes before parsing; provide an atomic `reserveEvent` repository to deduplicate provider event IDs before side effects.
-- [ ] Set `QUICKBOOKS_REALM_ID` and short-lived `QUICKBOOKS_ACCESS_TOKEN`; add an Intuit transport and only sync an order after verified payment.
-- [ ] Add authorization, audit logs, PII retention/deletion policy, rate limits, monitoring, and live-provider sandbox/live verification.
+Use `offers.quoteSpecial(...)` for this catalogue. Use `checkout.createCheckout(...)` only with an injected QuickBooks Payments hosted-checkout adapter and an atomic `orderRepository.reservePending` implementation.
+
+## Integration rules
+
+- Checkout reserves `pending_payment` atomically by idempotency key, then asks the hosted adapter for an HTTPS session. A replay returns the persisted session instead of creating another one.
+- Webhooks verify the raw request bytes with HMAC before JSON parsing, then atomically reserve the provider event ID before side effects. Intuit-style base64 and hex HMAC encodings are supported.
+- Reconciliation validates provider verification, order identity, USD, and amount before calling `markPaid`. QuickBooks sales-receipt sync is allowed only with a paid order carrying `paymentVerified: true` and a provider event ID.
+- CRM delivery is optional and reports `DELIVERED`, `FAILED`, or `BLOCKED`; a missing or failed CRM hook cannot make payment look successful.

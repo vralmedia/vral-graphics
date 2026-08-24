@@ -7,7 +7,8 @@ function validBearer(header, secret) { if (typeof header !== "string" || typeof 
 function readJson(req) { return new Promise(function (resolve, reject) { var bytes = 0, chunks = [], finished = false; req.on("data", function (chunk) { if (finished) return; bytes += chunk.length; if (bytes > 65536) { finished = true; reject(httpError("body too large", 413)); req.destroy(); } else chunks.push(chunk); }); req.on("end", function () { if (finished) return; try { resolve(JSON.parse(Buffer.concat(chunks).toString("utf8"))); } catch (_) { reject(httpError("invalid JSON", 400)); } }); req.on("error", reject); }); }
 function createServer(options) {
   options = options || {}; var env = options.env || process.env, request = options.request || fetch;
-  var service = options.service || createLeadService({ storePath: path.resolve(env.LEAD_STORE_PATH || "./data/leads.jsonl"), adapters: [adapters.createCrmAdapter(env, request), adapters.createFlyerEmailAdapter(env, request)] });
+  var defaultStorePath = path.join(__dirname, "data", "leads.jsonl");
+  var service = options.service || createLeadService({ storePath: path.resolve(env.LEAD_STORE_PATH || defaultStorePath), retry: { maxAttempts: Number(env.VG_DELIVERY_MAX_ATTEMPTS || 3), retryDelayMs: Number(env.VG_DELIVERY_RETRY_DELAY_MS || 250) }, adapters: [adapters.createCrmAdapter(env, request), adapters.createFlyerEmailAdapter(env, request)] });
   function allowedOrigin(req) { return env.VG_FORM_ALLOWED_ORIGIN && req.headers.origin === env.VG_FORM_ALLOWED_ORIGIN ? env.VG_FORM_ALLOWED_ORIGIN : ""; }
   return http.createServer(async function (req, res) {
     var origin = allowedOrigin(req);

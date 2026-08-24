@@ -1,6 +1,6 @@
 # Vral Graphics form backend
 
-`POST /api/leads` records the ordered lead schema — Name, phone, email, address, business, interest — with owner `Mike`, then attempts configured real deliveries. It never reports a CRM or flyer-email delivery as successful unless that endpoint returned success.
+`POST /api/leads` durably records the ordered lead schema — name, phone, email, address, business, interest (default `Printing`) — with owner `Mike`. Delivery is queued only after persistence. It never reports a CRM or flyer-email delivery as successful unless that endpoint returned success.
 
 ## Run
 
@@ -10,7 +10,7 @@ The caller must send `Authorization: Bearer <VG_FORM_API_KEY>` and an `Origin` t
 
 ## Delivery state
 
-Every accepted lead is appended to `LEAD_STORE_PATH` before CRM/flyer-email delivery is attempted. Idempotency keys and a 24-hour contact dedupe prevent repeat creation; a hidden `website` honeypot is accepted without persistence, and each client has a 5-per-10-minute in-memory limit. Client identity uses the socket address unless `VG_TRUST_PROXY=true`; enable that only behind a trusted proxy that overwrites `X-Forwarded-For`. The response includes exact channel states: `DELIVERED`, `FAILED`, or `BLOCKED`. `BLOCKED` means no real endpoint was configured; it is not a simulated send.
+Every accepted lead is appended to `LEAD_STORE_PATH` before CRM/flyer-email delivery is attempted. Delivery events are appended to the same private JSONL store; configured jobs retry up to `VG_DELIVERY_MAX_ATTEMPTS` and pending `QUEUED`/`RETRYING` jobs are recovered on restart. Idempotency keys and a 24-hour contact dedupe prevent repeat creation; a hidden `website` honeypot is accepted without persistence, and each client has a 5-per-10-minute in-memory limit. Client identity uses the socket address unless `VG_TRUST_PROXY=true`; enable that only behind a trusted proxy that overwrites `X-Forwarded-For`. The response reports `QUEUED` until a configured adapter completes; terminal states are `DELIVERED`, `FAILED`, or `BLOCKED`. `BLOCKED` means no real endpoint was configured; it is not a simulated send.
 
 ## Production checklist — BLOCKED pending credentials/deployment
 

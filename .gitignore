@@ -2,3 +2,7 @@
 .maestri/
 proofs/
 vral-mark-neon.svg
+.env
+backend/.env
+backend/data/
+data/

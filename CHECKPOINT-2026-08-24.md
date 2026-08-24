@@ -29,6 +29,8 @@ Terminal principal: `Terminal`.
 
 Agentes conectados: `VG-141735-CLOSER`, `VG-141735-ATLAS`, `VG-141735-SCOUT`, `VG-141735-TRACE`, `VG-141735-CANVAS` e `VG-141735-LEDGER`. Esta árvore legada tinha conexões entre líderes/executores; todos serão removidos agora. Nenhum agente novo será recrutado nesta rodada.
 
+Encerramento confirmado: `maestri list` agora mostra somente `Terminal`; não restam agentes, notas ou portais conectados.
+
 ## Provas independentes desta rodada
 
 - `node --check app.js` passou.

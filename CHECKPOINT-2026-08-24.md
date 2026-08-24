@@ -23,6 +23,12 @@ Esta rodada preserva as alterações não commitadas dos agentes no mesmo commit
 
 Não há autorização para apagar o trabalho já feito. Não publicar, não enviar mensagem a cliente e não criar credenciais nesta retomada.
 
+## Roster encontrado antes do encerramento
+
+Terminal principal: `Terminal`.
+
+Agentes conectados: `VG-141735-CLOSER`, `VG-141735-ATLAS`, `VG-141735-SCOUT`, `VG-141735-TRACE`, `VG-141735-CANVAS` e `VG-141735-LEDGER`. Esta árvore legada tinha conexões entre líderes/executores; todos serão removidos agora. Nenhum agente novo será recrutado nesta rodada.
+
 ## Provas independentes desta rodada
 
 - `node --check app.js` passou.

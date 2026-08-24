@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHECKPOINT — Vral Graphics · Vral Media</title>
+<style>
+:root{
+  --ink:#0E1320; --mut:#59606F; --line:#E7E9F0; --soft:#F6F7FB;
+  --blue:#0030E0; --violet:#7A00C8; --mag:#D0005E; --coral:#F03038; --orange:#F08A28;
+  --alert:#C0181F;
+  --good-fg:#0A7D33; --good-bg:#EAF6EE;
+  --info-fg:#134C8C; --info-bg:#E8EFFA;
+  --warn-fg:#8A5200; --warn-bg:#FDF5E2;
+  --live-fg:#7A00C8; --live-bg:#F4EAFB;
+  --neutral-fg:#59606F; --neutral-bg:#F0F1F4;
+  --grad:linear-gradient(90deg,#0030E0 0%,#7A00C8 30%,#D0005E 58%,#F03038 80%,#F08A28 100%);
+  --r:14px;
+}
+*{box-sizing:border-box;border-color:var(--line);}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:#fff;color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-feature-settings:"tnum" 1;line-height:1.55;-webkit-font-smoothing:antialiased;}
+h1,h2{margin:0;letter-spacing:-0.015em;}
+p{margin:0 0 .8em;}
+a{color:var(--blue);}
+code{font-size:.86em;background:var(--soft);padding:.1em .35em;border-radius:6px;}
+.wrap{max-width:58rem;margin:0 auto;padding:0 1.1rem;}
+.gbar{height:4px;background:var(--grad);border-radius:99px;}
+.chip{display:inline-flex;align-items:center;border:1px solid;border-radius:4px;
+  padding:1px 7px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.chip-scan{color:var(--good-fg);background:var(--good-bg);border-color:var(--good-fg);}
+.chip-live{color:var(--live-fg);background:var(--live-bg);border-color:var(--live-fg);}
+.chip-context{color:var(--warn-fg);background:var(--warn-bg);border-color:var(--warn-fg);}
+.chip-yours{color:var(--neutral-fg);background:var(--neutral-bg);border-color:var(--neutral-fg);}
+.chip-block{color:var(--alert);background:#FDECEC;border-color:var(--alert);}
+.legend{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.legend .wrap{display:flex;gap:.45rem;align-items:center;overflow-x:auto;padding:.5rem 1.1rem;}
+.legend-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);font-weight:650;white-space:nowrap;}
+header.mast{padding:2.2rem 0 1.6rem;}
+.brandrow{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.logopill{background:#0B1024;border-radius:16px;padding:10px 18px;display:inline-flex;align-items:center;}
+.logopill svg{height:28px;width:auto;display:block;}
+.eyebrow{font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.18em;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+header.mast h1{font-size:clamp(1.6rem,4.2vw,2.35rem);font-weight:740;line-height:1.12;margin-top:.5rem;}
+.meta{margin-top:.65rem;font-size:.85rem;color:var(--mut);}
+section.s{border-bottom:1px solid var(--line);padding:2.2rem 0;}
+.s-num{font-size:11px;font-weight:750;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.s-title{font-size:clamp(1.25rem,3vw,1.55rem);font-weight:700;margin-top:.3rem;}
+.s-body{margin-top:1.1rem;}
+.kid{background:var(--soft);border:1px solid var(--line);border-radius:var(--r);padding:.9rem 1rem;font-size:1.05rem;}
+.tiles{display:grid;gap:.8rem;grid-template-columns:1fr 1fr;}
+@media(min-width:720px){.tiles{grid-template-columns:1fr 1fr 1fr;}}
+.tile{border:1.5px solid var(--line);border-radius:var(--r);padding:.95rem 1rem;position:relative;overflow:hidden;}
+.tile::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad);}
+.tile .lab{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--mut);font-weight:700;}
+.tile .val{font-size:clamp(1.15rem,3vw,1.7rem);font-weight:780;line-height:1.1;margin:.25rem 0 .2rem;}
+.tile .sub{font-size:.78rem;color:var(--mut);}
+.val.goodc{color:var(--good-fg);} .val.badc{color:var(--alert);}
+.val.gradc{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.note{border-left:3px solid var(--violet);background:var(--soft);border-radius:0 10px 10px 0;padding:.8rem 1rem;font-size:.9rem;margin-top:.8rem;}
+.note.alert{border-left-color:var(--alert);}
+.note.good{border-left-color:var(--good-fg);}
+.note.warn{border-left-color:var(--warn-fg);}
+.tablescroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin-top:.8rem;}
+table{border-collapse:collapse;width:100%;font-size:.84rem;min-width:34rem;}
+th{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);text-align:left;padding:.55rem .7rem;background:var(--soft);border-bottom:1px solid var(--line);}
+td{padding:.5rem .7rem;border-bottom:1px solid var(--line);vertical-align:top;}
+tr:last-child td{border-bottom:0;}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:.7rem;counter-reset:st;}
+ol.steps li{counter-increment:st;border:1.5px solid var(--line);border-radius:var(--r);padding:.85rem 1rem .85rem 3.3rem;position:relative;}
+ol.steps li::before{content:counter(st);position:absolute;left:.85rem;top:.8rem;width:1.8rem;height:1.8rem;
+  border-radius:50%;background:var(--grad);color:#fff;font-weight:760;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+.st-t{font-weight:720;}
+.st-d{font-size:.86rem;color:var(--mut);margin-top:.15rem;}
+.cmd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0B1024;color:#fff;border-radius:12px;padding:1rem 1.1rem;font-size:.95rem;letter-spacing:.02em;}
+footer{padding:2.2rem 0 3rem;}
+.foot{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:space-between;}
+</style>
+</head>
+<body>
+<div class="legend"><div class="wrap">
+  <span class="legend-label">Como ler:</span>
+  <span class="chip chip-scan">Prova em teste</span>
+  <span class="chip chip-live">Visto no site</span>
+  <span class="chip chip-context">Só no GitHub</span>
+  <span class="chip chip-block">Ainda falta</span>
+  <span class="chip chip-yours">Falta o João</span>
+</div></div>
+<div class="gbar"></div>
+<div class="wrap">
+<header class="mast">
+  <div class="brandrow">
+    <span class="logopill" aria-label="Vral Media">
+      <svg viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+        <text x="0" y="21" fill="#fff" font-family="ui-sans-serif,system-ui" font-size="18" font-weight="750" letter-spacing="1">VRAL</text>
+      </svg>
+    </span>
+    <div>
+      <div class="eyebrow">Vral Media · CHECKPOINT · 24 ago 2026</div>
+      <h1>O pacote local do Vral Graphics está provado. O site no ar ainda é a versão velha.</h1>
+      <p class="meta">Vral Graphics · classificação <strong>PARTIAL</strong> · sem publish · sem mensagem a cliente · sem credencial nova</p>
+    </div>
+  </div>
+</header>
+
+<section class="s">
+  <div class="s-num">01</div>
+  <h2 class="s-title">Em português de gente</h2>
+  <div class="s-body">
+    <div class="kid">A página local fecha a jornada, troca EN/ES, calcula o especial 2.500 certo e fala a verdade quando o Field Mode, o popup ou a internet falham. A URL pública ainda mostra “Printing for Less.” e o WhatsApp antigo. O Lovable não está ligado no GitHub desta pasta.</div>
+    <div class="note alert">O preset pedido era Codex 5.6 Luna xhigh fast. No Maestri só existem Claude Code, Codex, Antigravity, OpenCode e Shell. Ninguém foi recrutado.</div>
+  </div>
+</section>
+
+<section class="s">
+  <div class="s-num">02</div>
+  <h2 class="s-title">O placar agora</h2>
+  <div class="s-body">
+    <div class="tiles">
+      <div class="tile"><div class="lab">Classificação</div><div class="val badc">PARTIAL</div><div class="sub">Local ok. Lovable atrasado.</div></div>
+      <div class="tile"><div class="lab">Testes Node</div><div class="val goodc">22/22</div><div class="sub">backend + pagamentos + syntax check.</div></div>
+      <div class="tile"><div class="lab">Local</div><div class="val goodc">9b90fbc</div><div class="sub">main, 4 commits à frente do GitHub.</div></div>
+      <div class="tile"><div class="lab">GitHub</div><div class="val goodc">69e9b60</div><div class="sub">origin/main público.</div></div>
+      <div class="tile"><div class="lab">URL viva</div><div class="val badc">Atrasada</div><div class="sub">Printing for Less. + 591 1017.</div></div>
+      <div class="tile"><div class="lab">Seu clique</div><div class="val gradc">Lovable</div><div class="sub">Ligar o repo e publicar este main.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s">
+  <div class="s-num">03</div>
+  <h2 class="s-title">O que já está feito — com prova</h2>
+  <div class="s-body">
+    <div class="tablescroll">
+      <table>
+        <thead><tr><th>Peça</th><th>O que a pessoa ganha</th><th>Prova</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Jornada do brief</td>
+            <td>CTA, produto, finalidade, arte, contato e revisão, sem enviar nada.</td>
+            <td><code>checkpoint-proofs/resume-2026-08-24/local-desktop-1440-brief-ready.png</code></td>
+            <td><span class="chip chip-scan">Prova em teste</span></td>
+          </tr>
+          <tr>
+            <td>EN / ES</td>
+            <td>O fluxo ativo troca de língua. O slogan canônico fica em inglês.</td>
+            <td><code>local-desktop-1440-es.png</code> — Empezar un trabajo</td>
+            <td><span class="chip chip-scan">Prova em teste</span></td>
+          </tr>
+          <tr>
+            <td>Especial 2.500 frente e verso</td>
+            <td>Impressão $139, design $75+$10, imposto $9.73, total $233.73. QuickBooks desligado.</td>
+            <td><code>local-desktop-1440-specials-2500.png</code></td>
+            <td><span class="chip chip-scan">Prova em teste</span></td>
+          </tr>
+          <tr>
+            <td>Field Mode</td>
+            <td>A captura de lead não finge que existe.</td>
+            <td><code>local-desktop-1440-field.png</code></td>
+            <td><span class="chip chip-scan">Prova em teste</span></td>
+          </tr>
+          <tr>
+            <td>Reload, mobile, popup, offline</td>
+            <td>O brief volta depois do reload. Celular mostra a mesma página. WhatsApp não abre à força.</td>
+            <td><code>local-desktop-1440-reload.png</code> + mobile 390</td>
+            <td><span class="chip chip-scan">Prova em teste</span></td>
+          </tr>
+          <tr>
+            <td>Testes de servidor</td>
+            <td>Lead, CORS, honeypot, checkout bloqueado, webhook assinado, QuickBooks honesto.</td>
+            <td>22/22 em <code>backend/test</code> e <code>tests/payments</code></td>
+            <td><span class="chip chip-scan">Prova em teste</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="s">
+  <div class="s-num">04</div>
+  <h2 class="s-title">Integrações REAL · SANDBOX · BLOCKED</h2>
+  <div class="s-body">
+    <div class="tablescroll">
+      <table>
+        <thead><tr><th>Integração</th><th>Classe</th><th>Por quê</th></tr></thead>
+        <tbody>
+          <tr><td>Landing local</td><td><span class="chip chip-scan">REAL</span></td><td><code>http://127.0.0.1:4526/</code></td></tr>
+          <tr><td>GitHub vralmedia/vral-graphics</td><td><span class="chip chip-scan">REAL</span></td><td>API pública, main = 69e9b60</td></tr>
+          <tr><td>URL pública Lovable</td><td><span class="chip chip-live">REAL atrasada</span></td><td>HTTP 200, copy velha</td></tr>
+          <tr><td>Link WhatsApp do Mike</td><td><span class="chip chip-scan">REAL</span></td><td>Montado, não enviado</td></tr>
+          <tr><td>Field Mode / lead público</td><td><span class="chip chip-block">BLOCKED</span></td><td>Sem relay e auth</td></tr>
+          <tr><td>API de leads em produção</td><td><span class="chip chip-block">BLOCKED</span></td><td>Sem chave, origin e storage</td></tr>
+          <tr><td>CRM</td><td><span class="chip chip-block">BLOCKED</span></td><td>Webhook vazio</td></tr>
+          <tr><td>E-mail / flyer</td><td><span class="chip chip-block">BLOCKED</span></td><td>Webhook vazio</td></tr>
+          <tr><td>Gateway de pagamento</td><td><span class="chip chip-block">BLOCKED</span></td><td>Checkout 503</td></tr>
+          <tr><td>QuickBooks</td><td><span class="chip chip-block">BLOCKED</span></td><td>Sem realm e token; default seria sandbox</td></tr>
+          <tr><td>Lovable ↔ GitHub</td><td><span class="chip chip-block">BLOCKED</span></td><td>MCP Lovable fora; site não tem 9b90fbc nem 69e9b60</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="s">
+  <div class="s-num">05</div>
+  <h2 class="s-title">O único próximo passo</h2>
+  <div class="s-body">
+    <ol class="steps">
+      <li>
+        <div class="st-t">Ligar o Lovable neste repositório e publicar o main local</div>
+        <div class="st-d">Projeto <code>0c4c6418-ebcd-4d69-a801-e39aaaccb18a</code> → repo <code>vralmedia/vral-graphics</code> → branch <code>main</code> → commit desta pasta → smoke test até a URL mostrar “Quality Printing for Less.” e Mike +1 (786) 461-7465.</div>
+      </li>
+    </ol>
+    <p class="cmd" style="margin-top:1rem">Lovable 0c4c6418 ↔ vralmedia/vral-graphics/main</p>
+    <div class="note warn">Eu não publiquei, não criei senha e não mandei mensagem. O site no ar continua velho até esse clique.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <span class="small">Fonte: <code>CHECKPOINT-2026-08-24-resume.md</code> · provas em <code>checkpoint-proofs/resume-2026-08-24/</code></span>
+    <span class="logopill" aria-hidden="true">
+      <svg viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="21" fill="#fff" font-family="ui-sans-serif,system-ui" font-size="18" font-weight="750" letter-spacing="1">VRAL</text></svg>
+    </span>
+  </div>
+</footer>
+</div>
+</body>
+</html>

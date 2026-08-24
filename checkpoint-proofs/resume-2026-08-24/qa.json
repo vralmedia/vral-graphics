@@ -1,0 +1,56 @@
+{
+  "checked_at": "2026-08-24T21:10:00Z",
+  "local_head": "9b90fbcc0ae02f6b33fe809405a91d56c1faba1b",
+  "origin_main": "69e9b60718a1137a46bc7d5b6d72f9c6e3607065",
+  "local_server": "http://127.0.0.1:4526/",
+  "live_url": "https://vral-vision-spark.lovable.app",
+  "lovable_project": "0c4c6418-ebcd-4d69-a801-e39aaaccb18a",
+  "maestri": {
+    "list": "only Terminal",
+    "requested_preset": "Codex 5.6 Luna xhigh fast",
+    "available_presets": ["Claude Code", "Codex", "Antigravity", "OpenCode", "Shell"],
+    "codex_cli_default_model": "gpt-5.6-sol",
+    "recruited": 0
+  },
+  "node": {
+    "app_js_check": "pass",
+    "i18n_js_check": "pass",
+    "backend_and_payments": "22/22 pass",
+    "git_diff_check": "pass"
+  },
+  "browser": {
+    "en_hero": "Quality Printing for Less.",
+    "en_cta": "Start a print job",
+    "en_specials_cta": "View current specials",
+    "es_cta": "Empezar un trabajo",
+    "es_specials_cta": "Ver especiales actuales",
+    "es_index": "¿Qué necesitas?",
+    "field_mode": "blocked without relay/auth",
+    "mike": "+1 (786) 461-7465",
+    "i18n_js_loaded": false,
+    "journey": "product → purpose → artwork → contact → review",
+    "invalid_email": "blocked",
+    "brief_completed_without_send": true,
+    "popup_blocked_fallback": true,
+    "offline_blocks_whatsapp": true,
+    "reload_resume_banner": true,
+    "specials_2500_both_sides": {
+      "printing": "$139.00",
+      "front": "$75.00",
+      "back": "$10.00",
+      "taxable": "$139.00",
+      "tax": "$9.73",
+      "total": "$233.73"
+    }
+  },
+  "live": {
+    "http": 200,
+    "title": "Vral Graphics — Printing for Less",
+    "hero": "Printing for Less.",
+    "mike": false,
+    "old_whatsapp_591_1017": true,
+    "field_mode": false,
+    "matches_local_head": false,
+    "matches_origin_main": false
+  }
+}

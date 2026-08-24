@@ -14,7 +14,7 @@ function envFor(options) {
 
 function modeFor(env) {
   if (env.DATABASE_URL) return "POSTGRES";
-  if (env.SUPABASE_URL) return "SUPABASE_REST";
+  if (env.LOVABLE_CLOUD_URL || env.SUPABASE_URL) return "CLOUD_REST";
   return "SANDBOX_JSONL";
 }
 
@@ -117,9 +117,11 @@ async function persistPostgres(row, env, options) {
 }
 
 function supabaseConfig(env) {
-  var key = env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_KEY;
-  if (!key) throw new Error("SUPABASE_URL is set but SUPABASE_SERVICE_ROLE_KEY is missing; anon keys cannot write field leads");
-  return { url: String(env.SUPABASE_URL).replace(/\/$/, ""), key: key };
+  var url = env.LOVABLE_CLOUD_URL || env.SUPABASE_URL;
+  var key = env.LOVABLE_CLOUD_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_KEY;
+  if (!url) throw new Error("Lovable Cloud URL is missing");
+  if (!key) throw new Error("Lovable Cloud is set but the server service-role key is missing; anon keys cannot write field leads");
+  return { url: String(url).replace(/\/$/, ""), key: key };
 }
 
 function restHeaders(config, extra) {
@@ -148,7 +150,7 @@ async function persistSupabase(row, env) {
   });
   var data = await restJson(response);
   if (!Array.isArray(data) || !data[0]) throw new Error("Supabase field_leads insert returned no row");
-  return publicRow(data[0], "SUPABASE_REST");
+  return publicRow(data[0], "CLOUD");
 }
 
 async function getPostgres(id, env, options) {
@@ -168,7 +170,7 @@ async function getSupabase(id, env) {
   var query = "?id=eq." + encodeURIComponent(id) + "&select=" + encodeURIComponent(selectList()) + "&limit=1";
   var response = await fetch(config.url + "/rest/v1/" + TABLE + query, { headers: restHeaders(config) });
   var data = await restJson(response);
-  return Array.isArray(data) && data[0] ? publicRow(data[0], "SUPABASE_REST") : null;
+  return Array.isArray(data) && data[0] ? publicRow(data[0], "CLOUD") : null;
 }
 
 function createStore(options) {
@@ -181,7 +183,7 @@ function createStore(options) {
     async persistLead(lead) {
       var row = rowFromLead(lead);
       if (mode === "POSTGRES") return persistPostgres(row, env, options);
-      if (mode === "SUPABASE_REST") return persistSupabase(row, env);
+      if (mode === "CLOUD_REST") return persistSupabase(row, env);
       await appendJsonl(file, row);
       return publicRow(row, "SANDBOX");
     },
@@ -189,7 +191,7 @@ function createStore(options) {
       id = text(id);
       if (!id) return null;
       if (mode === "POSTGRES") return getPostgres(id, env, options);
-      if (mode === "SUPABASE_REST") return getSupabase(id, env);
+      if (mode === "CLOUD_REST") return getSupabase(id, env);
       var records = await readJsonl(file);
       var found = records.find(function (record) { return record && record.id === id; });
       return found ? publicRow(found, "SANDBOX") : null;

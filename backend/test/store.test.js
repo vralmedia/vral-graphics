@@ -20,8 +20,8 @@ test("uses explicitly labeled SANDBOX JSONL fallback when cloud credentials are 
   assert.equal((await store.getLead(lead.id, { env: {}, storePath: file })).id, lead.id);
 });
 
-test("does not silently downgrade a configured Supabase URL to JSONL", async function () {
-  var instance = store.createStore({ env: { SUPABASE_URL: "https://example.supabase.co" }, storePath: "/tmp/should-not-be-used.jsonl" });
-  assert.equal(instance.mode, "SUPABASE_REST");
-  await assert.rejects(function () { return instance.persistLead(lead); }, /SUPABASE_SERVICE_ROLE_KEY is missing/);
+test("does not silently downgrade a configured Lovable Cloud URL to JSONL", async function () {
+  var instance = store.createStore({ env: { LOVABLE_CLOUD_URL: "https://example.lovable.app" }, storePath: "/tmp/should-not-be-used.jsonl" });
+  assert.equal(instance.mode, "CLOUD_REST");
+  await assert.rejects(function () { return instance.persistLead(lead); }, /service-role key is missing/);
 });

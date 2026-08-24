@@ -44,6 +44,7 @@ Encerramento confirmado: `maestri list` agora mostra somente `Terminal`; não re
 - A URL pública responde HTTP 200, mas está atrasada: ainda mostra `Printing for Less.` e WhatsApp `+1 786 591 1017`, não o contato Mike/commit local.
 - O projeto Lovable é `vral-vision-spark`, público na URL acima, mas o audit interno encontrou apenas remotes Lovable, sem remote GitHub; commit Lovable atual: `194c36b2cbd2a6e724a9453bec2f5478b4a508a2`.
 - O commit local `69e9b60` não existe no histórico Lovable. Não afirmar que houve deploy.
+- Observação de transparência: a chamada de auditoria `plan_mode` do agente Lovable criou um arquivo interno `.lovable/plan.md` e o commit remoto `1e8f163662ec7909d4696559cd5e049cee9ba64c`; não alterou o checkout local nem publicou a aplicação. Não tratar esse commit como sync do GitHub.
 
 ## Pendências bloqueadas
 

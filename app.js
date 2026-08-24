@@ -8,6 +8,7 @@
 
   var words = {
     en: {
+      title: "Vral Graphics — Quality Printing for Less.", description: "Quality printing for less. Start a print job with Vral Graphics.", language: "Language", orderSummaryLabel: "Order summary",
       skip: "Skip to print desk", start: "Start a print job", heroTitle: "Quality Printing for Less.",
       heroLead: "Vral Graphics is the print division of Vral Media.",
       heroNote: "Tell us what you need, then send your brief on WhatsApp.", trust: "Part of Vral Media.",
@@ -17,6 +18,8 @@
       pSigns: "Signs", pSignsUse: "For stores, windows, and streets.",
       deskTitle: "Start a print job", deskLead: "Answer four short questions, then send your brief on WhatsApp.",
       questions: "Questions?", footerNote: "Vral Graphics is part of Vral Media.", clearTitle: "Clear all answers and start over?", keep: "Keep my answers", clear: "Start over",
+      specials: "View current specials", fieldKicker: "Field mode", fieldTitle: "Field Mode", fieldLead: "Mike's lead form is unavailable until the protected relay and authentication are deployed.", fieldUnavailable: "Lead capture is not available on this public page.",
+      specialsKicker: "Specials", specialsTitle: "View current specials", specialCards: "Business cards", specialFree: "1,000 free when we design it", designRequired: "Required design", designFront: "Front — $75", designBoth: "Front + back — $85", taxNote: "Tax is 7% of printing only. QuickBooks processing fees are not added here.", orderSummary: "Order summary", printing: "Printing", frontDesign: "Front design", backDesign: "Back design", taxable: "Taxable amount", printingTax: "7% printing tax", processingFee: "Processing fee", calculatedByQuickBooks: "Calculated by QuickBooks", totalBeforeFee: "Total before processing fee", quickBooksRequired: "QuickBooks setup required",
       step: "Step {n} of 4", q1: "What do you need to print?", q2: "What is it for?", q3: "What do you already have?", q4: "Where should we reply?",
       unsure: "I am not sure yet", other: "Other", back: "Back", continue: "Continue", review: "Review my print brief",
       chooseProduct: "Choose one option to continue.", choosePurpose: "Choose what the print is for.",
@@ -29,10 +32,11 @@
       ticket: "Your print job", product: "Product", purpose: "Purpose", artwork: "Artwork", reply: "Reply", timingLabel: "Timing", empty: "Not answered yet", fileSelected: "File selected on this device: {name}",
       ready: "Your print brief is ready.", readyLead: "Open WhatsApp to send it to Vral Graphics.", notSent: "Nothing has been sent yet.", openWa: "Open WhatsApp with my print brief", edit: "Edit answers", copy: "Copy print brief",
       resumeTitle: "Continue your print job?", resumeLead: "Your answers were saved in this browser.", resumeFile: "Your file was not saved. Add it again if you want to send it later.",
-      storageFail: "This browser cannot save your answers. Keep this page open until you finish.", offline: "You appear to be offline. Your answers are still here. Connect to the internet before opening WhatsApp.",
+      storageFail: "This browser cannot save your answers. Keep this page open until you finish.", offline: "You appear to be offline. Your answers are still here. Connect to the internet before opening WhatsApp.", copySuccess: "Your print brief was copied.", copyFail: "Copy did not work. Select the brief above and copy it manually.",
       waFail: "WhatsApp did not open. Copy your print brief below and send it to Mike at +1 (786) 461-7465.", showTicket: "Show job ticket", hideTicket: "Hide job ticket"
     },
     es: {
+      title: "Vral Graphics — Quality Printing for Less.", description: "Impresión de calidad por menos. Empieza un trabajo con Vral Graphics.", language: "Idioma", orderSummaryLabel: "Resumen del pedido",
       skip: "Saltar al formulario", start: "Empezar un trabajo", heroTitle: "Quality Printing for Less.",
       heroLead: "Vral Graphics es la división de impresión de Vral Media.",
       heroNote: "Dinos qué necesitas y envía tu solicitud por WhatsApp.", trust: "Parte de Vral Media.",
@@ -42,6 +46,8 @@
       pSigns: "Letreros", pSignsUse: "Para tiendas, ventanas y calles.",
       deskTitle: "Empieza un trabajo", deskLead: "Responde cuatro preguntas cortas y envía tu solicitud por WhatsApp.",
       questions: "¿Tienes preguntas?", footerNote: "Vral Graphics es parte de Vral Media.", clearTitle: "¿Borrar todas las respuestas y empezar de nuevo?", keep: "Guardar mis respuestas", clear: "Empezar de nuevo",
+      specials: "Ver especiales actuales", fieldKicker: "Modo de campo", fieldTitle: "Modo de campo", fieldLead: "El formulario de Mike no está disponible hasta que se implementen el relay protegido y la autenticación.", fieldUnavailable: "La captura de leads no está disponible en esta página pública.",
+      specialsKicker: "Especiales", specialsTitle: "Ver especiales actuales", specialCards: "Tarjetas de presentación", specialFree: "1,000 gratis cuando hacemos el diseño", designRequired: "Diseño requerido", designFront: "Frente — $75", designBoth: "Frente y reverso — $85", taxNote: "El impuesto es 7% solo sobre la impresión. Aquí no se agregan cargos de QuickBooks.", orderSummary: "Resumen del pedido", printing: "Impresión", frontDesign: "Diseño de frente", backDesign: "Diseño de reverso", taxable: "Monto gravable", printingTax: "Impuesto de impresión 7%", processingFee: "Cargo de procesamiento", calculatedByQuickBooks: "Calculado por QuickBooks", totalBeforeFee: "Total antes del cargo", quickBooksRequired: "Se requiere configurar QuickBooks",
       step: "Paso {n} de 4", q1: "¿Qué necesitas imprimir?", q2: "¿Para qué lo necesitas?", q3: "¿Qué tienes ahora?", q4: "¿Dónde debemos responder?",
       unsure: "Todavía no estoy seguro", other: "Otro", back: "Atrás", continue: "Continuar", review: "Revisar mi solicitud",
       chooseProduct: "Elige una opción para seguir.", choosePurpose: "Elige para qué necesitas la impresión.",
@@ -54,7 +60,7 @@
       ticket: "Tu trabajo", product: "Producto", purpose: "Uso", artwork: "Diseño", reply: "Respuesta", timingLabel: "Fecha", empty: "Sin respuesta", fileSelected: "Archivo seleccionado en este aparato: {name}",
       ready: "Tu solicitud está lista.", readyLead: "Abre WhatsApp para enviarla a Vral Graphics.", notSent: "Todavía no se envió nada.", openWa: "Abrir WhatsApp con mi solicitud", edit: "Editar respuestas", copy: "Copiar solicitud",
       resumeTitle: "¿Quieres continuar tu trabajo?", resumeLead: "Tus respuestas se guardaron en este navegador.", resumeFile: "Tu archivo no se guardó. Agrégalo otra vez si quieres enviarlo después.",
-      storageFail: "Este navegador no puede guardar tus respuestas. Mantén esta página abierta hasta terminar.", offline: "Parece que no tienes internet. Tus respuestas siguen aquí. Conéctate antes de abrir WhatsApp.",
+      storageFail: "Este navegador no puede guardar tus respuestas. Mantén esta página abierta hasta terminar.", offline: "Parece que no tienes internet. Tus respuestas siguen aquí. Conéctate antes de abrir WhatsApp.", copySuccess: "Tu solicitud fue copiada.", copyFail: "No se pudo copiar. Selecciona la solicitud de arriba y cópiala manualmente.",
       waFail: "WhatsApp no abrió. Copia la solicitud y envíala a Mike al +1 (786) 461-7465.", showTicket: "Ver solicitud", hideTicket: "Ocultar solicitud"
     }
   };
@@ -84,15 +90,15 @@
   function loadSaved() { try { var v=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null"); return v && v.version===2 && (v.product || v.name || v.step) ? Object.assign(fresh(),v) : null; } catch(e){ storageWorks=false; return null; } }
   function save() { state.updatedAt=new Date().toISOString(); try { localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); storageWorks=true; } catch(e){ storageWorks=false; } }
   function escapeHtml(value) { return String(value||"").replace(/[&<>'"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c];}); }
-  function staticCopy() { document.documentElement.lang=lang; document.querySelectorAll("[data-copy]").forEach(function(n){n.textContent=t(n.dataset.copy);}); document.querySelectorAll("[data-lang]").forEach(function(n){n.setAttribute("aria-pressed",String(n.dataset.lang===lang));}); }
+  function staticCopy() { document.documentElement.lang=lang; document.querySelectorAll("[data-copy]").forEach(function(n){n.textContent=t(n.dataset.copy);}); document.querySelectorAll("[data-copy-aria]").forEach(function(n){n.setAttribute("aria-label",t(n.dataset.copyAria));}); document.querySelectorAll("[data-copy-content]").forEach(function(n){n.setAttribute("content",t(n.dataset.copyContent));}); document.title=t("title"); document.querySelectorAll("[data-lang]").forEach(function(n){n.setAttribute("aria-pressed",String(n.dataset.lang===lang));}); }
   function productLabel(id) { return labels[lang][id] || t("empty"); }
   function purposeLabel() { var row=(purposes[state.product]||[]).find(function(p){return p[0]===state.purpose;}); return row ? row[lang==="en"?1:2] : t("empty"); }
   function artworkLabel() { return state.artworkState ? t(artworkLabels[state.artworkState]) : t("empty"); }
 
   function startDesk(product) {
-    if (product) { state.product=product; state.purpose=""; state.step=1; save(); }
-    document.getElementById("print-desk").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+    if (product) { state.product=product; state.purpose=""; state.artworkState=""; state.fileMeta=null; state.note=""; state.extra=""; state.step=1; save(); }
     render();
+    var desk=document.getElementById("print-desk"); window.scrollTo({top:desk.getBoundingClientRect().top+window.scrollY,behavior:"auto"});
   }
 
   function showResume() {
@@ -156,7 +162,8 @@
   }
   function capture(){var n=document.getElementById("job-note"),x=document.getElementById("job-extra");if(n)state.note=n.value.trim();if(x)state.extra=x.value.trim();[["contact-name","name"],["contact-company","company"],["contact-phone","phone"],["contact-email","email"],["contact-timing","timing"]].forEach(function(pair){var el=document.getElementById(pair[0]);if(el)state[pair[1]]=el.value.trim();});}
   function showError(message){var n=document.getElementById("session-error");if(n)n.textContent=message;}
-  function addCopyButton(){var area=document.querySelector(".completion .session-actions");if(!area||area.querySelector("[data-copy-brief]"))return;var b=document.createElement("button");b.type="button";b.className="button button-quiet";b.dataset.copyBrief="";b.textContent=t("copy");b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(buildMessage());};area.appendChild(b);}
+  function copyBrief(){var message=buildMessage(),fallback=function(){var area=document.createElement("textarea");area.value=message;area.setAttribute("readonly","");area.style.position="fixed";area.style.opacity="0";document.body.appendChild(area);area.select();var copied=false;try{copied=document.execCommand("copy");}catch(e){}document.body.removeChild(area);showError(copied?t("copySuccess"):t("copyFail"));};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(message).then(function(){showError(t("copySuccess"));},fallback);}else{fallback();}}
+  function addCopyButton(){var area=document.querySelector(".completion .session-actions");if(!area||area.querySelector("[data-copy-brief]"))return;var b=document.createElement("button");b.type="button";b.className="button button-quiet";b.dataset.copyBrief="";b.textContent=t("copy");b.onclick=copyBrief;area.appendChild(b);}
   function openClear(){var d=document.getElementById("start-over-dialog");if(d.showModal)d.showModal();else if(confirm(t("clearTitle")))clearAll();}
   function clearAll(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}state=fresh();pendingSaved=null;document.getElementById("start-over-dialog").close();showResume();render();}
 

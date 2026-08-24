@@ -63,8 +63,26 @@ test("checkout blocks when no atomic order repository is configured", function (
   assert.throws(function () { checkout.createCheckout({ cart: [{ sku: "cards", quantity: 1 }], idempotencyKey: "c".repeat(16) }, { catalogue: catalogue, gateway: { createHostedCheckout: function () {} } }); }, { code: "ORDER_PERSISTENCE_BLOCKED" });
 });
 
-test("QuickBooks configuration explicitly exposes missing credentials", function () {
-  assert.deepEqual(quickbooks.configuration({}), { ready: false, blocked: true, missing: ["QUICKBOOKS_REALM_ID", "QUICKBOOKS_ACCESS_TOKEN"] });
+test("QuickBooks configuration explicitly exposes missing credentials and sandbox default", function () {
+  assert.deepEqual(quickbooks.configuration({}), { ready: false, blocked: true, environment: "sandbox", missing: ["QUICKBOOKS_REALM_ID", "QUICKBOOKS_ACCESS_TOKEN"] });
+});
+
+test("QuickBooks refuses an unverified paid status", async function () {
+  await assert.rejects(quickbooks.createSalesReceipt({ status: "paid", lines: [] }, { post: async function () {} }, { QUICKBOOKS_REALM_ID: "realm", QUICKBOOKS_ACCESS_TOKEN: "token" }), /verified paid order/);
+});
+
+test("verified webhook events are atomically deduplicated", async function () {
+  var body = Buffer.from('{"id":"evt_once"}'), secret = "webhook-secret", signature = crypto.createHmac("sha256", secret).update(body).digest("hex"), seen = new Set(), handled = 0;
+  var repository = { reserveEvent: async function (id) { if (seen.has(id)) return false; seen.add(id); return true; } };
+  var first = await webhooks.processVerifiedEvent(body, signature, secret, repository, async function () { handled += 1; });
+  var second = await webhooks.processVerifiedEvent(body, signature, secret, repository, async function () { handled += 1; });
+  assert.equal(first.duplicate, false); assert.equal(second.duplicate, true); assert.equal(handled, 1);
+});
+
+test("missing external payment dependencies expose BLOCKED/503", async function () {
+  assert.throws(function () { checkout.createCheckout({ cart: [{ sku: "cards", quantity: 1 }], idempotencyKey: "z".repeat(16) }, { catalogue: catalogue }); }, { code: "CHECKOUT_BLOCKED", statusCode: 503 });
+  await assert.rejects(quickbooks.createSalesReceipt({ status: "paid", lines: [] }, {}, {}), { code: "QUICKBOOKS_BLOCKED", statusCode: 503 });
+  await assert.rejects(webhooks.processVerifiedEvent(Buffer.from('{"id":"evt"}'), crypto.createHmac("sha256", "x").update(Buffer.from('{"id":"evt"}')).digest("hex"), "x", null, async function () {}), { code: "WEBHOOK_REPOSITORY_BLOCKED", statusCode: 503 });
 });
 
 test("webhook verifies an HMAC before JSON parsing", function () {

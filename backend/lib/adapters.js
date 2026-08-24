@@ -1,7 +1,6 @@
 "use strict";
 
 function blocked(channel, reason) { return { channel: channel, status: "BLOCKED", reason: reason }; }
-function safeError(error) { return error && error.message ? error.message.slice(0, 240) : "unknown delivery error"; }
 function leadPayload(lead) { return { id: lead.id, receivedAt: lead.receivedAt, owner: lead.owner, name: lead.name, phone: lead.phone || "", email: lead.email || "", address: lead.address || "", business: lead.business || "", interest: lead.interest || "", source: lead.source }; }
 
 function genericWebhook(channel, url, token, request) {
@@ -12,7 +11,7 @@ function genericWebhook(channel, url, token, request) {
       var response = await request(url, { method: "POST", headers: headers, body: JSON.stringify(leadPayload(lead)) });
       if (!response.ok) return { channel: channel, status: "FAILED", reason: "configured endpoint returned HTTP " + response.status };
       var body = await response.json().catch(function () { return {}; }); return { channel: channel, status: "DELIVERED", externalId: body.id || null };
-    } catch (error) { return { channel: channel, status: "FAILED", reason: safeError(error) }; }
+    } catch (_) { return { channel: channel, status: "FAILED", reason: "delivery request failed" }; }
   } };
 }
 

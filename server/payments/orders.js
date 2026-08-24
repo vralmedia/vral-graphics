@@ -6,6 +6,7 @@ function reservePendingOrder(input, repository) {
   if (!repository || typeof repository.reservePending !== "function") {
     var err = new Error("Order persistence is blocked: ORDER_REPOSITORY is not configured");
     err.code = "ORDER_PERSISTENCE_BLOCKED";
+    err.statusCode = 503;
     throw err;
   }
   return Promise.resolve(repository.reservePending({

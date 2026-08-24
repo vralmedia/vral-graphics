@@ -6,11 +6,11 @@
 
 Use Node 18+. Copy the values from `.env.example` into your secret manager or process environment; this repository intentionally has no credentials. Then run `npm test` and `npm start` from this directory.
 
-The caller must send `Authorization: Bearer <VG_FORM_API_KEY>`. Do not embed that key in the public landing page. Place this API behind a server-side form relay, same-origin authenticated session, or another secret-preserving gateway before connecting the static frontend.
+The caller must send `Authorization: Bearer <VG_FORM_API_KEY>` and an `Origin` that exactly matches `VG_FORM_ALLOWED_ORIGIN`. Do not embed that key in the public landing page. Place this API behind a server-side form relay, same-origin authenticated session, or another secret-preserving gateway before connecting the static frontend. Missing security configuration returns `BLOCKED` with HTTP 503; an unapproved origin is rejected with 403.
 
 ## Delivery state
 
-Every accepted lead is appended to `LEAD_STORE_PATH` before CRM/flyer-email delivery is attempted. Idempotency keys and a 24-hour contact dedupe prevent repeat creation; a hidden `website` honeypot is accepted without persistence, and each client has a 5-per-10-minute in-memory limit. The response includes exact channel states: `DELIVERED`, `FAILED`, or `BLOCKED`. `BLOCKED` means no real endpoint was configured; it is not a simulated send.
+Every accepted lead is appended to `LEAD_STORE_PATH` before CRM/flyer-email delivery is attempted. Idempotency keys and a 24-hour contact dedupe prevent repeat creation; a hidden `website` honeypot is accepted without persistence, and each client has a 5-per-10-minute in-memory limit. Client identity uses the socket address unless `VG_TRUST_PROXY=true`; enable that only behind a trusted proxy that overwrites `X-Forwarded-For`. The response includes exact channel states: `DELIVERED`, `FAILED`, or `BLOCKED`. `BLOCKED` means no real endpoint was configured; it is not a simulated send.
 
 ## Production checklist — BLOCKED pending credentials/deployment
 

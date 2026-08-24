@@ -6,6 +6,7 @@ var orders = require("./orders");
 function missingCredentials(names) {
   var err = new Error("Checkout is blocked: missing " + names.join(", "));
   err.code = "CHECKOUT_BLOCKED";
+  err.statusCode = 503;
   err.missing = names;
   return err;
 }

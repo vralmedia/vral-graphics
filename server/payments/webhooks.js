@@ -12,9 +12,21 @@ function verifyHmac(rawBody, receivedSignature, secret) {
 }
 
 function parseVerifiedEvent(rawBody, signature, secret) {
-  if (!secret) { var err = new Error("Webhook processing blocked: PAYMENT_WEBHOOK_SECRET is missing"); err.code = "WEBHOOK_BLOCKED"; throw err; }
+  if (!secret) { var err = new Error("Webhook processing blocked: PAYMENT_WEBHOOK_SECRET is missing"); err.code = "WEBHOOK_BLOCKED"; err.statusCode = 503; throw err; }
   if (!verifyHmac(rawBody, signature, secret)) { var invalid = new Error("Invalid webhook signature"); invalid.code = "INVALID_SIGNATURE"; throw invalid; }
   return JSON.parse(rawBody.toString("utf8"));
 }
 
-module.exports = { verifyHmac: verifyHmac, parseVerifiedEvent: parseVerifiedEvent };
+// The repository must atomically reserve the provider event id before side effects.
+async function processVerifiedEvent(rawBody, signature, secret, repository, handler) {
+  var event = parseVerifiedEvent(rawBody, signature, secret);
+  if (!event || typeof event.id !== "string" || !event.id) throw new TypeError("verified webhook event id is required");
+  if (!repository || typeof repository.reserveEvent !== "function") { var err = new Error("Webhook processing blocked: WEBHOOK_EVENT_REPOSITORY is missing"); err.code = "WEBHOOK_REPOSITORY_BLOCKED"; err.statusCode = 503; throw err; }
+  if (typeof handler !== "function") throw new TypeError("webhook handler is required");
+  var reserved = await repository.reserveEvent(event.id);
+  if (!reserved) return { duplicate: true, eventId: event.id };
+  await handler(event);
+  return { duplicate: false, eventId: event.id };
+}
+
+module.exports = { verifyHmac: verifyHmac, parseVerifiedEvent: parseVerifiedEvent, processVerifiedEvent: processVerifiedEvent };

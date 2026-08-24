@@ -8,6 +8,6 @@ All amounts are integer USD cents. Tax is rounded once on the product subtotal o
 
 - [ ] Configure a server-owned, versioned catalogue and tax/shipping policy (never accept browser prices).
 - [ ] Implement a real payment gateway adapter, secret storage, and an atomic `orderRepository.reservePending` idempotency store.
-- [ ] Set `PAYMENT_WEBHOOK_SECRET`; verify raw request bytes before parsing; deduplicate provider event IDs transactionally.
+- [ ] Set `PAYMENT_WEBHOOK_SECRET`; verify raw request bytes before parsing; provide an atomic `reserveEvent` repository to deduplicate provider event IDs before side effects.
 - [ ] Set `QUICKBOOKS_REALM_ID` and short-lived `QUICKBOOKS_ACCESS_TOKEN`; add an Intuit transport and only sync an order after verified payment.
 - [ ] Add authorization, audit logs, PII retention/deletion policy, rate limits, monitoring, and live-provider sandbox/live verification.

@@ -1,0 +1,22 @@
+# Vral Graphics form backend
+
+`POST /api/leads` records the ordered lead schema — Name, phone, email, address, business, interest — with owner `Mike`, then attempts configured real deliveries. It never reports a CRM or flyer-email delivery as successful unless that endpoint returned success.
+
+## Run
+
+Use Node 18+. Copy the values from `.env.example` into your secret manager or process environment; this repository intentionally has no credentials. Then run `npm test` and `npm start` from this directory.
+
+The caller must send `Authorization: Bearer <VG_FORM_API_KEY>`. Do not embed that key in the public landing page. Place this API behind a server-side form relay, same-origin authenticated session, or another secret-preserving gateway before connecting the static frontend.
+
+## Delivery state
+
+Every accepted lead is appended to `LEAD_STORE_PATH` before CRM/flyer-email delivery is attempted. Idempotency keys and a 24-hour contact dedupe prevent repeat creation; a hidden `website` honeypot is accepted without persistence, and each client has a 5-per-10-minute in-memory limit. The response includes exact channel states: `DELIVERED`, `FAILED`, or `BLOCKED`. `BLOCKED` means no real endpoint was configured; it is not a simulated send.
+
+## Production checklist — BLOCKED pending credentials/deployment
+
+- [ ] Set a random `VG_FORM_API_KEY` in the deployment secret store.
+- [ ] Set exact `VG_FORM_ALLOWED_ORIGIN` and route the public form through a secret-preserving relay.
+- [ ] Configure `LEAD_STORE_PATH` on persistent encrypted storage with backup/retention controls.
+- [ ] Configure an operator-owned `VG_CRM_WEBHOOK_URL` (and optional token) that creates/updates CRM records.
+- [ ] Configure an operator-owned `VG_FLYER_EMAIL_WEBHOOK_URL` (and optional token) that sends actual flyer/lead notifications.
+- [ ] Submit one real test lead; verify the persisted row, CRM record, notification email, Mike assignment, and no secrets in browser/network logs.

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vral Graphics — Printing for Less</title>
-    <meta name="description" content="Cards, posters, boxes, and signs for Miami and US businesses. Start a print job with Vral Graphics." />
+    <title>Vral Graphics — Quality Printing for Less.</title>
+    <meta name="description" content="Quality printing for less: cards, posters, boxes, and signs for Miami and US businesses." />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="vral-v.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,7 +34,7 @@
       <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="brand-line">Vral Graphics</p>
-          <h1 id="hero-title" data-copy="heroTitle">Printing for Less.</h1>
+          <h1 id="hero-title" data-copy="heroTitle">Quality Printing for Less.</h1>
           <p class="hero-lead" data-copy="heroLead">Cards, posters, boxes, and signs for Miami and US businesses.</p>
           <p class="hero-note" data-copy="heroNote">Tell us what you need. We will reply on WhatsApp.</p>
           <button class="button button-primary" type="button" data-start-desk data-copy="start">Start a print job</button>
@@ -86,10 +86,43 @@
         </div>
       </section>
 
+      <section class="field-mode" id="field" aria-labelledby="field-title">
+        <div class="shell">
+          <div>
+            <p class="brand-line">FIELD MODE</p>
+            <h2 id="field-title">Field Mode</h2>
+            <p>Mike's fast lead form. Submission stays locked until the protected relay and authentication are deployed.</p>
+          </div>
+          <form class="field-form" aria-describedby="field-status">
+            <label>Name<input name="name" autocomplete="name" required /></label>
+            <label>Contact number<input name="phone" type="tel" inputmode="tel" autocomplete="tel" /></label>
+            <label>Contact email<input name="email" type="email" inputmode="email" autocomplete="email" /></label>
+            <label>Address<input name="address" autocomplete="street-address" /></label>
+            <label>Business name<input name="business" autocomplete="organization" /></label>
+            <label>Service interest<select name="interest"><option selected>Printing</option></select></label>
+            <button class="button button-quiet" type="submit" disabled aria-disabled="true">Configuration required</button>
+            <p id="field-status" class="field-status">No request has been sent.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="specials-status" id="specials" aria-labelledby="specials-title">
+        <div class="shell">
+          <div>
+            <p class="brand-line">SPECIALS</p>
+            <h2 id="specials-title">View current specials</h2>
+            <fieldset class="special-list"><legend>Business cards</legend><label><input type="radio" name="special" value="9900" checked /> 1,000 — $99</label><label><input type="radio" name="special" value="13900" /> 2,500 — $139</label><label><input type="radio" name="special" value="15900" /> 5,000 — $159</label><label><input type="radio" name="special" value="0" /> 1,000 free when we design it</label></fieldset>
+            <fieldset class="design-list"><legend>Required design</legend><label><input type="radio" name="design" value="7500" checked /> Front — $75</label><label><input type="radio" name="design" value="8500" /> Front + back — $85</label></fieldset>
+            <p>Tax is 7% of printing only. QuickBooks processing fees are not added here.</p>
+          </div>
+          <div class="special-summary" aria-label="Order summary" aria-live="polite"><strong>Order summary</strong><span>Printing <b data-printing>$99.00</b></span><span>Front design <b data-front>$75.00</b></span><span>Back design <b data-back>$0.00</b></span><span>Taxable amount <b data-taxable>$99.00</b></span><span>7% printing tax <b data-tax>$6.93</b></span><span>Processing fee <b>Calculated by QuickBooks</b></span><span>Total before processing fee <b data-total>$180.93</b></span><button class="button button-quiet" type="button" disabled aria-disabled="true">QuickBooks setup required</button></div>
+        </div>
+      </section>
+
       <section class="print-desk" id="print-desk" aria-labelledby="desk-title">
         <div class="shell">
           <div class="desk-intro">
-            <h2 id="desk-title" data-copy="deskTitle">Start your print job</h2>
+            <div><h2 id="desk-title" data-copy="deskTitle">Start your print job</h2><a class="text-button" href="#specials">View current specials</a></div>
             <p data-copy="deskLead">Answer four short questions. A real person will reply on WhatsApp.</p>
           </div>
           <div id="resume-banner" class="resume-banner" hidden></div>
@@ -102,8 +135,8 @@
     </main>
 
     <footer class="site-footer shell">
-      <div><strong data-copy="questions">Questions?</strong><a href="https://wa.me/17865911017" target="_blank" rel="noreferrer">WhatsApp +1 786 591 1017</a></div>
-      <div><a href="mailto:info@vralmedia.com">info@vralmedia.com</a><span data-copy="footerNote">Vral Graphics is part of Vral Media.</span></div>
+      <div><strong data-copy="questions">Questions?</strong><a href="tel:+17864617465">Mike +1 (786) 461-7465</a></div>
+      <div><span data-copy="footerNote">Vral Graphics is part of Vral Media.</span></div>
     </footer>
 
     <dialog id="start-over-dialog" class="confirm-dialog" aria-labelledby="dialog-title">

@@ -1,0 +1,13 @@
+{
+  "name": "vral-graphics-form-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Credential-gated lead intake for Vral Graphics.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "checked_url": "https://vral-vision-spark.lovable.app/",
+  "checked_at": "2026-08-24",
+  "deploy_gate": {
+    "status": "BLOCKED",
+    "reason": "After the requested 6-minute poll, the live remained stale: title was Vral Graphics — Printing for Less, hero was Printing for Less., and Mike 461-7465 was absent.",
+    "proof_path": "checkpoint-proofs/live-verify/live-stale.png"
+  },
+  "responsive_language_checks": {
+    "status": "BLOCKED",
+    "reason": "The stale live was checked at 390, 768, and 1440 widths in EN and ES. Field Mode and Specials were absent at every requested size; the requested $233.73 scenario could not be exercised.",
+    "expected_specials_total": "$233.73",
+    "screenshots": [
+      "checkpoint-proofs/live-verify/stale-390-en.png",
+      "checkpoint-proofs/live-verify/stale-390-es.png",
+      "checkpoint-proofs/live-verify/stale-768-en.png",
+      "checkpoint-proofs/live-verify/stale-768-es.png",
+      "checkpoint-proofs/live-verify/stale-1440-en.png",
+      "checkpoint-proofs/live-verify/stale-1440-es.png",
+      "checkpoint-proofs/live-verify/stale-reload-after-es.png"
+    ]
+  },
+  "live_copy": {
+    "status": "BLOCKED",
+    "reason": "Required live copy was not deployed: Quality Printing for Less. and Mike 461-7465 were not observed.",
+    "proof_path": "checkpoint-proofs/live-verify/live-stale.png"
+  },
+  "lead": {
+    "status": "BLOCKED",
+    "reason": "Field Mode was absent, so the QA Live sandbox lead was not submitted.",
+    "proof_path": "checkpoint-proofs/live-verify/stale-reload-after-es.png"
+  },
+  "crm": {
+    "status": "BLOCKED",
+    "reason": "No Field Mode lead could be persisted on the stale live; no CRM row was claimed.",
+    "proof_path": "checkpoint-proofs/live-verify/stale-reload-after-es.png"
+  },
+  "email": {
+    "status": "BLOCKED",
+    "reason": "No Field Mode lead could be created, so no sandbox email result was available; no customer was contacted.",
+    "proof_path": "checkpoint-proofs/live-verify/stale-reload-after-es.png"
+  },
+  "quickbooks": {
+    "status": "BLOCKED",
+    "reason": "The authenticated live page exposed zero QuickBooks and zero Intuit matches, so there was no integration flow or consent screen to open. No payment or consent action was attempted.",
+    "proof_path": "checkpoint-proofs/live-verify/live-stale.png"
+  },
+  "safety": {
+    "whatsapp_sent": false,
+    "real_customer_contacted": false,
+    "payment_attempted": false,
+    "joao_intervention_screen": null
+  }
+}

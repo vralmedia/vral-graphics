@@ -1,0 +1,13 @@
+{
+  "name": "vral-graphics",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "rm -rf dist && mkdir -p dist && cp index.html styles.css app.js vral-v.png dist/ && cp -R assets dist/assets",
+    "build:dev": "bun run build"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}

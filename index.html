@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Vral Graphics — Quality Printing for Less.</title>
     <meta name="description" data-copy-content="description" content="Quality printing for less. Start a print job with Vral Graphics." />
-    <meta name="theme-color" content="#ffffff" />
-    <link rel="icon" href="vral-v.png" type="image/png" />
+    <meta name="theme-color" content="#071fdd" />
+    <link rel="icon" href="assets/vral-mark-blue.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -17,9 +17,14 @@
 
     <header class="site-header shell">
       <a class="brand" href="#top" aria-label="Vral Graphics home">
-        <img src="vral-v.png" width="42" height="42" alt="" />
-        <span>Vral Graphics</span>
+        <img src="assets/vral-mark-blue.svg" width="48" height="40" alt="" />
+        <span class="brand-wordmark"><strong>Vral</strong><small>Graphics</small></span>
       </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#products">What we print</a>
+        <a href="#specials">Specials</a>
+        <a href="#print-desk">Print desk</a>
+      </nav>
       <div class="header-actions">
         <div class="language-switch" role="group" aria-label="Language" data-copy-aria="language">
           <button type="button" data-lang="en" aria-pressed="true">EN</button>
@@ -33,48 +38,59 @@
     <main id="top">
       <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="brand-line">Vral Graphics</p>
+          <p class="brand-line"><span>Miami</span> Design · Print · Deliver</p>
           <h1 id="hero-title" data-copy="heroTitle">Quality Printing for Less.</h1>
           <p class="hero-lead" data-copy="heroLead">Cards, posters, boxes, and signs for Miami and US businesses.</p>
           <p class="hero-note" data-copy="heroNote">Tell us what you need. We will reply on WhatsApp.</p>
-          <button class="button button-primary" type="button" data-start-desk data-copy="start">Start a print job</button>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-start-desk data-copy="start">Start a print job</button>
+            <a class="hero-phone" href="tel:+17864617465">Mike · (786) 461-7465</a>
+          </div>
           <p class="trust-line" data-copy="trust">Part of Vral Media.</p>
         </div>
 
         <div class="hero-object" aria-hidden="true">
-          <span class="crop crop-a"></span><span class="crop crop-b"></span>
-          <div class="job-sheet">
-            <div class="job-sheet-top"><span>VRAL GRAPHICS</span><span>PRINT DESK</span></div>
-            <img src="vral-v.png" width="148" height="148" alt="" />
-            <div class="job-sheet-lines"><span></span><span></span><span></span></div>
-            <p>PRINTING + SIGNAGE</p>
+          <span class="registration-dot dot-c"></span><span class="registration-dot dot-m"></span><span class="registration-dot dot-y"></span>
+          <div class="press-board">
+            <div class="press-board-top"><span>VRAL / PRESS 01</span><span>CMYK</span></div>
+            <div class="press-art">
+              <div class="press-poster"><small>MIAMI / STREET</small><strong>GET<br />SEEN.</strong></div>
+              <div class="press-card"><img src="assets/vral-mark-blue.svg" alt="" /><span>Vral Graphics</span></div>
+              <div class="press-box"><img src="assets/vral-mark-blue.svg" alt="" /><span>PACKED<br />BOLD</span></div>
+            </div>
+            <div class="press-board-bottom"><span>BUILT TO GET SEEN.</span><span>MIAMI, FL</span></div>
           </div>
+          <span class="crop crop-a"></span><span class="crop crop-b"></span>
         </div>
       </section>
 
-      <section class="print-index shell" aria-labelledby="index-title">
+      <div class="print-ribbon" aria-hidden="true">
+        <div>CARDS <i>◆</i> POSTERS <i>◆</i> PACKAGING <i>◆</i> SIGNAGE <i>◆</i> MENUS <i>◆</i> MAILERS <i>◆</i></div>
+      </div>
+
+      <section class="print-index shell" id="products" aria-labelledby="index-title">
         <div class="index-heading">
           <h2 id="index-title" data-copy="indexTitle">What do you need?</h2>
           <p data-copy="indexLead">Pick one. You can change it later.</p>
         </div>
         <div class="product-strip">
           <button type="button" class="product-item" data-product="business-card">
-            <img src="assets/print-cards.png" width="360" height="240" loading="lazy" alt="" />
+            <span class="product-visual visual-card" aria-hidden="true"><i><img src="assets/vral-mark-blue.svg" alt="" /></i><i>VRAL</i></span>
             <span><strong data-copy="pCards">Business cards</strong><small data-copy="pCardsUse">For you and your team.</small></span>
             <b aria-hidden="true">↘</b>
           </button>
           <button type="button" class="product-item" data-product="postcard">
-            <img src="assets/print-postcard.png" width="360" height="240" loading="lazy" alt="" />
+            <span class="product-visual visual-postcard" aria-hidden="true"><i>MAIL<br />BOLD.</i><i>305</i></span>
             <span><strong data-copy="pPostcards">Postcards</strong><small data-copy="pPostcardsUse">For mail and promotions.</small></span>
             <b aria-hidden="true">↘</b>
           </button>
           <button type="button" class="product-item" data-product="box">
-            <img src="assets/print-box.png" width="360" height="240" loading="lazy" alt="" />
+            <span class="product-visual visual-box" aria-hidden="true"><i><img src="assets/vral-mark-blue.svg" alt="" /></i></span>
             <span><strong data-copy="pBoxes">Boxes</strong><small data-copy="pBoxesUse">For products and gifts.</small></span>
             <b aria-hidden="true">↘</b>
           </button>
           <button type="button" class="product-item" data-product="poster">
-            <img src="assets/print-poster.png" width="360" height="240" loading="lazy" alt="" />
+            <span class="product-visual visual-poster" aria-hidden="true"><i>BIG<br />PRINT</i></span>
             <span><strong data-copy="pPosters">Posters</strong><small data-copy="pPostersUse">For events and walls.</small></span>
             <b aria-hidden="true">↘</b>
           </button>

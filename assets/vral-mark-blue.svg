@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" role="img" aria-labelledby="title">
+  <title id="title">Vral Graphics V mark</title>
+  <defs>
+    <linearGradient id="left" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16b8ff"/>
+      <stop offset="1" stop-color="#0755ff"/>
+    </linearGradient>
+    <linearGradient id="right" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#138bff"/>
+      <stop offset="1" stop-color="#041fa8"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#left)" d="M4 8h26l31 54-15 27z"/>
+  <path fill="url(#right)" d="M87 2h29L65 94H39z"/>
+  <path fill="#062fce" opacity=".72" d="M46 89 61 62l12 21-8 11H39z"/>
+</svg>

@@ -33,7 +33,7 @@
       ready: "Your print brief is ready.", readyLead: "Open WhatsApp to send it to Vral Graphics.", notSent: "Nothing has been sent yet.", openWa: "Open WhatsApp with my print brief", edit: "Edit answers", copy: "Copy print brief",
       resumeTitle: "Continue your print job?", resumeLead: "Your answers were saved in this browser.", resumeFile: "Your file was not saved. Add it again if you want to send it later.",
       storageFail: "This browser cannot save your answers. Keep this page open until you finish.", offline: "You appear to be offline. Your answers are still here. Connect to the internet before opening WhatsApp.", copySuccess: "Your print brief was copied.", copyFail: "Copy did not work. Select the brief above and copy it manually.",
-      waFail: "WhatsApp did not open. Copy your print brief below and send it to Mike at +1 (786) 461-7465.", showTicket: "Show job ticket", hideTicket: "Hide job ticket"
+      waFail: "WhatsApp did not open. Copy your print brief below and try again.", showTicket: "Show job ticket", hideTicket: "Hide job ticket"
     },
     es: {
       title: "Vral Graphics — Quality Printing for Less.", description: "Impresión de calidad por menos. Empieza un trabajo con Vral Graphics.", language: "Idioma", orderSummaryLabel: "Resumen del pedido",
@@ -61,7 +61,7 @@
       ready: "Tu solicitud está lista.", readyLead: "Abre WhatsApp para enviarla a Vral Graphics.", notSent: "Todavía no se envió nada.", openWa: "Abrir WhatsApp con mi solicitud", edit: "Editar respuestas", copy: "Copiar solicitud",
       resumeTitle: "¿Quieres continuar tu trabajo?", resumeLead: "Tus respuestas se guardaron en este navegador.", resumeFile: "Tu archivo no se guardó. Agrégalo otra vez si quieres enviarlo después.",
       storageFail: "Este navegador no puede guardar tus respuestas. Mantén esta página abierta hasta terminar.", offline: "Parece que no tienes internet. Tus respuestas siguen aquí. Conéctate antes de abrir WhatsApp.", copySuccess: "Tu solicitud fue copiada.", copyFail: "No se pudo copiar. Selecciona la solicitud de arriba y cópiala manualmente.",
-      waFail: "WhatsApp no abrió. Copia la solicitud y envíala a Mike al +1 (786) 461-7465.", showTicket: "Ver solicitud", hideTicket: "Ocultar solicitud"
+      waFail: "WhatsApp no abrió. Copia la solicitud y vuelve a intentarlo.", showTicket: "Ver solicitud", hideTicket: "Ocultar solicitud"
     }
   };
 

@@ -53,8 +53,7 @@ h1, h2, h3, p { margin-top: 0; }
 h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); font-size: clamp(4.5rem, 8.7vw, 7.15rem); font-weight: 800; line-height: .82; letter-spacing: -.035em; text-transform: uppercase; text-wrap: balance; }
 .hero-lead { max-width: 43ch; margin-bottom: 9px; font-size: clamp(1.08rem, 1.65vw, 1.32rem); font-weight: 650; line-height: 1.44; letter-spacing: -.018em; }
 .hero-note { max-width: 43ch; margin-bottom: 28px; color: #d8e0ff; font-size: .98rem; line-height: 1.55; }
-.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 24px; }
-.hero-phone { color: var(--white); font-size: .82rem; font-weight: 800; letter-spacing: .03em; }
+.hero-actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 18px 24px; }
 .trust-line { margin: 17px 0 0; color: #afbbff; font-size: .78rem; font-weight: 650; }
 .button { min-height: 56px; display: inline-flex; align-items: center; justify-content: center; padding: 0 23px; border: 2px solid var(--ink); border-radius: 0; background: var(--white); cursor: pointer; font-weight: 900; transition: color .16s var(--ease), background .16s var(--ease), transform .16s var(--ease), box-shadow .16s var(--ease); }
 .button-primary { background: var(--yellow); color: var(--ink); box-shadow: 6px 7px 0 var(--ink); }
@@ -172,7 +171,7 @@ h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); fo
 .confirm-dialog { max-width: min(540px, calc(100% - 32px)); padding: 32px; border: 2px solid var(--ink); border-radius: 0; background: var(--paper); box-shadow: 10px 11px 0 var(--ink); }
 .confirm-dialog::backdrop { background: rgba(7,31,221,.78); }
 .confirm-dialog h2 { margin-bottom: 28px; font-family: var(--font-display); font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 900; line-height: .9; text-transform: uppercase; }.confirm-dialog > div { display: flex; flex-wrap: wrap; gap: 11px; }
-.site-footer { display: flex; justify-content: space-between; gap: 40px; padding-block: 38px 52px; border-top: 2px solid var(--ink); background: var(--paper); font-size: .84rem; }
+.site-footer { display: flex; justify-content: center; gap: 40px; padding-block: 38px 52px; border-top: 2px solid var(--ink); background: var(--paper); font-size: .84rem; text-align: center; }
 .site-footer > div { display: grid; gap: 8px; }.site-footer span { color: var(--muted); }.site-footer a { color: var(--blue); font-weight: 800; }
 
 @media (max-width: 1030px) { .site-nav { display: none; }.hero { grid-template-columns: minmax(0, 1.05fr) minmax(340px, .8fr); gap: 38px; } }

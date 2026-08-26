@@ -93,7 +93,7 @@
     qty_hint: "A count for the brief. Not a quote.",
     required_contact: "Name or company is required.",
     invalid_email: "Email looks incomplete. You can leave it blank or fix it.",
-    invalid_phone: "Phone looks incomplete. WhatsApp still opens to +1 (786) 461-7465.",
+    invalid_phone: "Phone looks incomplete. WhatsApp can still open your print brief.",
 
     spec_kicker: "Job ticket",
     spec_title: "Paper and finish → WhatsApp",
@@ -400,7 +400,7 @@
     qty_hint: "Un número para el brief. No es una cotización.",
     required_contact: "Nombre o empresa es obligatorio.",
     invalid_email: "El correo se ve incompleto. Puedes dejarlo vacío o corregirlo.",
-    invalid_phone: "El teléfono se ve incompleto. WhatsApp igual abre a +1 (786) 461-7465.",
+    invalid_phone: "El teléfono se ve incompleto. WhatsApp todavía puede abrir tu solicitud.",
 
     spec_kicker: "Ticket de trabajo",
     spec_title: "Papel y acabado → WhatsApp",

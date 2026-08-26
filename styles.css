@@ -50,7 +50,7 @@ a { color: inherit; text-underline-offset: 4px; }
 .brand-line { display: flex; align-items: center; gap: 13px; margin: 0 0 24px; font-size: .75rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
 .brand-line span { display: inline-flex; padding: 8px 10px; background: var(--yellow); color: var(--ink); }
 h1, h2, h3, p { margin-top: 0; }
-h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); font-size: clamp(4.5rem, 8.7vw, 7.15rem); font-weight: 900; line-height: .82; letter-spacing: -.035em; text-transform: uppercase; text-wrap: balance; }
+h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); font-size: clamp(4.5rem, 8.7vw, 7.15rem); font-weight: 800; line-height: .82; letter-spacing: -.035em; text-transform: uppercase; text-wrap: balance; }
 .hero-lead { max-width: 43ch; margin-bottom: 9px; font-size: clamp(1.08rem, 1.65vw, 1.32rem); font-weight: 650; line-height: 1.44; letter-spacing: -.018em; }
 .hero-note { max-width: 43ch; margin-bottom: 28px; color: #d8e0ff; font-size: .98rem; line-height: 1.55; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 24px; }
@@ -185,7 +185,11 @@ h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); fo
   .shell { width: min(100% - 30px, 1220px); }.site-header { min-height: 76px; gap: 10px; }
   .brand img { width: 44px; height: 44px; }.brand-wordmark strong { font-size: 1.12rem; }.brand-wordmark small { font-size: .52rem; }
   .header-actions { gap: 8px; }.header-cta { width: 48px; overflow: hidden; white-space: nowrap; text-decoration: none; font-size: 0; }.header-cta::after { content: "+"; display: grid; place-items: center; width: 42px; height: 42px; background: var(--blue); color: var(--white); font-size: 1.35rem; }.language-switch button { min-width: 28px; }
-  .hero { gap: 54px; padding-block: 58px 82px; }h1 { font-size: clamp(4.15rem, 20vw, 5.25rem); }.hero-lead { font-size: 1.05rem; }
+  .hero { gap: 54px; padding-block: 58px 82px; }
+  .hero-copy { width: 100%; margin-inline: auto; text-align: center; }
+  .hero .brand-line, .hero-actions { justify-content: center; }
+  .hero h1, .hero-lead, .hero-note { margin-inline: auto; }
+  h1 { font-size: clamp(4.15rem, 20vw, 5.25rem); }.hero-lead { font-size: 1.05rem; }
   .hero-object { width: min(100% - 4px, 390px); padding: 16px; }.press-board { min-height: 400px; padding: 14px; box-shadow: 9px 10px 0 var(--ink); }
   .press-art { min-height: 300px; }.press-art::before { top: 29px; left: 8px; font-size: 4.2rem; }.press-poster { width: 168px; height: 200px; }.press-card { width: 144px; height: 88px; }.press-box { right: 82px; top: 135px; width: 112px; height: 104px; }
   .registration-dot { width: 23px; height: 23px; }.dot-c { right: 62px; }.dot-m { right: 38px; }.dot-y { right: 14px; }

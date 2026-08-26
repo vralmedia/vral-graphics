@@ -3,11 +3,11 @@
 Print division of Vral Media.
 
 Local: `python3 -m http.server 4522`
-Live source of this landing: white background, official V mark (`vral-v.png`), session brief.
+Live source of this landing: blue press identity, official print-swatch mark (`assets/vral-printmark.png`), session brief.
 
 ## Copy and journey decisions
 
-- **Approved identity:** Vral Graphics is the print division of Vral Media. Use the official 3D V and wordmark only.
+- **Approved identity:** Vral Graphics is the print division of Vral Media. Use the official blue-and-black print-swatch mark with eyedropper and the Vral Graphics wordmark only.
 - **Canonical source — 2026-08-24:** “Quality Printing for Less.” is the slogan. The primary CTA is “Start a print job,” and the commercial CTA is “View current specials.”
 - **Contact:** Mike only, `+1 (786) 461-7465`. This source overrides the former generic WhatsApp number and email contact.
 - **ASR / flyer conflict:** ASR reports **9,000**; the official flyer reports **2,500**. Per the source-priority rule, the flyer wins: **2,500 for $139**.

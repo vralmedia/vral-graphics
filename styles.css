@@ -29,7 +29,7 @@ a { color: inherit; text-underline-offset: 4px; }
 
 .site-header { position: relative; z-index: 20; min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 30px; border-bottom: 2px solid var(--ink); background: var(--paper); }
 .brand { display: inline-flex; min-height: 50px; align-items: center; gap: 11px; text-decoration: none; }
-.brand img { width: 48px; height: 40px; object-fit: contain; }
+.brand img { width: 54px; height: 54px; object-fit: contain; }
 .brand-wordmark { display: grid; line-height: .82; }
 .brand-wordmark strong { font-size: 1.42rem; font-weight: 900; letter-spacing: -.055em; }
 .brand-wordmark small { margin-top: 7px; color: var(--blue); font-size: .63rem; font-weight: 900; letter-spacing: .22em; text-transform: uppercase; }
@@ -74,9 +74,9 @@ h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); fo
 .press-poster { right: -18px; bottom: 20px; width: 205px; height: 245px; padding: 18px; background: var(--magenta); color: var(--white); transform: rotate(5deg); }
 .press-poster small { display: block; margin-bottom: 36px; font-size: .55rem; font-weight: 900; letter-spacing: .12em; }.press-poster strong { font-family: var(--font-display); font-size: 4rem; line-height: .72; letter-spacing: -.04em; }
 .press-card { left: 13px; bottom: 30px; width: 176px; height: 110px; display: grid; grid-template-columns: 54px 1fr; align-items: center; gap: 10px; padding: 16px; background: var(--white); transform: rotate(-8deg); }
-.press-card img { width: 50px; }.press-card span { font-size: .72rem; font-weight: 900; }
+.press-card img { width: 50px; aspect-ratio: 1; object-fit: contain; }.press-card span { font-size: .72rem; font-weight: 900; }
 .press-box { right: 112px; top: 165px; width: 132px; height: 124px; display: grid; place-items: center; padding: 14px; background: var(--yellow); text-align: center; transform: rotate(-2deg); }
-.press-box img { width: 54px; }.press-box span { font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; line-height: .82; }
+.press-box img { width: 54px; aspect-ratio: 1; object-fit: contain; }.press-box span { font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; line-height: .82; }
 .registration-dot { position: absolute; z-index: 6; width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 50%; box-shadow: 3px 3px 0 var(--ink); }
 .dot-c { top: 3px; right: 78px; background: var(--cyan); }
 .dot-m { top: 12px; right: 48px; background: var(--magenta); }
@@ -104,7 +104,7 @@ h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); fo
 .product-visual { position: relative; width: 170px; height: 92px; display: block !important; overflow: hidden; border: 1px solid var(--ink); background: var(--white); transition: transform .18s var(--ease), box-shadow .18s var(--ease); }
 .product-item:hover .product-visual { transform: rotate(-2deg) translateX(4px); box-shadow: 5px 6px 0 var(--ink); }
 .product-visual i { position: absolute; display: grid; place-items: center; font-style: normal; font-weight: 900; }
-.visual-card i:first-child { left: 13px; top: 18px; width: 104px; height: 56px; background: var(--blue); transform: rotate(-6deg); box-shadow: 4px 4px 0 var(--ink); }.visual-card i:first-child img { width: 38px; filter: brightness(0) invert(1); }.visual-card i:last-child { right: 10px; top: 12px; width: 74px; height: 45px; background: var(--yellow); color: var(--blue); font-size: .72rem; transform: rotate(7deg); }
+.visual-card i:first-child { left: 13px; top: 18px; width: 104px; height: 56px; background: var(--blue); transform: rotate(-6deg); box-shadow: 4px 4px 0 var(--ink); }.visual-card i:first-child img { width: 42px; aspect-ratio: 1; object-fit: contain; }.visual-card i:last-child { right: 10px; top: 12px; width: 74px; height: 45px; background: var(--yellow); color: var(--blue); font-size: .72rem; transform: rotate(7deg); }
 .visual-postcard { background: var(--magenta); }.visual-postcard i:first-child { inset: 12px 42px 12px 12px; border: 2px solid var(--white); color: var(--white); font-family: var(--font-display); font-size: 1.25rem; line-height: .74; }.visual-postcard i:last-child { right: 10px; top: 10px; width: 34px; height: 34px; border-radius: 50%; background: var(--cyan); font-size: .58rem; }
 .visual-box { background: var(--yellow); }.visual-box::before, .visual-box::after { content: ""; position: absolute; border: 2px solid var(--ink); background: var(--white); }.visual-box::before { left: 45px; top: 18px; width: 72px; height: 57px; transform: skewY(-8deg); }.visual-box::after { left: 116px; top: 13px; width: 30px; height: 56px; transform: skewY(-32deg); background: var(--cyan); }.visual-box i { z-index: 2; left: 64px; top: 31px; width: 34px; height: 34px; }.visual-box img { width: 28px; }
 .visual-poster { background: #8a7dff; }.visual-poster i { inset: 10px 22px; border: 2px solid var(--ink); background: var(--paper); color: var(--blue); font-family: var(--font-display); font-size: 1.6rem; line-height: .68; transform: rotate(3deg); }
@@ -183,7 +183,7 @@ h1 { max-width: 760px; margin-bottom: 26px; font-family: var(--font-display); fo
 }
 @media (max-width: 600px) {
   .shell { width: min(100% - 30px, 1220px); }.site-header { min-height: 76px; gap: 10px; }
-  .brand img { width: 40px; height: 34px; }.brand-wordmark strong { font-size: 1.12rem; }.brand-wordmark small { font-size: .52rem; }
+  .brand img { width: 44px; height: 44px; }.brand-wordmark strong { font-size: 1.12rem; }.brand-wordmark small { font-size: .52rem; }
   .header-actions { gap: 8px; }.header-cta { width: 48px; overflow: hidden; white-space: nowrap; text-decoration: none; font-size: 0; }.header-cta::after { content: "+"; display: grid; place-items: center; width: 42px; height: 42px; background: var(--blue); color: var(--white); font-size: 1.35rem; }.language-switch button { min-width: 28px; }
   .hero { gap: 54px; padding-block: 58px 82px; }h1 { font-size: clamp(4.15rem, 20vw, 5.25rem); }.hero-lead { font-size: 1.05rem; }
   .hero-object { width: min(100% - 4px, 390px); padding: 16px; }.press-board { min-height: 400px; padding: 14px; box-shadow: 9px 10px 0 var(--ink); }

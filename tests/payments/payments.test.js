@@ -99,6 +99,10 @@ test("webhook verifies an HMAC before JSON parsing", function () {
 
 test("server Specials catalogue prices 2,500 at 139 dollars and taxes printing only", function () {
   var result = quoteSpecial({ printingSku: "flyer_2500", design: "front_back" });
+  assert.equal(result.printingSku, "business_card_2500");
+  assert.equal(result.family, "business_cards");
+  assert.match(result.lines[0].name, /Business cards/);
+  assert.doesNotMatch(result.lines[0].name, /Flyer/i);
   assert.equal(result.subtotalCents, 13900);
   assert.equal(result.taxableCents, 13900);
   assert.equal(result.taxCents, 973);
@@ -106,16 +110,20 @@ test("server Specials catalogue prices 2,500 at 139 dollars and taxes printing o
   assert.equal(result.designBackCents, 1000);
   assert.equal(result.totalCents, 23373);
   assert.equal(result.processingFeeCents, null);
+  assert.equal(result.checkoutEligible, true);
 });
 
 test("free 1,000 printing requires Vral design and still charges design", function () {
   assert.throws(function () { quoteSpecial({ printingSku: "flyer_1000_free", design: "front" }); }, /requires Vral design/);
   var result = quoteSpecial({ quantity: 1000, design: "front", designByVral: true });
-  assert.equal(result.printingSku, "flyer_1000_free_when_vral_designs");
+  assert.equal(result.printingSku, "business_card_1000_free_when_vral_designs");
+  assert.equal(result.family, "business_cards");
+  assert.match(result.lines[0].name, /Business cards/);
   assert.equal(result.subtotalCents, 0);
   assert.equal(result.taxCents, 0);
   assert.equal(result.designFeeCents, 7500);
   assert.equal(result.totalCents, 7500);
+  assert.equal(result.checkoutEligible, true);
 });
 
 test("checkout replays an atomically reserved hosted session by idempotency key", async function () {

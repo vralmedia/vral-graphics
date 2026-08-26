@@ -6,3 +6,5 @@ vral-mark-neon.svg
 backend/.env
 backend/data/
 data/
+node_modules/
+dist/

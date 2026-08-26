@@ -6,7 +6,11 @@
 
 Use Node 18+. Copy the values from `.env.example` into your secret manager or process environment; this repository intentionally has no credentials. Then run `npm test` and `npm start` from this directory.
 
-The caller must send `Authorization: Bearer <VG_FORM_API_KEY>` and an `Origin` that exactly matches `VG_FORM_ALLOWED_ORIGIN`. Do not embed that key in the public landing page. Place this API behind a server-side form relay, same-origin authenticated session, or another secret-preserving gateway before connecting the static frontend. Missing security configuration returns `BLOCKED` with HTTP 503; an unapproved origin is rejected with 403.
+`POST /api/leads` is server-to-server only. The caller must send `Authorization: Bearer <VG_FORM_API_KEY>` and an `Origin` that exactly matches `VG_FORM_ALLOWED_ORIGIN`. Do not embed that key in any page. Missing security configuration returns `BLOCKED` with HTTP 503; an unapproved origin is rejected with 403.
+
+`POST /api/print-requests` is the browser relay: same-origin JSON, no `Authorization` header. It persists through the same lead-service (honeypot, rate limit, idempotency, dedupe) and never claims CRM or flyer delivery without a real URL.
+
+`/field` and `/admin` require a configured session (`VG_FIELD_SESSION_SECRET` + `VG_FIELD_USERS`). Production without those credentials stays BLOCKED and is never simulated. `Paid` on the admin board cannot be set by the UI before `POST /api/internal/payment-verified` (Bearer, posse D webhook).
 
 ## Delivery state
 

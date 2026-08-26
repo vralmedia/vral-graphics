@@ -13,6 +13,9 @@ The backend accepts the ordered field set `name`, `phone`, `email`, `address`, `
 | CRM adapter | BLOCKED without URL | Set `VG_CRM_WEBHOOK_URL` (and optional token) to a real operator-owned relay | No URL can only produce `BLOCKED`, never `DELIVERED`; configured jobs are queued and retried |
 | Flyer/email adapter | BLOCKED without URL | Set `VG_FLYER_EMAIL_WEBHOOK_URL` (and optional token) to a real operator-owned relay | No URL can only produce `BLOCKED`, never `DELIVERED`; configured jobs are queued and retried |
 | Delivery queue | SANDBOX | Run with persistent storage and real relay credentials | Queue and delivery events are JSONL records; pending `QUEUED`/`RETRYING` jobs are recovered on restart |
+| `POST /api/print-requests` | SANDBOX | Set `VG_PUBLIC_ORIGIN` or `VG_FORM_ALLOWED_ORIGIN`; Vite proxies `/api` same-origin | Browser sends JSON only. No `Authorization`. Honeypot, rate limit, idempotency, and 24-hour dedupe reuse the lead-service. |
+| `/field` login | BLOCKED until configured | Set `VG_FIELD_SESSION_SECRET` and `VG_FIELD_USERS` | Missing config returns `503 BLOCKED`. Mike sees Mike-owned leads; Anthony/admin sees all. |
+| `/admin` pipeline | SANDBOX | Same field session | Columns are New through Lost. `Paid` is 409 until `POST /api/internal/payment-verified` with Bearer after a real webhook. |
 
 ## Prove a persisted lead locally
 

@@ -1,0 +1,90 @@
+.admin-shell { padding-block: 36px 72px; }
+.admin-kicker {
+  margin: 0 0 8px;
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.admin-shell h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+.admin-lead { max-width: 52ch; color: var(--muted); }
+.board-login, .board-meta {
+  margin-top: 24px;
+  padding: 20px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+}
+.board-login form, .board-login label { display: grid; gap: 8px; }
+.board-login label { margin-top: 10px; }
+.board-login input {
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  font-size: 16px;
+}
+.board-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+.btn {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-primary { background: var(--blue); color: var(--white); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.status { min-height: 1.3em; font-weight: 700; }
+.status.is-error { color: #9b1237; }
+.board {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+.column {
+  min-height: 280px;
+  padding: 12px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+.column h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.column[data-status="Paid"] { background: #eef3ff; }
+.card {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid var(--ink);
+  background: var(--white);
+}
+.card b { display: block; font-size: 1rem; }
+.card small, .card p { display: block; color: var(--muted); font-size: 0.82rem; }
+.card .moves { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.card .moves button { min-height: 36px; font-size: 0.68rem; }
+.audit { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); }
+@media (max-width: 720px) {
+  .board { grid-auto-columns: 78vw; }
+}

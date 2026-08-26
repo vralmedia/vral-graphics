@@ -3,9 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "rm -rf dist && mkdir -p dist && cp index.html styles.css app.js vral-v.png dist/ && cp -R assets dist/assets",
-    "build:dev": "bun run build"
+    "dev": "vite --host 0.0.0.0 --port 4173",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "build:legacy": "rm -rf dist && mkdir -p dist && cp index.html styles.css app.js vral-v.png dist/ && cp -R assets dist/assets",
+    "build:dev": "bun run build",
+    "test": "node --test backend/test/*.test.js tests/payments/*.test.js tests/funnel/*.test.js",
+    "test:backend": "node --test backend/test/*.test.js",
+    "test:payments": "node --test tests/payments/*.test.js",
+    "test:funnel": "node --test tests/funnel/*.test.js"
   },
   "devDependencies": {
     "vite": "^7.0.0"

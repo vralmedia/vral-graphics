@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Vral Graphics — Quality Printing for Less.</title>
-    <meta name="description" data-copy-content="description" content="Quality printing for less. Start a print job with Vral Graphics." />
+    <meta name="description" data-i18n-content="description" content="Business cards, flyers, menus, banners, wraps and signs—designed, printed and delivered for businesses that need to be seen." />
     <meta name="theme-color" content="#071fdd" />
     <link rel="icon" href="assets/vral-printmark.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,142 +12,295 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <a class="skip-link" href="#print-desk" data-copy="skip">Skip to print desk</a>
-
-    <header class="site-header shell">
-      <a class="brand" href="#top" aria-label="Vral Graphics home">
-        <img src="assets/vral-printmark.png" width="54" height="54" alt="" />
-        <span class="brand-wordmark"><strong>Vral</strong><small>Graphics</small></span>
-      </a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="#products">What we print</a>
-        <a href="#specials">Specials</a>
-        <a href="#print-desk">Print desk</a>
-      </nav>
-      <div class="header-actions">
-        <div class="language-switch" role="group" aria-label="Language" data-copy-aria="language">
-          <button type="button" data-lang="en" aria-pressed="true">EN</button>
-          <span aria-hidden="true">/</span>
-          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+  <body data-page="home" data-mark="assets/vral-printmark.png">
+    <div data-vral-header>
+      <a class="skip-link" href="#content">Skip to content</a>
+      <header class="site-header shell">
+        <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false">Menu</button>
+        <a class="brand" href="/" aria-label="Vral Graphics home">
+          <img src="assets/vral-printmark.png" width="54" height="54" alt="" />
+          <span class="brand-wordmark"><strong>Vral</strong><small>Graphics</small></span>
+        </a>
+        <nav class="site-nav" data-site-nav aria-label="Primary">
+          <a href="/#need">What do you need?</a>
+          <a href="/offers/">Offers</a>
+          <a href="/#how">How it works</a>
+        </nav>
+        <div class="header-actions">
+          <div class="language-switch" role="group" aria-label="Language">
+            <button type="button" data-lang="en" aria-pressed="true">EN</button>
+            <span aria-hidden="true">/</span>
+            <button type="button" data-lang="es" aria-pressed="false">ES</button>
+          </div>
         </div>
-        <button class="header-cta" type="button" data-start-desk data-copy="start">Start a print job</button>
-      </div>
-    </header>
+      </header>
+    </div>
 
-    <main id="top">
+    <main id="content">
       <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="brand-line"><span>Miami</span> Design · Print · Deliver</p>
-          <h1 id="hero-title" data-copy="heroTitle">Quality Printing for Less.</h1>
-          <p class="hero-lead" data-copy="heroLead">Cards, posters, boxes, and signs for Miami and US businesses.</p>
-          <div class="hero-actions">
-            <button class="button button-primary" type="button" data-start-desk data-copy="start">Start a print job</button>
-          </div>
-          <p class="trust-line" data-copy="trust">Part of Vral Media.</p>
+          <h1 id="hero-title" data-i18n="heroTitle">Quality Printing for Less.</h1>
+          <p class="hero-lead" data-i18n="heroLead">Business cards, flyers, menus, banners, wraps and signs—designed, printed and delivered for businesses that need to be seen.</p>
+          <p class="hero-line"><a href="#need" data-i18n="heroLine">Choose what you need below. We will help with the rest.</a></p>
         </div>
+        <div class="hero-mascot">
+          <div class="reggie-host" data-reggie="hero">
+            <img class="reggie-fallback" src="assets/mascot/reggie-static.svg" width="420" height="420" alt="" />
+          </div>
+          <p class="reggie-caption" data-i18n="reggieCaption">Reggie, the press registration mark.</p>
+          <p class="visually-hidden" data-reggie-live aria-live="polite"></p>
+        </div>
+      </section>
 
-        <div class="hero-object" aria-hidden="true">
-          <span class="registration-dot dot-c"></span><span class="registration-dot dot-m"></span><span class="registration-dot dot-y"></span>
-          <div class="press-board">
-            <div class="press-board-top"><span>VRAL / PRESS 01</span><span>CMYK</span></div>
-            <div class="press-art">
-              <div class="press-poster"><small>MIAMI / STREET</small><strong>GET<br />SEEN.</strong></div>
-              <div class="press-card"><img src="assets/vral-printmark.png" alt="" /><span>Vral Graphics</span></div>
-              <div class="press-box"><img src="assets/vral-printmark.png" alt="" /><span>PACKED<br />BOLD</span></div>
+      <section class="need shell" id="need" aria-labelledby="need-title">
+        <div class="need-heading">
+          <div>
+            <h2 id="need-title" data-i18n="needTitle">What do you need?</h2>
+            <p data-i18n="needLead">Pick the printed piece. We take it from there.</p>
+          </div>
+          <div class="reggie-host reggie-host-compact" data-reggie="need" hidden>
+            <img class="reggie-fallback" src="assets/mascot/reggie-static.svg" width="160" height="160" alt="" />
+          </div>
+        </div>
+        <div class="need-grid">
+          <a class="need-item" href="/quote/?product=business-cards" data-product="business-cards">
+            <span class="need-object object-cards" aria-hidden="true">
+              <i></i><i></i><i><img src="assets/vral-printmark.png" alt="" /></i>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pCards">Business Cards</strong>
+              <small data-i18n="pCardsUse">Name, number, first impression.</small>
+            </span>
+          </a>
+          <a class="need-item" href="/quote/?product=flyers-postcards" data-product="flyers-postcards">
+            <span class="need-object object-flyers" aria-hidden="true">
+              <b>MAIL</b>
+              <i>4×6</i>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pFlyers">Flyers &amp; Postcards</strong>
+              <small data-i18n="pFlyersUse">Handouts and mailbox pieces.</small>
+            </span>
+          </a>
+          <a class="need-item" href="/quote/?product=brochures-menus" data-product="brochures-menus">
+            <span class="need-object object-menu" aria-hidden="true">
+              <em></em><em></em>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pMenus">Brochures &amp; Menus</strong>
+              <small data-i18n="pMenusUse">Folded pages for tables and hands.</small>
+            </span>
+          </a>
+          <a class="need-item" href="/quote/?product=banners" data-product="banners">
+            <span class="need-object object-banner" aria-hidden="true">
+              <i>GET SEEN</i>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pBanners">Banners</strong>
+              <small data-i18n="pBannersUse">Wide vinyl for events and storefronts.</small>
+            </span>
+          </a>
+          <a class="need-item" href="/quote/?product=window-graphics" data-product="window-graphics">
+            <span class="need-object object-window" aria-hidden="true">
+              <i></i><i></i>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pWindows">Window Graphics</strong>
+              <small data-i18n="pWindowsUse">Wraps, vinyl, and glass that sells.</small>
+            </span>
+          </a>
+          <a class="need-item" href="/quote/?product=signs-aframes" data-product="signs-aframes">
+            <span class="need-object object-aframe" aria-hidden="true">
+              <b>OPEN</b>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pSigns">Signs &amp; A-Frames</strong>
+              <small data-i18n="pSignsUse">Sidewalk and storefront signs.</small>
+            </span>
+          </a>
+          <a class="need-item" href="/quote/?product=packaging" data-product="packaging">
+            <span class="need-object object-box" aria-hidden="true">
+              <i></i><i></i><i><img src="assets/vral-printmark.png" alt="" /></i>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pPack">Packaging</strong>
+              <small data-i18n="pPackUse">Boxes that leave the shop looking finished.</small>
+            </span>
+          </a>
+          <a class="need-item need-unsure" href="/quote/?product=unsure" data-product="unsure">
+            <span class="need-object object-unsure" aria-hidden="true">
+              <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+                <circle cx="36" cy="36" r="28" fill="#071fdd" stroke="#070a12" stroke-width="4" />
+                <circle cx="36" cy="36" r="12" fill="#fff" stroke="#070a12" stroke-width="3" />
+                <circle cx="31" cy="35" r="2.2" fill="#070a12" />
+                <circle cx="41" cy="35" r="2.2" fill="#070a12" />
+                <path d="M31 42c2.2 3 7.8 3 10 0" fill="none" stroke="#070a12" stroke-width="2.2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="need-copy">
+              <strong data-i18n="pUnsure">I’m not sure yet</strong>
+              <small data-i18n="pUnsureUse">Tell us the job. We will help you choose.</small>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section class="street" id="street" aria-labelledby="street-title">
+        <div class="shell">
+          <div class="street-heading">
+            <h2 id="street-title" data-i18n="streetTitle">From screen to street.</h2>
+            <p data-i18n="streetLead">Move the art from the glass onto the piece people actually see.</p>
+          </div>
+          <div
+            class="street-stage"
+            id="street-stage"
+            tabindex="0"
+            role="group"
+            aria-labelledby="street-title"
+            data-i18n-aria="streetKeys"
+          >
+            <div class="street-screen">
+              <p data-i18n="streetScreen">On screen</p>
+              <button type="button" class="street-art" data-street-source aria-grabbed="false">
+                <img src="assets/print-poster.png" alt="" />
+                <span data-i18n="streetArt">Artwork</span>
+              </button>
             </div>
-            <div class="press-board-bottom"><span>BUILT TO GET SEEN.</span><span>MIAMI, FL</span></div>
+            <div class="street-world" data-street-world>
+              <figure class="street-slot is-active" data-street-slot="window">
+                <div class="slot-window" aria-hidden="true"><span>OPEN</span></div>
+                <figcaption data-i18n="slotWindow">Window</figcaption>
+              </figure>
+              <figure class="street-slot" data-street-slot="banner">
+                <div class="slot-banner" aria-hidden="true"><span>SALE</span></div>
+                <figcaption data-i18n="slotBanner">Banner</figcaption>
+              </figure>
+              <figure class="street-slot" data-street-slot="aframe">
+                <div class="slot-aframe" aria-hidden="true"><span>MENU</span></div>
+                <figcaption data-i18n="slotAframe">A-Frame</figcaption>
+              </figure>
+            </div>
           </div>
-          <span class="crop crop-a"></span><span class="crop crop-b"></span>
+          <div class="street-controls">
+            <button type="button" data-street-prev data-i18n="streetPrev">Previous piece</button>
+            <p id="street-status" aria-live="polite"></p>
+            <button type="button" data-street-next data-i18n="streetNext">Next piece</button>
+          </div>
+          <p class="street-fallback" data-i18n="streetFallback">On the left, the file. On the right, the printed piece on the street.</p>
         </div>
       </section>
 
-      <div class="print-ribbon" aria-hidden="true">
-        <div>CARDS <i>◆</i> POSTERS <i>◆</i> PACKAGING <i>◆</i> SIGNAGE <i>◆</i> MENUS <i>◆</i> MAILERS <i>◆</i></div>
-      </div>
-
-      <section class="print-index shell" id="products" aria-labelledby="index-title">
-        <div class="index-heading">
-          <h2 id="index-title" data-copy="indexTitle">What do you need?</h2>
-          <p data-copy="indexLead">Pick one. You can change it later.</p>
-        </div>
-        <div class="product-strip">
-          <button type="button" class="product-item" data-product="business-card">
-            <span class="product-visual visual-card" aria-hidden="true"><i><img src="assets/vral-printmark.png" alt="" /></i><i>VRAL</i></span>
-            <span><strong data-copy="pCards">Business cards</strong><small data-copy="pCardsUse">For you and your team.</small></span>
-            <b aria-hidden="true">↘</b>
-          </button>
-          <button type="button" class="product-item" data-product="postcard">
-            <span class="product-visual visual-postcard" aria-hidden="true"><i>MAIL<br />BOLD.</i><i>305</i></span>
-            <span><strong data-copy="pPostcards">Postcards</strong><small data-copy="pPostcardsUse">For mail and promotions.</small></span>
-            <b aria-hidden="true">↘</b>
-          </button>
-          <button type="button" class="product-item" data-product="box">
-            <span class="product-visual visual-box" aria-hidden="true"><i><img src="assets/vral-printmark.png" alt="" /></i></span>
-            <span><strong data-copy="pBoxes">Boxes</strong><small data-copy="pBoxesUse">For products and gifts.</small></span>
-            <b aria-hidden="true">↘</b>
-          </button>
-          <button type="button" class="product-item" data-product="poster">
-            <span class="product-visual visual-poster" aria-hidden="true"><i>BIG<br />PRINT</i></span>
-            <span><strong data-copy="pPosters">Posters</strong><small data-copy="pPostersUse">For events and walls.</small></span>
-            <b aria-hidden="true">↘</b>
-          </button>
-          <button type="button" class="product-item product-item-text" data-product="sign">
-            <span class="sign-object">OPEN</span>
-            <span><strong data-copy="pSigns">Signs</strong><small data-copy="pSignsUse">For stores, windows, and streets.</small></span>
-            <b aria-hidden="true">↘</b>
-          </button>
-        </div>
-      </section>
-
-      <section class="field-mode" id="field" aria-labelledby="field-title">
+      <section class="press-teaser" id="offers" aria-labelledby="press-title">
         <div class="shell">
-          <div>
-            <p class="brand-line" data-copy="fieldKicker">Field mode</p>
-            <h2 id="field-title" data-copy="fieldTitle">Field Mode</h2>
-            <p data-copy="fieldLead">Mike's lead form is unavailable until the protected relay and authentication are deployed.</p>
+          <div class="press-copy">
+            <h2 id="press-title" data-i18n="pressTitle">Fresh off the press.</h2>
+            <p data-i18n="pressLead">One offer on the sheet. The rest live on the print rack.</p>
           </div>
-          <p id="field-status" class="field-status" data-copy="fieldUnavailable">Lead capture is not available on this public page.</p>
+          <article class="press-sheet">
+            <p class="press-kicker" data-i18n="pressKicker">This week’s sheet</p>
+            <h3 data-i18n="pressOffer">1,000 business cards — $99</h3>
+            <p data-i18n="pressOfferLead">Full color, when we design it for you.</p>
+            <a class="button button-primary" href="/offers/" data-i18n="seeOffers">See all offers</a>
+          </article>
         </div>
       </section>
 
-      <section class="specials-status" id="specials" aria-labelledby="specials-title">
-        <div class="shell">
-          <div>
-            <p class="brand-line" data-copy="specialsKicker">Specials</p>
-            <h2 id="specials-title" data-copy="specialsTitle">View current specials</h2>
-            <fieldset class="special-list"><legend data-copy="specialCards">Business cards</legend><label><input type="radio" name="special" value="9900" checked /> 1,000 — $99</label><label><input type="radio" name="special" value="13900" /> 2,500 — $139</label><label><input type="radio" name="special" value="15900" /> 5,000 — $159</label><label><input type="radio" name="special" value="0" /><span data-copy="specialFree">1,000 free when we design it</span></label></fieldset>
-            <fieldset class="design-list"><legend data-copy="designRequired">Required design</legend><label><input type="radio" name="design" value="7500" checked /><span data-copy="designFront">Front — $75</span></label><label><input type="radio" name="design" value="8500" /><span data-copy="designBoth">Front + back — $85</span></label></fieldset>
-            <p data-copy="taxNote">Tax is 7% of printing only. QuickBooks processing fees are not added here.</p>
-          </div>
-          <div class="special-summary" aria-label="Order summary" data-copy-aria="orderSummaryLabel" aria-live="polite"><strong data-copy="orderSummary">Order summary</strong><span><span data-copy="printing">Printing</span> <b data-printing>$99.00</b></span><span><span data-copy="frontDesign">Front design</span> <b data-front>$75.00</b></span><span><span data-copy="backDesign">Back design</span> <b data-back>$0.00</b></span><span><span data-copy="taxable">Taxable amount</span> <b data-taxable>$99.00</b></span><span><span data-copy="printingTax">7% printing tax</span> <b data-tax>$6.93</b></span><span><span data-copy="processingFee">Processing fee</span> <b data-copy="calculatedByQuickBooks">Calculated by QuickBooks</b></span><span><span data-copy="totalBeforeFee">Total before processing fee</span> <b data-total>$180.93</b></span><button class="button button-quiet" type="button" disabled aria-disabled="true" data-copy="quickBooksRequired">QuickBooks setup required</button></div>
-        </div>
+      <section class="how shell" id="how" aria-labelledby="how-title">
+        <h2 id="how-title" data-i18n="howTitle">Pick it. Shape it. Print it.</h2>
+        <ol class="how-steps">
+          <li>
+            <button type="button" data-how="product_selected">
+              <strong data-i18n="how1">Pick it</strong>
+              <span data-i18n="how1Lead">Choose the piece you need.</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" data-how="thinking">
+              <strong data-i18n="how2">Shape it</strong>
+              <span data-i18n="how2Lead">We confirm size, paper, and proof.</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" data-how="paid">
+              <strong data-i18n="how3">Print it</strong>
+              <span data-i18n="how3Lead">Approve, print, deliver.</span>
+            </button>
+          </li>
+        </ol>
       </section>
 
-      <section class="print-desk" id="print-desk" aria-labelledby="desk-title">
-        <div class="shell">
-          <div class="desk-intro">
-            <div><h2 id="desk-title" data-copy="deskTitle">Start your print job</h2><a class="text-button" href="#specials" data-copy="specials">View current specials</a></div>
-            <p data-copy="deskLead">Answer four short questions. A real person will reply on WhatsApp.</p>
-          </div>
-          <div id="resume-banner" class="resume-banner" hidden></div>
-          <div class="desk-grid">
-            <div id="print-session" class="print-session" aria-live="polite"></div>
-            <aside id="job-ticket" class="job-ticket" aria-live="polite"></aside>
-          </div>
-        </div>
+      <section class="help shell" id="help" aria-labelledby="help-title">
+        <h2 id="help-title" data-i18n="helpTitle">Not sure what to order?</h2>
+        <p data-i18n="helpLead">That is normal.</p>
+        <a class="button button-primary" href="/quote/?product=unsure" data-i18n="helpCta">Help me choose</a>
+      </section>
+
+      <section class="legal-block shell" id="privacy" aria-labelledby="privacy-title">
+        <h2 id="privacy-title" data-i18n="privacyTitle">Privacy</h2>
+        <p data-i18n="privacyBody">Vral Graphics, part of Vral Media, uses the details you send only to quote, print, and deliver your job. We do not sell contact lists. Artwork files stay with the job.</p>
+      </section>
+      <section class="legal-block shell" id="terms" aria-labelledby="terms-title">
+        <h2 id="terms-title" data-i18n="termsTitle">Terms</h2>
+        <p data-i18n="termsBody">A request on this site is not an order until Vral Graphics confirms price, quantity, and timing. Printed work is produced after proof approval.</p>
+      </section>
+      <section class="legal-block shell" id="accessibility" aria-labelledby="a11y-title">
+        <h2 id="a11y-title" data-i18n="a11yTitle">Accessibility</h2>
+        <p data-i18n="a11yBody">This site works with keyboard, screen readers, and reduced motion. If something is in the way, email info@vralmedia.com.</p>
+      </section>
+      <section class="legal-block shell" id="payment-terms" aria-labelledby="pay-title">
+        <h2 id="pay-title" data-i18n="payTitle">Payment terms</h2>
+        <p data-i18n="payBody">Offers with a closed price can be paid after a confirmed order. Custom and measured jobs are quoted first. Tax and processing are confirmed with the invoice, not guessed on this page.</p>
       </section>
     </main>
 
-    <footer class="site-footer shell">
-      <div><span data-copy="footerNote">Vral Graphics is part of Vral Media.</span></div>
-    </footer>
+    <div data-vral-footer>
+      <footer class="site-footer">
+        <div class="shell">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <strong>Vral Graphics</strong>
+              <small>Quality Printing for Less.</small>
+              <p>Part of Vral Media.</p>
+            </div>
+            <div>
+              <h2>Explore</h2>
+              <ul>
+                <li><a href="/#need">What do you need?</a></li>
+                <li><a href="/offers/">Offers</a></li>
+                <li><a href="/#how">How it works</a></li>
+                <li><a href="/quote/?product=unsure">Get help choosing</a></li>
+              </ul>
+            </div>
+            <div>
+              <h2>Contact</h2>
+              <ul>
+                <li><a href="mailto:info@vralmedia.com">info@vralmedia.com</a></li>
+                <li><a href="https://wa.me/17865911017">WhatsApp +1 786 591 1017</a></li>
+                <li>Miami, Florida</li>
+              </ul>
+            </div>
+            <div>
+              <h2>Legal</h2>
+              <ul>
+                <li><a href="/#privacy">Privacy</a></li>
+                <li><a href="/#terms">Terms</a></li>
+                <li><a href="/#accessibility">Accessibility</a></li>
+                <li><a href="/#payment-terms">Payment terms</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-end">
+            <span>© 2026 Vral Graphics. Part of Vral Media.</span>
+            <span>EN / ES</span>
+          </div>
+        </div>
+      </footer>
+    </div>
 
-    <dialog id="start-over-dialog" class="confirm-dialog" aria-labelledby="dialog-title">
-      <h2 id="dialog-title" data-copy="clearTitle">Clear all answers and start over?</h2>
-      <div><button type="button" class="button button-quiet" data-dialog-keep data-copy="keep">Keep my answers</button><button type="button" class="button button-primary" data-dialog-clear data-copy="clear">Start over</button></div>
-    </dialog>
-
-    <script src="app.js" defer></script>
+    <script src="shared/routes.js"></script>
+    <script src="shared/site-nav.js"></script>
+    <script src="i18n.js"></script>
+    <script src="assets/mascot/reggie.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

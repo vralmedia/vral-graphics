@@ -1,0 +1,26 @@
+:root {
+  --paper: #f6f7fb;
+  --white: #ffffff;
+  --ink: #070a12;
+  --muted: #525a6b;
+  --line: #c9cfda;
+  --blue: #071fdd;
+  --cyan: #12c7ff;
+  --magenta: #ff2f88;
+  --yellow: #ffd21c;
+  --green: #65ed8e;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Barlow Condensed", Impact, sans-serif;
+  --header-h: 92px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --ease: linear; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,186 @@
+.quote-page { background: var(--paper); }
+
+.quote-hero {
+  padding: 42px 0 12px;
+}
+.quote-hero h1 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 5.4rem);
+  font-weight: 800;
+  line-height: 0.84;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.quote-hero p { max-width: 48ch; margin: 0; font-size: 1.05rem; font-weight: 600; }
+
+.quote-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.7fr);
+  gap: 28px;
+  align-items: start;
+  padding-bottom: 72px;
+}
+
+.crop-card {
+  position: relative;
+  padding: 28px 22px 22px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  box-shadow: 10px 12px 0 var(--ink);
+}
+.crop-card::before,
+.crop-card::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--blue);
+}
+.crop-card::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+.crop-card::after { right: -2px; bottom: -2px; border-left: 0; border-top: 0; }
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.marks { display: flex; gap: 6px; }
+.marks i {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+}
+.marks i.is-on { background: var(--yellow); }
+
+.quote-form h2 {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+.field { display: grid; gap: 8px; margin-bottom: 16px; }
+.field span { font-weight: 800; }
+.field input,
+.field textarea,
+.field select {
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+.field textarea { min-height: 110px; resize: vertical; }
+.choices { display: grid; gap: 8px; }
+.choice {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  cursor: pointer;
+  font-weight: 750;
+  text-align: left;
+}
+.choice[aria-pressed="true"],
+.product-pick[aria-pressed="true"] {
+  background: var(--yellow);
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.product-pick {
+  min-height: 64px;
+  padding: 12px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 800;
+  text-align: left;
+}
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.qbtn {
+  min-height: 52px;
+  padding: 0 18px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 900;
+}
+.qbtn-primary { background: var(--yellow); box-shadow: 5px 6px 0 var(--ink); }
+.qbtn-primary:hover { transform: translate(-1px, -1px); }
+.errors {
+  margin: 0 0 14px;
+  padding: 12px;
+  border: 2px solid var(--ink);
+  background: #fff4cc;
+  color: var(--ink);
+  font-weight: 700;
+}
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  height: 0;
+  overflow: hidden;
+}
+.file-status { margin: 0 0 14px; font-weight: 700; color: var(--muted); }
+.success-block h2,
+.fallback-block h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+.wa-link {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  padding: 0 18px;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.ticket-aside {
+  position: sticky;
+  top: calc(var(--header-h) + 16px);
+  padding: 20px;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+.ticket-aside h2 {
+  margin: 0 0 14px;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.ticket-aside dl { margin: 0; display: grid; gap: 10px; }
+.ticket-aside dt { color: #9aa6c2; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.ticket-aside dd { margin: 4px 0 0; font-weight: 700; }
+.empty-ticket { color: #9aa6c2; }
+
+@media (max-width: 860px) {
+  .quote-layout,
+  .product-grid,
+  .split { grid-template-columns: 1fr; }
+  .ticket-aside { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qbtn-primary { transform: none; }
+}

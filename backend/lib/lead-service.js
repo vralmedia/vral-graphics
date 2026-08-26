@@ -3,9 +3,11 @@
 var crypto = require("node:crypto");
 var fs = require("node:fs/promises");
 var path = require("node:path");
+var pipeline = require("./pipeline");
 
 var MAX_TEXT = 4000;
 var DEDUPE_WINDOW_MS = 86400000;
+var FOLLOW_UP_MS = 2 * 86400000;
 
 function clean(value, limit) {
   return typeof value === "string" ? value.trim().slice(0, limit || MAX_TEXT) : "";
@@ -28,6 +30,12 @@ function validate(input) {
     address: clean(input.address, 500),
     business: clean(input.business, 200),
     interest: clean(input.interest, 500) || "Printing",
+    product: clean(input.product, 120),
+    notes: clean(input.notes, 4000),
+    language: clean(input.language, 8),
+    campaign: clean(input.campaign, 120),
+    referral: clean(input.referral, 120),
+    action: clean(input.action, 80),
     consent: input.consent === true,
     honeypot: clean(input.website, 200),
     idempotencyKey: clean(input.idempotencyKey, 128)
@@ -201,9 +209,20 @@ function createLeadService(options) {
       address: checked.lead.address,
       business: checked.lead.business,
       interest: checked.lead.interest,
-      owner: "Mike",
+      owner: clean(context.owner, 80) || "Mike",
       consent: checked.lead.consent,
+      consentAt: checked.lead.consent ? receivedAt : null,
       source: clean(context.source, 120) || "website",
+      capturedBy: clean(context.capturedBy, 80) || null,
+      product: checked.lead.product || null,
+      notes: checked.lead.notes || null,
+      language: checked.lead.language || clean(context.language, 8) || null,
+      campaign: checked.lead.campaign || clean(context.campaign, 120) || null,
+      referral: checked.lead.referral || clean(context.referral, 120) || null,
+      action: checked.lead.action || clean(context.action, 80) || null,
+      followUpDue: new Date(now + FOLLOW_UP_MS).toISOString(),
+      paymentVerified: false,
+      paymentEventId: null,
       idempotencyKey: checked.lead.idempotencyKey || null,
       dedupeKey: dedupeKey(checked.lead),
       delivery: adapters.map(initialDelivery)
@@ -217,13 +236,167 @@ function createLeadService(options) {
     return { ok: true, statusCode: 202, lead: lead };
   }
 
+  function enqueue(work) {
+    var task = submissionQueue.then(work);
+    submissionQueue = task.catch(function () {});
+    return task;
+  }
+
+  function publicLead(lead, events) {
+    events = events || [];
+    var status = pipeline.normalizeStatus(lead.status);
+    var deliveryStates = latestDeliveryStates(events, lead);
+    var delivery = Object.keys(deliveryStates).length
+      ? Object.keys(deliveryStates).map(function (channel) { return deliveryStates[channel]; })
+      : (lead.delivery || []);
+    var audit = events.filter(function (record) {
+      return record.leadId === lead.id && (record.type === "status" || record.type === "payment");
+    });
+    var lastStatus = audit.filter(function (record) { return record.type === "status"; }).pop();
+    return {
+      id: lead.id,
+      receivedAt: lead.receivedAt,
+      updatedAt: lead.updatedAt || (lastStatus && lastStatus.at) || lead.receivedAt,
+      status: status,
+      owner: lead.owner || "Mike",
+      capturedBy: lead.capturedBy || null,
+      name: lead.name,
+      phone: lead.phone,
+      email: lead.email,
+      address: lead.address,
+      business: lead.business,
+      interest: lead.interest,
+      product: lead.product || null,
+      notes: lead.notes || null,
+      language: lead.language || null,
+      campaign: lead.campaign || null,
+      referral: lead.referral || null,
+      source: lead.source || "website",
+      action: lead.action || null,
+      followUpDue: lead.followUpDue || null,
+      paymentVerified: lead.paymentVerified === true,
+      paymentEventId: lead.paymentEventId || null,
+      delivery: delivery,
+      lastContactAt: (lastStatus && lastStatus.at) || lead.receivedAt,
+      audit: audit,
+      nextAction: nextActionFor(status, lead.paymentVerified === true)
+    };
+  }
+
+  function nextActionFor(status, paymentVerified) {
+    if (status === "New") return "Call or WhatsApp the business";
+    if (status === "Contacted") return "Send a quote";
+    if (status === "Quoted") return "Wait for approval or collect artwork";
+    if (status === "Awaiting Artwork") return "Collect print-ready files";
+    if (status === "Awaiting Approval") return "Send proof";
+    if (status === "Payment Pending") return paymentVerified ? "Move after verified payment" : "Wait for verified payment webhook";
+    if (status === "Paid") return "Release to production";
+    if (status === "In Production") return "Print and finish";
+    if (status === "Ready") return "Schedule pickup or delivery";
+    if (status === "Completed") return "Follow up";
+    if (status === "Lost") return "No further action";
+    return "Review lead";
+  }
+
+  function hydrate(all) {
+    var map = {};
+    all.forEach(function (record) {
+      if (!record) return;
+      if (!record.type && record.id) {
+        map[record.id] = { lead: record, events: [] };
+        return;
+      }
+      if (record.leadId && map[record.leadId]) map[record.leadId].events.push(record);
+    });
+    Object.keys(map).forEach(function (id) {
+      var entry = map[id];
+      entry.events.forEach(function (record) {
+        if (record.type === "status") {
+          entry.lead.status = record.to;
+          entry.lead.updatedAt = record.at;
+        }
+        if (record.type === "payment") {
+          entry.lead.paymentVerified = true;
+          entry.lead.paymentEventId = record.eventId || entry.lead.paymentEventId;
+          entry.lead.updatedAt = record.at;
+        }
+      });
+    });
+    return map;
+  }
+
+  async function listInner(filter) {
+    filter = filter || {};
+    var all = await rows();
+    var map = hydrate(all);
+    var list = Object.keys(map).map(function (id) { return publicLead(map[id].lead, map[id].events.concat(all)); });
+    if (filter.role !== "admin" && filter.owner) {
+      list = list.filter(function (lead) { return lead.owner === filter.owner; });
+    }
+    list.sort(function (a, b) { return Date.parse(b.receivedAt) - Date.parse(a.receivedAt); });
+    return list;
+  }
+
+  async function getInner(id) {
+    var all = await rows();
+    var map = hydrate(all);
+    var entry = map[id];
+    return entry ? publicLead(entry.lead, entry.events.concat(all)) : null;
+  }
+
+  async function updateStatusInner(id, status, actor) {
+    var current = await getInner(id);
+    if (!current) {
+      var missing = new Error("lead not found");
+      missing.statusCode = 404;
+      throw missing;
+    }
+    var next = pipeline.normalizeStatus(status);
+    if (pipeline.paidRequiresVerification(next, current.paymentVerified)) {
+      var blocked = new Error("Paid requires a verified payment webhook");
+      blocked.statusCode = 409;
+      throw blocked;
+    }
+    if (current.status === next) return current;
+    var at = new Date().toISOString();
+    await append({ type: "status", leadId: id, from: current.status, to: next, at: at, actor: clean(actor, 80) || "ops" });
+    return getInner(id);
+  }
+
+  async function markPaymentVerifiedInner(id, eventId) {
+    var current = await getInner(id);
+    if (!current) {
+      var missing = new Error("lead not found");
+      missing.statusCode = 404;
+      throw missing;
+    }
+    var at = new Date().toISOString();
+    if (current.paymentVerified !== true) {
+      await append({ type: "payment", leadId: id, eventId: clean(eventId, 160) || null, at: at, verified: true, actor: "payment-webhook" });
+    }
+    if (current.status !== "Paid") {
+      await append({ type: "status", leadId: id, from: current.status, to: "Paid", at: at, actor: "payment-webhook" });
+    }
+    return getInner(id);
+  }
+
   recoveryPromise = recoverPending().catch(function () {});
 
   return {
     submit: function (input, context) {
-      var work = submissionQueue.then(function () { return submitInner(input, context); });
-      submissionQueue = work.catch(function () {});
-      return work;
+      return enqueue(function () { return submitInner(input, context); });
+    },
+    list: function (filter) {
+      return enqueue(function () { return listInner(filter); });
+    },
+    get: function (id) {
+      return enqueue(function () { return getInner(id); });
+    },
+    updateStatus: function (id, status, actor) {
+      return enqueue(function () { return updateStatusInner(id, status, actor); });
+    },
+    markPaymentVerified: function (id, eventId) {
+      return enqueue(function () { return markPaymentVerifiedInner(id, eventId); });
     },
     flushDeliveries: async function () {
       await recoveryPromise;
@@ -233,4 +406,4 @@ function createLeadService(options) {
   };
 }
 
-module.exports = { createLeadService: createLeadService, validate: validate };
+module.exports = { createLeadService: createLeadService, validate: validate, PIPELINE_STATUSES: pipeline.PIPELINE_STATUSES };

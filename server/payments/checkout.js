@@ -11,13 +11,29 @@ function missingCredentials(names) {
   return err;
 }
 
+function resolveQuote(input, dependencies) {
+  var offer = input.offer;
+  if (offer === "specials" || input.special) {
+    return offers.assertCheckoutEligible(offers.quoteSpecial(input.special || input));
+  }
+  if (offer && offer !== "cart") {
+    return offers.assertCheckoutEligible(offers.quoteOffer(Object.assign({}, input, {
+      sku: input.sku || input.printingSku || offer
+    })));
+  }
+  if (input.printingSku || input.sku) {
+    return offers.assertCheckoutEligible(offers.quoteOffer(input));
+  }
+  return offers.quote(input.cart, dependencies.catalogue, dependencies.pricing);
+}
+
 // Adapter boundary: deployment injects a real gateway implementation. It never fabricates a paid session.
 function createCheckout(input, dependencies) {
   dependencies = dependencies || {};
   if (!input || typeof input.idempotencyKey !== "string" || !/^[A-Za-z0-9_-]{16,128}$/.test(input.idempotencyKey)) {
     throw new TypeError("a 16–128 character idempotencyKey is required");
   }
-  var quote = input.offer === "specials" ? offers.quoteSpecial(input.special || input) : offers.quote(input.cart, dependencies.catalogue, dependencies.pricing);
+  var quote = resolveQuote(input, dependencies);
   var gateway = dependencies.gateway;
   if (!gateway || typeof gateway.createHostedCheckout !== "function") throw missingCredentials(["PAYMENT_GATEWAY_ADAPTER"]);
   if (gateway.provider && gateway.provider !== "quickbooks_payments" && gateway.provider !== "quickbooks") {

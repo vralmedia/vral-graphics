@@ -5,7 +5,8 @@ var fs = require("node:fs/promises");
 var path = require("node:path");
 
 var TABLE = "field_leads";
-var STATUSES = new Set(["New", "Follow up", "Paid", "Email"]);
+var pipeline = require("./pipeline");
+var STATUSES = new Set(pipeline.PIPELINE_STATUSES.concat(["Follow up", "Email"]));
 var COLUMNS = ["id", "created_at", "owner", "name", "phone", "email", "address", "business", "interest", "status", "delivery_crm", "delivery_email", "idempotency_key"];
 
 function envFor(options) {
@@ -24,9 +25,13 @@ function text(value, fallback) {
 
 function status(value) {
   var raw = text(value, "New");
-  var normalized = ({ "new": "New", "follow up": "Follow up", "paid": "Paid", "email": "Email" })[raw.toLowerCase()] || raw;
-  if (!STATUSES.has(normalized)) throw new Error("field lead status must be New, Follow up, Paid, or Email");
-  return normalized;
+  try {
+    return pipeline.normalizeStatus(raw);
+  } catch (_) {
+    var normalized = ({ "new": "New", "follow up": "Follow up", "paid": "Paid", "email": "Email" })[raw.toLowerCase()] || raw;
+    if (!STATUSES.has(normalized)) throw new Error("field lead status must be a pipeline column");
+    return normalized;
+  }
 }
 
 function deliveryValue(lead, key, channel) {

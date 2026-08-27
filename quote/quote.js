@@ -227,7 +227,7 @@
         '<div class="success-block">' +
           "<h2>" + esc(t("success")) + "</h2>" +
           '<p class="file-status">' + esc(fileStatus()) + "</p>" +
-          '<a class="qbtn" href="/quote/">' + esc(t("another")) + "</a>" +
+          '<a class="qbtn" href="/quote/index.html">' + esc(t("another")) + "</a>" +
         "</div>"
       );
     }

@@ -168,7 +168,7 @@
     add("source", extra.source);
     add("campaign", extra.campaign);
     add("rep_id", extra.rep_id);
-    return params.length ? "/quote/?" + params.join("&") : "/quote/";
+    return params.length ? "/quote/index.html?" + params.join("&") : "/quote/index.html";
   }
 
   function checkoutBody(sku, design, idempotencyKey) {

@@ -5,11 +5,11 @@
     home: "/",
     need: "/#need",
     how: "/#how",
-    offers: "/offers/",
-    quote: "/quote/",
-    help: "/quote/?product=unsure",
-    field: "/field/",
-    admin: "/admin/",
+    offers: "/offers/index.html",
+    quote: "/quote/index.html",
+    help: "/quote/index.html?product=unsure",
+    field: "/field/index.html",
+    admin: "/admin/index.html",
     privacy: "/#privacy",
     terms: "/#terms",
     accessibility: "/#accessibility",
@@ -36,7 +36,7 @@
 
   function quoteUrl(productId) {
     var id = encodeURIComponent(productId || "");
-    return id ? "/quote/?product=" + id : ROUTES.quote;
+    return id ? ROUTES.quote + "?product=" + id : ROUTES.quote;
   }
 
   w.VralRoutes = {

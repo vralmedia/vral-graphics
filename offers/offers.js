@@ -105,7 +105,7 @@
         "</div>" +
       "</section>" +
       '<div class="shell offers-rest">' +
-        '<p>' + esc(c.t("footerNote")) + ' <a href="/quote/?product=packaging&amp;sku=packaging">' + esc(c.t("other")) + "</a></p>" +
+        '<p>' + esc(c.t("footerNote")) + ' <a href="/quote/index.html?product=packaging&amp;sku=packaging">' + esc(c.t("other")) + "</a></p>" +
       "</div>";
   }
 

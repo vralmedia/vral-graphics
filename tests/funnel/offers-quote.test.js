@@ -86,7 +86,7 @@ test("legacy flyer quantity SKUs are forbidden on the rack", function () {
 test("quote href carries product and sku", function () {
   assert.equal(
     catalog.quoteHref("business-cards", "business_card_2500"),
-    "/quote/?product=business-cards&sku=business_card_2500"
+    "/quote/index.html?product=business-cards&sku=business_card_2500"
   );
   assert.match(catalog.quoteHref("banners", "banner_sqft"), /sku=banner_sqft/);
 });

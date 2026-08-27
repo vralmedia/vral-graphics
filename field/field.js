@@ -222,7 +222,7 @@
   }
 
   function offersUrl() {
-    return (w.VralRoutes && w.VralRoutes.ROUTES && w.VralRoutes.ROUTES.offers) || "/offers/";
+    return (w.VralRoutes && w.VralRoutes.ROUTES && w.VralRoutes.ROUTES.offers) || "/offers/index.html";
   }
 
   async function api(url, options) {

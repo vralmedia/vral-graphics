@@ -43,6 +43,9 @@ function copyClassicScripts() {
   copyIfExists("shared", "dist/shared");
   copyIfExists("app.js", "dist/app.js");
   copyIfExists("i18n.js", "dist/i18n.js");
+  // Lovable serves exact static paths. Keep unhashed copies for images that
+  // classic runtime scripts inject after Vite has finished transforming HTML.
+  copyDirByExt("assets", "dist/assets", [".png", ".jpg", ".jpeg", ".webp", ".svg"]);
   copyDirByExt("assets/mascot", "dist/assets/mascot", [".js", ".svg"]);
   copyDirByExt("offers", "dist/offers", [".js"]);
   copyDirByExt("quote", "dist/quote", [".js"]);

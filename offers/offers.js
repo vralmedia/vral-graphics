@@ -20,14 +20,15 @@
   }
 
   function piece(id) {
-    if (id === "business-cards") {
-      return '<div class="piece piece-cards"><i class="clip" aria-hidden="true"></i><div class="card-stack"><i></i><i></i><i></i></div></div>';
-    }
-    if (id === "flyers-postcards") return '<div class="piece piece-flyers"><i class="clip" aria-hidden="true"></i></div>';
-    if (id === "brochures-menus") return '<div class="piece piece-menus"><i class="clip" aria-hidden="true"></i><b>Lunch<br>today</b><em>Fold<br>free</em></div>';
-    if (id === "banners") return '<div class="piece piece-banner"><i class="clip" aria-hidden="true"></i>Get seen</div>';
-    if (id === "window-graphics") return '<div class="piece piece-window"><i class="clip" aria-hidden="true"></i></div>';
-    return '<div class="piece piece-aframe"><i class="clip" aria-hidden="true"></i>Open</div>';
+    var files = {
+      "business-cards": "cards.webp",
+      "flyers-postcards": "flyers.webp",
+      "brochures-menus": "menus.webp",
+      banners: "banners.webp",
+      "window-graphics": "windows.webp",
+      "signs-aframes": "signs.webp"
+    };
+    return '<div class="piece piece-photo"><img src="../assets/products/' + files[id] + '" width="900" height="900" alt="' + esc(copy().productName(id)) + '"></div>';
   }
 
   function reggie() {

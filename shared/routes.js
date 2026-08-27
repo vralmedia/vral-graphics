@@ -3,17 +3,17 @@
 
   var ROUTES = {
     home: "/",
-    need: "/#need",
-    how: "/#how",
+    need: "/#desk-title",
+    work: "/#proof-title",
     offers: "/offers/index.html",
     quote: "/quote/index.html",
     help: "/quote/index.html?product=unsure",
     field: "/field/index.html",
     admin: "/admin/index.html",
-    privacy: "/#privacy",
-    terms: "/#terms",
-    accessibility: "/#accessibility",
-    paymentTerms: "/#payment-terms",
+    privacy: "/legal/privacy/index.html",
+    terms: "/legal/terms/index.html",
+    accessibility: "/legal/accessibility/index.html",
+    paymentTerms: "/legal/payment/index.html",
   };
 
   var PRODUCTS = [

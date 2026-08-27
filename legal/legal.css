@@ -1,0 +1,9 @@
+.legal-page { background: var(--paper); }
+.legal-shell { width: min(760px, calc(100% - 32px)); margin: 0 auto; padding: clamp(54px, 9vw, 96px) 0; }
+.legal-kicker { margin: 0 0 12px; color: var(--blue); font-size: .72rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.legal-shell h1 { margin: 0 0 28px; font-family: var(--font-display); font-size: clamp(3.4rem, 9vw, 6.5rem); font-weight: 800; line-height: .84; text-transform: uppercase; }
+.legal-copy { padding: clamp(22px, 5vw, 38px); border: 2px solid var(--ink); background: #fff; box-shadow: 9px 10px 0 var(--yellow); }
+.legal-copy h2 { margin: 28px 0 8px; font-size: 1rem; }
+.legal-copy h2:first-child { margin-top: 0; }
+.legal-copy p { margin: 0 0 14px; color: #30384a; line-height: 1.65; }
+.legal-updated { margin-top: 28px; color: var(--muted); font-size: .78rem; }

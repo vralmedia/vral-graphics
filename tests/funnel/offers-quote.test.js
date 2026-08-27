@@ -124,6 +124,16 @@ test("filename is not treated as stored artwork", function () {
   assert.equal(intake.neverFilenameSuccess("stored"), false);
 });
 
+test("known products use a two-step request and artwork uploads only after save", function () {
+  var known = intake.emptyState();
+  known.product = "business-cards";
+  assert.deepEqual(intake.steps(known), ["details", "contact"]);
+  assert.deepEqual(intake.steps(intake.emptyState()), ["product", "details", "contact"]);
+  var quote = read("quote/quote.js");
+  assert.match(quote, /post-upload/);
+  assert.equal(/stepArtwork\(/.test(quote), false);
+});
+
 test("public offers and quote files keep the contract", function () {
   var text = surface();
   assert.match(read("offers/index.html"), /data-page="offers"/);
@@ -146,4 +156,6 @@ test("public offers and quote files keep the contract", function () {
   assert.match(text, /flyer_5000_4x6_twosided/);
   assert.match(read("offers/offers.js"), /Request this offer|c\.t\("request"\)/);
   assert.match(read("offers/copy.js"), /Measure and get a quote/);
+  assert.match(read("offers/offers.js"), /assets\/products/);
+  assert.equal(/card-stack|piece-banner|piece-window|piece-aframe/.test(read("offers/offers.js")), false);
 });

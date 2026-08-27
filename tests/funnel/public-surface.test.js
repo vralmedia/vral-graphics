@@ -20,8 +20,11 @@ test("public homepage does not expose operations or a competing CTA", function (
   assert.equal(surface.includes("QuickBooks setup required"), false, "QuickBooks setup must not appear publicly");
   assert.equal(surface.includes("17864617465"), false, "Mike personal number must not appear publicly");
   assert.equal(surface.includes("(786) 461-7465"), false, "Mike personal number must not appear publicly");
-  assert.match(html, /What do you need\?/);
-  assert.match(html, /Fresh off the press|See all offers|offers\//);
+  assert.match(html, /What are we making\?/);
+  ["cards", "flyers", "menus", "banners", "windows", "signs"].forEach(function (name) {
+    assert.match(html, new RegExp("assets/products/" + name + "\\.webp"));
+  });
+  assert.match(surface, /All options|offers\/index\.html/);
 });
 
 test("shared routes keep field private and quote productized", function () {

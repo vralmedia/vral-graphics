@@ -12,6 +12,10 @@ function pageInput() {
     quote: "quote/index.html",
     field: "field/index.html",
     admin: "admin/index.html",
+    privacy: "legal/privacy/index.html",
+    terms: "legal/terms/index.html",
+    accessibility: "legal/accessibility/index.html",
+    payment: "legal/payment/index.html",
   };
   for (const [name, rel] of Object.entries(extras)) {
     const abs = resolve(root, rel);
@@ -46,11 +50,13 @@ function copyClassicScripts() {
   // Lovable serves exact static paths. Keep unhashed copies for images that
   // classic runtime scripts inject after Vite has finished transforming HTML.
   copyDirByExt("assets", "dist/assets", [".png", ".jpg", ".jpeg", ".webp", ".svg"]);
+  copyIfExists("assets/products", "dist/assets/products");
   copyDirByExt("assets/mascot", "dist/assets/mascot", [".js", ".svg"]);
   copyDirByExt("offers", "dist/offers", [".js"]);
   copyDirByExt("quote", "dist/quote", [".js"]);
   copyDirByExt("field", "dist/field", [".js"]);
   copyDirByExt("admin", "dist/admin", [".js"]);
+  copyDirByExt("legal", "dist/legal", [".js"]);
 }
 
 export default defineConfig({

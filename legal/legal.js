@@ -1,0 +1,20 @@
+(function(w,d){
+  "use strict";
+  var COPY={
+    en:{
+      privacy:{title:"Privacy",sections:[["What we collect","We collect the contact and job details you choose to send, plus artwork you upload after a request is saved."],["How we use it","We use that information to quote, design, print, deliver, and follow up on your request. We do not sell contact lists."],["Your files","Artwork stays attached to the job. Ask info@vralmedia.com to request access or deletion."]]},
+      terms:{title:"Terms",sections:[["Requests","A website request is not an order until Vral Graphics confirms the price, specifications, schedule, and payment."],["Proofs","Production starts after proof approval. You are responsible for checking names, numbers, spelling, dimensions, and artwork in the approved proof."],["Custom work","Measured, installed, and custom products are quoted after review."]]},
+      accessibility:{title:"Accessibility",sections:[["Our commitment","Vral Graphics aims to make this site usable with a keyboard, screen reader, zoom, and reduced motion."],["Need help?","If a barrier stops you from requesting print, email info@vralmedia.com. We will provide another way to complete the request."]]},
+      payment:{title:"Payment terms",sections:[["Confirmed totals","Closed-price items can continue to secure payment only after a request is saved. Custom and measured work is quoted first."],["No guessed charges","Tax, delivery, installation, processing, and any custom production costs are confirmed before payment. The site does not invent a paid state."],["Production","Payment does not replace proof approval. Production begins only when the required confirmation steps are complete."]]}
+    },
+    es:{
+      privacy:{title:"Privacidad",sections:[["Qué recopilamos","Recopilamos los datos de contacto y del trabajo que decides enviar, además del arte que subes después de guardar el pedido."],["Cómo lo usamos","Usamos esa información para cotizar, diseñar, imprimir, entregar y dar seguimiento. No vendemos listas de contactos."],["Tus archivos","El arte permanece con el trabajo. Escribe a info@vralmedia.com para pedir acceso o eliminación."]]},
+      terms:{title:"Términos",sections:[["Solicitudes","Una solicitud del sitio no es un pedido hasta que Vral Graphics confirma precio, especificaciones, fecha y pago."],["Pruebas","La producción comienza después de aprobar la prueba. Debes revisar nombres, números, ortografía, medidas y arte."],["Trabajos a medida","Los productos medidos, instalados o personalizados se cotizan después de revisarlos."]]},
+      accessibility:{title:"Accesibilidad",sections:[["Nuestro compromiso","Vral Graphics busca que este sitio funcione con teclado, lector de pantalla, zoom y movimiento reducido."],["¿Necesitas ayuda?","Si una barrera no te deja pedir impresión, escribe a info@vralmedia.com. Te daremos otra forma de completar el pedido."]]},
+      payment:{title:"Términos de pago",sections:[["Totales confirmados","Los productos con precio cerrado pasan al pago seguro después de guardar la solicitud. Los trabajos a medida se cotizan primero."],["Sin cargos inventados","Impuestos, entrega, instalación, procesamiento y costos personalizados se confirman antes del pago. El sitio no inventa un estado pagado."],["Producción","El pago no reemplaza la aprobación de la prueba. La producción comienza cuando se completan las confirmaciones necesarias."]]}
+    }
+  };
+  function lang(){return w.VralSite&&w.VralSite.lang?w.VralSite.lang():"en";}
+  function render(){var key=d.body.getAttribute("data-doc")||"privacy",doc=(COPY[lang()]||COPY.en)[key],host=d.querySelector("[data-legal]");if(!host||!doc)return;d.title=doc.title+" — Vral Graphics";host.innerHTML='<p class="legal-kicker">Vral Graphics</p><h1>'+doc.title+'</h1><div class="legal-copy">'+doc.sections.map(function(s){return "<h2>"+s[0]+"</h2><p>"+s[1]+"</p>";}).join("")+'</div><p class="legal-updated">Updated August 27, 2026.</p>';}
+  d.documentElement.addEventListener("vral:lang",render);render();
+})(window,document);

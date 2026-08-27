@@ -33,9 +33,9 @@
       fileType: "",
       fileSize: 0,
       artworkStatus: "none",
-      timing: "",
+      timing: "standard",
       neededBy: "",
-      fulfillment: "",
+      fulfillment: "pickup",
       address: "",
       name: "",
       business: "",
@@ -67,9 +67,7 @@
   function steps(state) {
     var list = [];
     if (needsProductStep(state)) list.push("product");
-    list.push("job");
-    if (!skipSpecs(state.product)) list.push("specs");
-    list.push("artwork", "timing", "contact", "review");
+    list.push("details", "contact");
     return list;
   }
 
@@ -104,20 +102,14 @@
   function validate(state, step) {
     var errors = [];
     if (step === "product" && !state.product) errors.push("need_product");
-    if (step === "job") {
-      if (!state.goal) errors.push("need_goal");
-      if (state.product !== "unsure" && !state.quantity) errors.push("need_qty");
-    }
-    if (step === "specs") {
+    if (step === "details") {
+      if ((state.product === "unsure" || state.product === "packaging") && !state.goal) errors.push("need_goal");
       if (needsMeasurements(state.product)) {
         if (!state.width || !state.height) errors.push("need_measure");
       }
-    }
-    if (step === "artwork" && !state.artwork) errors.push("need_artwork");
-    if (step === "timing") {
-      if (!state.timing) errors.push("need_timing");
       if (!state.fulfillment) errors.push("need_fulfillment");
       if ((state.fulfillment === "delivery" || state.install === "yes") && !state.address) errors.push("need_address");
+      if (!state.artwork) errors.push("need_artwork");
     }
     if (step === "contact") {
       if (!state.name) errors.push("need_name");
@@ -189,7 +181,7 @@
       },
       timing: { pace: state.timing, neededBy: state.neededBy },
       fulfillment: state.fulfillment,
-      address: state.address,
+      address: state.address || (state.fulfillment === "pickup" ? "Pickup — Miami, Florida" : ""),
       name: state.name,
       business: state.business,
       phone: state.phone,

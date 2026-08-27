@@ -4,303 +4,78 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Vral Graphics — Quality Printing for Less.</title>
-    <meta name="description" data-i18n-content="description" content="Business cards, flyers, menus, banners, wraps and signs—designed, printed and delivered for businesses that need to be seen." />
+    <meta name="description" data-i18n-content="description" content="Choose a print product. Vral Graphics handles design, print and delivery in Miami." />
     <meta name="theme-color" content="#071fdd" />
     <link rel="icon" href="assets/vral-printmark.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+    <link rel="preload" href="assets/products/cards.webp" as="image" type="image/webp" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="home" data-mark="assets/vral-printmark.png">
-    <div data-vral-header>
-      <a class="skip-link" href="#content">Skip to content</a>
-      <header class="site-header shell">
-        <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false">Menu</button>
-        <a class="brand" href="/" aria-label="Vral Graphics home">
-          <img src="assets/vral-printmark.png" width="54" height="54" alt="" />
-          <span class="brand-wordmark"><strong>Vral</strong><small>Graphics</small></span>
-        </a>
-        <nav class="site-nav" data-site-nav aria-label="Primary">
-          <a href="/#need">What do you need?</a>
-          <a href="/offers/index.html">Offers</a>
-          <a href="/#how">How it works</a>
-        </nav>
-        <div class="header-actions">
-          <div class="language-switch" role="group" aria-label="Language">
-            <button type="button" data-lang="en" aria-pressed="true">EN</button>
-            <span aria-hidden="true">/</span>
-            <button type="button" data-lang="es" aria-pressed="false">ES</button>
-          </div>
-        </div>
-      </header>
-    </div>
-
+    <div data-vral-header></div>
     <main id="content">
-      <section class="hero shell" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <h1 id="hero-title" data-i18n="heroTitle">Quality Printing for Less.</h1>
-          <p class="hero-lead" data-i18n="heroLead">Business cards, flyers, menus, banners, wraps and signs—designed, printed and delivered for businesses that need to be seen.</p>
-          <p class="hero-line"><a href="#need" data-i18n="heroLine">Choose what you need below. We will help with the rest.</a></p>
-        </div>
-        <div class="hero-mascot">
-          <div class="reggie-host" data-reggie="hero">
-            <img class="reggie-fallback" src="assets/mascot/reggie-static.svg" width="420" height="420" alt="" />
+      <section class="live-desk" aria-labelledby="desk-title">
+        <div class="shell desk-shell">
+          <div class="desk-intro">
+            <p class="trust-line" data-i18n="trustLine">Quality printing for less.</p>
+            <h1 id="desk-title" data-i18n="deskTitle">What are we making?</h1>
+            <p class="desk-support" data-i18n="deskSupport">Choose a product. We’ll handle design, print and delivery.</p>
           </div>
-          <p class="reggie-caption" data-i18n="reggieCaption">Reggie, the press registration mark.</p>
+          <div class="product-shelf" role="list" aria-label="Print products" data-i18n-aria="productShelfLabel">
+            <button class="product-object is-selected" type="button" role="listitem" data-product="business-cards" aria-pressed="true">
+              <span class="product-image"><img src="assets/products/cards.webp" width="900" height="600" alt="A stack of full-color business cards" data-i18n-alt="cardsAlt" /></span><span data-i18n="cards">Cards</span>
+            </button>
+            <button class="product-object" type="button" role="listitem" data-product="flyers-postcards" aria-pressed="false">
+              <span class="product-image"><img src="assets/products/flyers.webp" width="900" height="900" alt="A fan of full-color flyers" data-i18n-alt="flyersAlt" /></span><span data-i18n="flyers">Flyers</span>
+            </button>
+            <button class="product-object" type="button" role="listitem" data-product="brochures-menus" aria-pressed="false">
+              <span class="product-image"><img src="assets/products/menus.webp" width="900" height="900" alt="An open folded menu" data-i18n-alt="menusAlt" /></span><span data-i18n="menus">Menus</span>
+            </button>
+            <button class="product-object" type="button" role="listitem" data-product="banners" aria-pressed="false">
+              <span class="product-image"><img src="assets/products/banners.webp" width="900" height="900" alt="A partially unrolled vinyl banner" data-i18n-alt="bannersAlt" /></span><span data-i18n="banners">Banners</span>
+            </button>
+            <button class="product-object" type="button" role="listitem" data-product="window-graphics" aria-pressed="false">
+              <span class="product-image"><img src="assets/products/windows.webp" width="900" height="900" alt="A storefront with installed window graphics" data-i18n-alt="windowsAlt" /></span><span data-i18n="windows">Windows</span>
+            </button>
+            <button class="product-object" type="button" role="listitem" data-product="signs-aframes" aria-pressed="false">
+              <span class="product-image"><img src="assets/products/signs.webp" width="900" height="900" alt="A printed sidewalk A-frame sign" data-i18n-alt="signsAlt" /></span><span data-i18n="signs">Signs</span>
+            </button>
+          </div>
+          <section class="active-job" aria-labelledby="active-product-title" data-active-product="business-cards">
+            <div class="active-visual" aria-hidden="true">
+              <img data-active-image src="assets/products/cards.webp" width="900" height="600" alt="" />
+              <span class="crop crop-a"></span><span class="crop crop-b"></span>
+            </div>
+            <div class="active-copy">
+              <p class="active-state" data-i18n="onDesk">On the desk</p>
+              <h2 id="active-product-title" data-active-title>Cards</h2>
+              <p class="active-use" data-active-use>Make the first impression count.</p>
+              <div class="active-offers" data-active-offers></div>
+              <div class="active-actions" data-active-actions></div>
+            </div>
+            <div class="reggie-dock"><div class="reggie-host" data-reggie="desk"><img class="reggie-fallback" src="assets/mascot/reggie-static.svg" width="180" height="180" alt="" /></div></div>
+          </section>
+          <a class="help-choice" href="/quote/index.html?product=unsure" data-i18n="helpChoose">Help me choose</a>
+          <p class="visually-hidden" data-live-product aria-live="polite"></p>
           <p class="visually-hidden" data-reggie-live aria-live="polite"></p>
         </div>
       </section>
-
-      <section class="need shell" id="need" aria-labelledby="need-title">
-        <div class="need-heading">
-          <div>
-            <h2 id="need-title" data-i18n="needTitle">What do you need?</h2>
-            <p data-i18n="needLead">Pick the printed piece. We take it from there.</p>
-          </div>
-          <div class="reggie-host reggie-host-compact" data-reggie="need" hidden>
-            <img class="reggie-fallback" src="assets/mascot/reggie-static.svg" width="160" height="160" alt="" />
-          </div>
-        </div>
-        <div class="need-grid">
-          <a class="need-item" href="/quote/index.html?product=business-cards" data-product="business-cards">
-            <span class="need-object object-cards" aria-hidden="true">
-              <i></i><i></i><i><img src="assets/vral-printmark.png" alt="" /></i>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pCards">Business Cards</strong>
-              <small data-i18n="pCardsUse">Name, number, first impression.</small>
-            </span>
-          </a>
-          <a class="need-item" href="/quote/index.html?product=flyers-postcards" data-product="flyers-postcards">
-            <span class="need-object object-flyers" aria-hidden="true">
-              <b>MAIL</b>
-              <i>4×6</i>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pFlyers">Flyers &amp; Postcards</strong>
-              <small data-i18n="pFlyersUse">Handouts and mailbox pieces.</small>
-            </span>
-          </a>
-          <a class="need-item" href="/quote/index.html?product=brochures-menus" data-product="brochures-menus">
-            <span class="need-object object-menu" aria-hidden="true">
-              <em></em><em></em>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pMenus">Brochures &amp; Menus</strong>
-              <small data-i18n="pMenusUse">Folded pages for tables and hands.</small>
-            </span>
-          </a>
-          <a class="need-item" href="/quote/index.html?product=banners" data-product="banners">
-            <span class="need-object object-banner" aria-hidden="true">
-              <i>GET SEEN</i>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pBanners">Banners</strong>
-              <small data-i18n="pBannersUse">Wide vinyl for events and storefronts.</small>
-            </span>
-          </a>
-          <a class="need-item" href="/quote/index.html?product=window-graphics" data-product="window-graphics">
-            <span class="need-object object-window" aria-hidden="true">
-              <i></i><i></i>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pWindows">Window Graphics</strong>
-              <small data-i18n="pWindowsUse">Wraps, vinyl, and glass that sells.</small>
-            </span>
-          </a>
-          <a class="need-item" href="/quote/index.html?product=signs-aframes" data-product="signs-aframes">
-            <span class="need-object object-aframe" aria-hidden="true">
-              <b>OPEN</b>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pSigns">Signs &amp; A-Frames</strong>
-              <small data-i18n="pSignsUse">Sidewalk and storefront signs.</small>
-            </span>
-          </a>
-          <a class="need-item" href="/quote/index.html?product=packaging" data-product="packaging">
-            <span class="need-object object-box" aria-hidden="true">
-              <i></i><i></i><i><img src="assets/vral-printmark.png" alt="" /></i>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pPack">Packaging</strong>
-              <small data-i18n="pPackUse">Boxes that leave the shop looking finished.</small>
-            </span>
-          </a>
-          <a class="need-item need-unsure" href="/quote/index.html?product=unsure" data-product="unsure">
-            <span class="need-object object-unsure" aria-hidden="true">
-              <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
-                <circle cx="36" cy="36" r="28" fill="#071fdd" stroke="#070a12" stroke-width="4" />
-                <circle cx="36" cy="36" r="12" fill="#fff" stroke="#070a12" stroke-width="3" />
-                <circle cx="31" cy="35" r="2.2" fill="#070a12" />
-                <circle cx="41" cy="35" r="2.2" fill="#070a12" />
-                <path d="M31 42c2.2 3 7.8 3 10 0" fill="none" stroke="#070a12" stroke-width="2.2" stroke-linecap="round" />
-              </svg>
-            </span>
-            <span class="need-copy">
-              <strong data-i18n="pUnsure">I’m not sure yet</strong>
-              <small data-i18n="pUnsureUse">Tell us the job. We will help you choose.</small>
-            </span>
-          </a>
+      <section class="proof-reel" aria-labelledby="proof-title">
+        <div class="shell proof-layout">
+          <div class="proof-copy"><h2 id="proof-title" data-i18n="proofTitle">Made to be seen.</h2><p data-i18n="proofSteps">Designed. Printed. Delivered.</p></div>
+          <div class="proof-pieces" aria-hidden="true"><img src="assets/products/menus.webp" width="900" height="900" alt="" loading="lazy" /><img src="assets/products/banners.webp" width="900" height="900" alt="" loading="lazy" /><img src="assets/products/signs.webp" width="900" height="900" alt="" loading="lazy" /></div>
         </div>
       </section>
-
-      <section class="street" id="street" aria-labelledby="street-title">
-        <div class="shell">
-          <div class="street-heading">
-            <h2 id="street-title" data-i18n="streetTitle">From screen to street.</h2>
-            <p data-i18n="streetLead">Move the art from the glass onto the piece people actually see.</p>
-          </div>
-          <div
-            class="street-stage"
-            id="street-stage"
-            tabindex="0"
-            role="group"
-            aria-labelledby="street-title"
-            data-i18n-aria="streetKeys"
-          >
-            <div class="street-screen">
-              <p data-i18n="streetScreen">On screen</p>
-              <button type="button" class="street-art" data-street-source aria-grabbed="false">
-                <img src="assets/print-poster.png" alt="" />
-                <span data-i18n="streetArt">Artwork</span>
-              </button>
-            </div>
-            <div class="street-world" data-street-world>
-              <figure class="street-slot is-active" data-street-slot="window">
-                <div class="slot-window" aria-hidden="true"><span>OPEN</span></div>
-                <figcaption data-i18n="slotWindow">Window</figcaption>
-              </figure>
-              <figure class="street-slot" data-street-slot="banner">
-                <div class="slot-banner" aria-hidden="true"><span>SALE</span></div>
-                <figcaption data-i18n="slotBanner">Banner</figcaption>
-              </figure>
-              <figure class="street-slot" data-street-slot="aframe">
-                <div class="slot-aframe" aria-hidden="true"><span>MENU</span></div>
-                <figcaption data-i18n="slotAframe">A-Frame</figcaption>
-              </figure>
-            </div>
-          </div>
-          <div class="street-controls">
-            <button type="button" data-street-prev data-i18n="streetPrev">Previous piece</button>
-            <p id="street-status" aria-live="polite"></p>
-            <button type="button" data-street-next data-i18n="streetNext">Next piece</button>
-          </div>
-          <p class="street-fallback" data-i18n="streetFallback">On the left, the file. On the right, the printed piece on the street.</p>
-        </div>
+      <section class="confidence" aria-label="Why Vral Graphics" data-i18n-aria="confidenceLabel">
+        <div class="shell confidence-line"><span>Miami</span><i aria-hidden="true"></i><span data-i18n="proofBefore">Proof before print</span><i aria-hidden="true"></i><span>English / Español</span><i aria-hidden="true"></i><span data-i18n="humanConfirmation">Human confirmation</span></div>
       </section>
-
-      <section class="press-teaser" id="offers" aria-labelledby="press-title">
-        <div class="shell">
-          <div class="press-copy">
-            <h2 id="press-title" data-i18n="pressTitle">Fresh off the press.</h2>
-            <p data-i18n="pressLead">One offer on the sheet. The rest live on the print rack.</p>
-          </div>
-          <article class="press-sheet">
-            <p class="press-kicker" data-i18n="pressKicker">This week’s sheet</p>
-            <h3 data-i18n="pressOffer">1,000 business cards — $99</h3>
-            <p data-i18n="pressOfferLead">Full color, when we design it for you.</p>
-            <a class="button button-primary" href="/offers/index.html" data-i18n="seeOffers">See all offers</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="how shell" id="how" aria-labelledby="how-title">
-        <h2 id="how-title" data-i18n="howTitle">Pick it. Shape it. Print it.</h2>
-        <ol class="how-steps">
-          <li>
-            <button type="button" data-how="product_selected">
-              <strong data-i18n="how1">Pick it</strong>
-              <span data-i18n="how1Lead">Choose the piece you need.</span>
-            </button>
-          </li>
-          <li>
-            <button type="button" data-how="thinking">
-              <strong data-i18n="how2">Shape it</strong>
-              <span data-i18n="how2Lead">We confirm size, paper, and proof.</span>
-            </button>
-          </li>
-          <li>
-            <button type="button" data-how="paid">
-              <strong data-i18n="how3">Print it</strong>
-              <span data-i18n="how3Lead">Approve, print, deliver.</span>
-            </button>
-          </li>
-        </ol>
-      </section>
-
-      <section class="help shell" id="help" aria-labelledby="help-title">
-        <h2 id="help-title" data-i18n="helpTitle">Not sure what to order?</h2>
-        <p data-i18n="helpLead">That is normal.</p>
-        <a class="button button-primary" href="/quote/index.html?product=unsure" data-i18n="helpCta">Help me choose</a>
-      </section>
-
-      <section class="legal-block shell" id="privacy" aria-labelledby="privacy-title">
-        <h2 id="privacy-title" data-i18n="privacyTitle">Privacy</h2>
-        <p data-i18n="privacyBody">Vral Graphics, part of Vral Media, uses the details you send only to quote, print, and deliver your job. We do not sell contact lists. Artwork files stay with the job.</p>
-      </section>
-      <section class="legal-block shell" id="terms" aria-labelledby="terms-title">
-        <h2 id="terms-title" data-i18n="termsTitle">Terms</h2>
-        <p data-i18n="termsBody">A request on this site is not an order until Vral Graphics confirms price, quantity, and timing. Printed work is produced after proof approval.</p>
-      </section>
-      <section class="legal-block shell" id="accessibility" aria-labelledby="a11y-title">
-        <h2 id="a11y-title" data-i18n="a11yTitle">Accessibility</h2>
-        <p data-i18n="a11yBody">This site works with keyboard, screen readers, and reduced motion. If something is in the way, email info@vralmedia.com.</p>
-      </section>
-      <section class="legal-block shell" id="payment-terms" aria-labelledby="pay-title">
-        <h2 id="pay-title" data-i18n="payTitle">Payment terms</h2>
-        <p data-i18n="payBody">Offers with a closed price can be paid after a confirmed order. Custom and measured jobs are quoted first. Tax and processing are confirmed with the invoice, not guessed on this page.</p>
+      <section class="show-us" aria-labelledby="show-title">
+        <div class="shell show-layout"><div><h2 id="show-title" data-i18n="notSure">Not sure?</h2><p data-i18n="showHelper">Add a photo or tell us the goal.</p></div><a class="button-primary" href="/quote/index.html?product=unsure" data-i18n="showUs">Show us</a></div>
       </section>
     </main>
-
-    <div data-vral-footer>
-      <footer class="site-footer">
-        <div class="shell">
-          <div class="footer-grid">
-            <div class="footer-brand">
-              <strong>Vral Graphics</strong>
-              <small>Quality Printing for Less.</small>
-              <p>Part of Vral Media.</p>
-            </div>
-            <div>
-              <h2>Explore</h2>
-              <ul>
-                <li><a href="/#need">What do you need?</a></li>
-                <li><a href="/offers/index.html">Offers</a></li>
-                <li><a href="/#how">How it works</a></li>
-                <li><a href="/quote/index.html?product=unsure">Get help choosing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h2>Contact</h2>
-              <ul>
-                <li><a href="mailto:info@vralmedia.com">info@vralmedia.com</a></li>
-                <li><a href="https://wa.me/17865911017">WhatsApp +1 786 591 1017</a></li>
-                <li>Miami, Florida</li>
-              </ul>
-            </div>
-            <div>
-              <h2>Legal</h2>
-              <ul>
-                <li><a href="/#privacy">Privacy</a></li>
-                <li><a href="/#terms">Terms</a></li>
-                <li><a href="/#accessibility">Accessibility</a></li>
-                <li><a href="/#payment-terms">Payment terms</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="footer-end">
-            <span>© 2026 Vral Graphics. Part of Vral Media.</span>
-            <span>EN / ES</span>
-          </div>
-        </div>
-      </footer>
-    </div>
-
-    <script src="shared/routes.js"></script>
-    <script src="shared/site-nav.js"></script>
-    <script src="i18n.js"></script>
-    <script src="assets/mascot/reggie.js"></script>
-    <script src="app.js"></script>
+    <div data-vral-footer></div>
+    <script src="shared/routes.js"></script><script src="shared/site-nav.js"></script><script src="offers/catalog.js"></script><script src="i18n.js"></script><script src="assets/mascot/reggie.js"></script><script src="app.js"></script>
   </body>
 </html>

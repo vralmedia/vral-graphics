@@ -1,360 +1,68 @@
 (function (w, d) {
   "use strict";
-
-  var DRAFT_KEY = "vg-field-draft-v1";
-  var DRAFT_TTL = 4 * 60 * 60 * 1000;
-  var COPY = {
-    en: {
-      kicker: "Private field ticket",
-      title: "Field",
-      lead: "One-hand capture for Mike. Login required. Nothing is saved until the server says so.",
-      loginTitle: "Sign in",
-      username: "Username",
-      password: "Password",
-      signIn: "Sign in",
-      signOut: "Sign out",
-      name: "Name",
-      phone: "Phone",
-      email: "Email",
-      address: "Address",
-      business: "Business",
-      interest: "Interest",
-      consent: "They asked to be contacted about printing.",
-      save: "Save lead",
-      saveOffers: "Save and send offers",
-      saveWhatsapp: "Save and open WhatsApp",
-      another: "Create another lead",
-      mine: "Leads you can see",
-      blocked: "Login is BLOCKED until field credentials are configured on the server. Nothing was simulated.",
-      unauthorized: "That sign-in did not work.",
-      offline: "The phone is offline. A protected draft stays on this device for 4 hours. The lead is not recorded and CRM is not saved.",
-      recorded: "Lead recorded.",
-      duplicate: "Same lead already on file.",
-      notRecorded: "The server did not record this lead.",
-      crmSaved: "CRM Saved",
-      crmBlocked: "CRM BLOCKED — no real webhook URL",
-      crmQueued: "CRM queued",
-      crmFailed: "CRM failed",
-      flyerBlocked: "Flyer BLOCKED — no real email endpoint",
-      flyerQueued: "Flyer queued",
-      flyerDelivered: "Flyer sent",
-      flyerFailed: "Flyer failed",
-      owner: "Owner",
-      follow: "Follow-up due",
-      signedIn: "Signed in as",
-      empty: "No leads yet.",
-      draftKept: "Draft kept on this phone. CRM is not saved.",
-      offersHint: "Offers page is ready to send. Flyer email only if the server reports it.",
-    },
-    es: {
-      kicker: "Ticket privado de campo",
-      title: "Campo",
-      lead: "Captura a una mano para Mike. Hay que entrar. Nada se guarda hasta que el servidor confirme.",
-      loginTitle: "Entrar",
-      username: "Usuario",
-      password: "Contraseña",
-      signIn: "Entrar",
-      signOut: "Salir",
-      name: "Nombre",
-      phone: "Teléfono",
-      email: "Correo",
-      address: "Dirección",
-      business: "Negocio",
-      interest: "Interés",
-      consent: "Pidieron que los contactemos sobre impresión.",
-      save: "Guardar lead",
-      saveOffers: "Guardar y enviar ofertas",
-      saveWhatsapp: "Guardar y abrir WhatsApp",
-      another: "Crear otro lead",
-      mine: "Leads que puedes ver",
-      blocked: "El acceso está BLOCKED hasta configurar credenciales en el servidor. Nada fue simulado.",
-      unauthorized: "Ese acceso no funcionó.",
-      offline: "El teléfono está sin red. Un borrador protegido queda 4 horas. El lead no está grabado y el CRM no está guardado.",
-      recorded: "Lead grabado.",
-      duplicate: "Ese lead ya está en el archivo.",
-      notRecorded: "El servidor no grabó este lead.",
-      crmSaved: "CRM Saved",
-      crmBlocked: "CRM BLOCKED — no hay URL real",
-      crmQueued: "CRM en cola",
-      crmFailed: "CRM falló",
-      flyerBlocked: "Flyer BLOCKED — no hay envío real",
-      flyerQueued: "Flyer en cola",
-      flyerDelivered: "Flyer enviado",
-      flyerFailed: "Flyer falló",
-      owner: "Dueño",
-      follow: "Seguimiento",
-      signedIn: "Sesión de",
-      empty: "Todavía no hay leads.",
-      draftKept: "Borrador en este teléfono. CRM no está guardado.",
-      offersHint: "La página de ofertas está lista para enviar. El flyer de correo solo si el servidor lo confirma.",
-    }
+  var DRAFT_KEY="vg-field-draft-v2",DRAFT_TTL=4*60*60*1000;
+  var COPY={
+    en:{loginTitle:"Field sign in",loginLead:"Fast capture for conversations in the real world.",username:"Username",password:"Password",signIn:"Sign in",signOut:"Sign out",fieldMode:"Field",preview:"Local experience preview",previewNote:"Nothing will be recorded.",timePromise:"About 60 seconds",title:"Quick capture",lead:"Save the conversation. The system handles the follow-up.",business:"Business",name:"Contact",phone:"Phone / WhatsApp",email:"Email",need:"What do they need?",cards:"Cards",flyers:"Flyers",menus:"Menus",banners:"Banners",windows:"Windows",signs:"Signs",other:"Other",more:"Add context",address:"Address",optional:"optional",notes:"Note",notesPlaceholder:"What should happen next?",consent:"They asked to be contacted about printing.",save:"Save lead",mine:"Recent leads",private:"Only what you can see",blocked:"Field login is not configured. Nothing was simulated.",unauthorized:"That sign-in did not work.",contactRequired:"Add a phone or email.",consentRequired:"Confirm that they asked to be contacted.",required:"Add the business and contact name.",offline:"No connection. An encrypted draft stays on this device for four hours. The lead is not recorded yet.",recorded:"Lead recorded.",duplicate:"Lead already on file.",notRecorded:"The server did not record this lead.",crmBlocked:"CRM delivery is not configured.",crmQueued:"CRM update queued.",crmDelivered:"CRM updated.",offers:"Open offers",whatsapp:"Open WhatsApp",another:"Capture another",empty:"No leads yet.",signedIn:"Signed in as",previewSaved:"Preview complete. Nothing was recorded."},
+    es:{loginTitle:"Entrada de campo",loginLead:"Captura rápida para conversaciones en el mundo real.",username:"Usuario",password:"Contraseña",signIn:"Entrar",signOut:"Salir",fieldMode:"Campo",preview:"Vista local de experiencia",previewNote:"Nada será grabado.",timePromise:"Aproximadamente 60 segundos",title:"Captura rápida",lead:"Guarda la conversación. El sistema maneja el seguimiento.",business:"Negocio",name:"Contacto",phone:"Teléfono / WhatsApp",email:"Correo",need:"¿Qué necesita?",cards:"Tarjetas",flyers:"Flyers",menus:"Menús",banners:"Banners",windows:"Ventanas",signs:"Letreros",other:"Otro",more:"Agregar contexto",address:"Dirección",optional:"opcional",notes:"Nota",notesPlaceholder:"¿Qué debe pasar después?",consent:"Pidió que lo contactemos sobre impresión.",save:"Guardar lead",mine:"Leads recientes",private:"Solo lo que puedes ver",blocked:"El acceso de campo no está configurado. Nada fue simulado.",unauthorized:"Ese acceso no funcionó.",contactRequired:"Agrega un teléfono o correo.",consentRequired:"Confirma que pidió ser contactado.",required:"Agrega el negocio y el contacto.",offline:"Sin conexión. Un borrador cifrado queda cuatro horas. El lead todavía no está grabado.",recorded:"Lead grabado.",duplicate:"El lead ya existe.",notRecorded:"El servidor no grabó este lead.",crmBlocked:"La entrega al CRM no está configurada.",crmQueued:"Actualización de CRM en cola.",crmDelivered:"CRM actualizado.",offers:"Abrir ofertas",whatsapp:"Abrir WhatsApp",another:"Capturar otro",empty:"Todavía no hay leads.",signedIn:"Sesión de",previewSaved:"Vista completada. Nada fue grabado."}
   };
-
-  var loginPanel = d.getElementById("login-panel");
-  var appPanel = d.getElementById("app-panel");
-  var loginForm = d.getElementById("login-form");
-  var leadForm = d.getElementById("lead-form");
-  var loginStatus = d.getElementById("login-status");
-  var formStatus = d.getElementById("form-status");
-  var result = d.getElementById("result");
-  var list = d.getElementById("lead-list");
-  var sessionLine = d.getElementById("session-line");
-  var pendingAction = "save";
-  var idempotencyKey = newKey();
-  var viewer = null;
-
-  function lang() {
-    return (w.VralSite && w.VralSite.lang && w.VralSite.lang()) || "en";
+  var loginPanel=d.getElementById("login-panel"),appPanel=d.getElementById("app-panel"),loginForm=d.getElementById("login-form"),leadForm=d.getElementById("lead-form");
+  var loginStatus=d.getElementById("login-status"),formStatus=d.getElementById("form-status"),result=d.getElementById("result"),list=d.getElementById("lead-list"),sessionLine=d.getElementById("session-line");
+  var idempotencyKey=newKey(),preview=false;
+  var DEMO=[{business:"Palms Dental",name:"Maya",status:"New",interest:"Window graphics"},{business:"The Grill House",name:"Luis",status:"Contacted",interest:"Menus"}];
+  function lang(){return(w.VralSite&&w.VralSite.lang&&w.VralSite.lang())||"en";}
+  function t(key){return(COPY[lang()]||COPY.en)[key]||COPY.en[key]||key;}
+  function esc(value){return String(value==null?"":value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function applyCopy(){d.querySelectorAll("[data-copy]").forEach(function(node){node.textContent=t(node.getAttribute("data-copy"));});d.querySelectorAll("[data-copy-placeholder]").forEach(function(node){node.setAttribute("placeholder",t(node.getAttribute("data-copy-placeholder")));});}
+  function newKey(){var bytes=new Uint8Array(18);if(w.crypto&&crypto.getRandomValues)crypto.getRandomValues(bytes);else bytes.forEach(function(_,i){bytes[i]=Math.floor(Math.random()*256);});return Array.from(bytes,function(b){return("0"+b.toString(16)).slice(-2);}).join("").slice(0,24);}
+  function api(url,options){return fetch(url,Object.assign({credentials:"same-origin",headers:{"content-type":"application/json"}},options||{})).then(function(res){return res.json().catch(function(){return{};}).then(function(body){return{res:res,body:body};});});}
+  function setStatus(node,message,kind){node.textContent=message||"";node.className="field-status"+(kind?" is-"+kind:"");}
+  function localPreview(){return/^(localhost|127\.0\.0\.1)$/.test(w.location.hostname)&&new URLSearchParams(w.location.search).get("demo")==="1";}
+  function payload(){
+    return{name:leadForm.name.value.trim(),business:leadForm.business.value.trim(),phone:leadForm.phone.value.trim(),email:leadForm.email.value.trim(),address:leadForm.address.value.trim(),interest:leadForm.interest.value||"Printing",notes:leadForm.notes.value.trim(),consent:leadForm.consent.checked,website:leadForm.website.value,idempotencyKey:idempotencyKey,language:lang(),action:"save",source:"Field"};
   }
-
-  function t(key) {
-    return (COPY[lang()] || COPY.en)[key] || COPY.en[key] || key;
+  function validate(data){if(!data.name||!data.business)return t("required");if(!data.phone&&!data.email)return t("contactRequired");if(!data.consent)return t("consentRequired");return"";}
+  async function protectDraft(data){
+    try{if(!w.crypto||!crypto.subtle)return;var raw=crypto.getRandomValues(new Uint8Array(32)),iv=crypto.getRandomValues(new Uint8Array(12)),key=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["encrypt"]),cipher=await crypto.subtle.encrypt({name:"AES-GCM",iv:iv},key,new TextEncoder().encode(JSON.stringify(data)));sessionStorage.setItem(DRAFT_KEY,JSON.stringify({exp:Date.now()+DRAFT_TTL,iv:Array.from(iv),key:Array.from(raw),data:Array.from(new Uint8Array(cipher))}));}catch(_){}
   }
-
-  function applyCopy() {
-    d.querySelectorAll("[data-copy]").forEach(function (node) {
-      node.textContent = t(node.getAttribute("data-copy"));
-    });
+  async function readDraft(){
+    try{var value=sessionStorage.getItem(DRAFT_KEY);if(!value||!crypto.subtle)return null;var bundle=JSON.parse(value);if(!bundle||bundle.exp<Date.now()){sessionStorage.removeItem(DRAFT_KEY);return null;}var key=await crypto.subtle.importKey("raw",new Uint8Array(bundle.key),"AES-GCM",false,["decrypt"]),plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:new Uint8Array(bundle.iv)},key,new Uint8Array(bundle.data));return JSON.parse(new TextDecoder().decode(plain));}catch(_){return null;}
   }
-
-  function newKey() {
-    var bytes = new Uint8Array(18);
-    (w.crypto || {}).getRandomValues ? crypto.getRandomValues(bytes) : bytes.forEach(function (_, i) { bytes[i] = Math.floor(Math.random() * 256); });
-    return Array.from(bytes, function (b) { return ("0" + b.toString(16)).slice(-2); }).join("").slice(0, 24);
+  function clearDraft(){try{sessionStorage.removeItem(DRAFT_KEY);}catch(_){}}
+  async function restoreDraft(){var data=await readDraft();if(!data)return;["name","business","phone","email","address","interest","notes"].forEach(function(key){if(data[key]!=null&&leadForm[key])leadForm[key].value=data[key];});leadForm.consent.checked=data.consent===true;if(data.idempotencyKey)idempotencyKey=data.idempotencyKey;syncInterest();}
+  function syncInterest(){d.querySelectorAll("[data-interest]").forEach(function(button){button.setAttribute("aria-pressed",button.getAttribute("data-interest")===leadForm.interest.value?"true":"false");});}
+  function crmState(delivery){var item=(delivery||[]).filter(function(entry){return entry.channel==="crm";})[0];if(!item||item.status==="BLOCKED")return t("crmBlocked");if(item.status==="DELIVERED")return t("crmDelivered");return t("crmQueued");}
+  function whatsappUrl(data){var text="Vral Graphics field lead: "+data.name+" / "+data.business+" / "+(data.phone||data.email)+" / "+data.interest;if(w.VralIntake&&w.VralIntake.whatsappUrl)return w.VralIntake.whatsappUrl(text);return"https://wa.me/17865911017?text="+encodeURIComponent(text);}
+  function renderResult(body,data){
+    var title=body.persistence==="DUPLICATE"?t("duplicate"):t("recorded");
+    result.hidden=false;result.innerHTML="<strong>"+esc(title)+"</strong><p>"+esc(crmState(body.delivery))+"</p><div class=\"result-actions\"><a href=\"/offers/index.html\" target=\"_blank\" rel=\"noopener\">"+esc(t("offers"))+"</a><a href=\""+esc(whatsappUrl(data))+"\" target=\"_blank\" rel=\"noopener\">"+esc(t("whatsapp"))+"</a><a href=\"#\" data-another>"+esc(t("another"))+"</a></div>";
+    result.querySelector("[data-another]").addEventListener("click",function(event){event.preventDefault();resetForm();});
   }
-
-  function setStatus(node, message, kind) {
-    node.textContent = message || "";
-    node.className = "status" + (kind ? " is-" + kind : "");
+  function renderLeads(leads){
+    if(!leads.length){list.innerHTML='<div class="field-empty">'+esc(t("empty"))+"</div>";return;}
+    list.innerHTML=leads.slice(0,8).map(function(lead){return'<article class="lead-row"><div><b>'+esc(lead.business||lead.name)+'</b><small>'+esc(lead.name||"")+' · '+esc(lead.interest||"Printing")+'</small></div><span>'+esc(lead.status||"New")+"</span></article>";}).join("");
   }
-
-  function formPayload(action) {
-    return {
-      name: leadForm.name.value,
-      phone: leadForm.phone.value,
-      email: leadForm.email.value,
-      address: leadForm.address.value,
-      business: leadForm.business.value,
-      interest: leadForm.interest.value || "Printing",
-      consent: leadForm.consent.checked,
-      website: leadForm.website.value,
-      idempotencyKey: idempotencyKey,
-      language: lang(),
-      action: action,
-      source: "Field"
-    };
+  function loadLeads(){
+    if(preview){renderLeads(DEMO);return;}
+    api("/api/field/leads",{method:"GET",headers:{}}).then(function(got){renderLeads(got.res.ok?(got.body.leads||[]):[]);}).catch(function(){renderLeads([]);});
   }
-
-  async function protectDraft(payload) {
-    try {
-      if (!w.crypto || !crypto.subtle) return;
-      var raw = crypto.getRandomValues(new Uint8Array(32));
-      var iv = crypto.getRandomValues(new Uint8Array(12));
-      var key = await crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["encrypt"]);
-      var cipher = await crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, new TextEncoder().encode(JSON.stringify(payload)));
-      sessionStorage.setItem(DRAFT_KEY, JSON.stringify({
-        exp: Date.now() + DRAFT_TTL,
-        iv: Array.from(iv),
-        key: Array.from(raw),
-        data: Array.from(new Uint8Array(cipher))
-      }));
-    } catch (_) {}
+  function showApp(session,isPreview){
+    preview=isPreview===true;loginPanel.hidden=true;appPanel.hidden=false;sessionLine.textContent=t("signedIn")+" "+session.name+" · "+session.role;d.getElementById("preview-banner").hidden=!preview;restoreDraft().then(loadLeads);
   }
-
-  async function readDraft() {
-    try {
-      var raw = sessionStorage.getItem(DRAFT_KEY);
-      if (!raw || !crypto.subtle) return null;
-      var bundle = JSON.parse(raw);
-      if (!bundle || bundle.exp < Date.now()) {
-        sessionStorage.removeItem(DRAFT_KEY);
-        return null;
-      }
-      var key = await crypto.subtle.importKey("raw", new Uint8Array(bundle.key), "AES-GCM", false, ["decrypt"]);
-      var plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(bundle.iv) }, key, new Uint8Array(bundle.data));
-      return JSON.parse(new TextDecoder().decode(plain));
-    } catch (_) {
-      return null;
-    }
-  }
-
-  function clearDraft() {
-    try { sessionStorage.removeItem(DRAFT_KEY); } catch (_) {}
-  }
-
-  async function restoreDraft() {
-    var draft = await readDraft();
-    if (!draft) return;
-    ["name", "phone", "email", "address", "business", "interest"].forEach(function (key) {
-      if (draft[key]) leadForm[key].value = draft[key];
-    });
-    leadForm.consent.checked = draft.consent === true;
-    if (draft.idempotencyKey) idempotencyKey = draft.idempotencyKey;
-  }
-
-  function channel(delivery, name) {
-    return (delivery || []).find(function (item) { return item && item.channel === name; }) || null;
-  }
-
-  function crmText(delivery) {
-    var item = channel(delivery, "crm");
-    if (!item) return t("crmBlocked");
-    if (item.status === "DELIVERED") return t("crmSaved");
-    if (item.status === "QUEUED" || item.status === "RETRYING") return t("crmQueued");
-    if (item.status === "FAILED") return t("crmFailed");
-    return t("crmBlocked");
-  }
-
-  function flyerText(delivery) {
-    var item = channel(delivery, "flyer_email");
-    if (!item) return t("flyerBlocked");
-    if (item.status === "DELIVERED") return t("flyerDelivered");
-    if (item.status === "QUEUED" || item.status === "RETRYING") return t("flyerQueued");
-    if (item.status === "FAILED") return t("flyerFailed");
-    return t("flyerBlocked");
-  }
-
-  function whatsappUrl(payload) {
-    var text = "Vral Graphics field lead: " + payload.name + " / " + payload.business + " / " + payload.phone + " / " + (payload.interest || "Printing");
-    if (w.VralIntake && w.VralIntake.whatsappUrl) return w.VralIntake.whatsappUrl(text);
-    var digits = (w.VralRoutes && w.VralRoutes.CONTACT && w.VralRoutes.CONTACT.whatsappDigits) || "17865911017";
-    return "https://wa.me/" + digits + "?text=" + encodeURIComponent(text);
-  }
-
-  function offersUrl() {
-    return (w.VralRoutes && w.VralRoutes.ROUTES && w.VralRoutes.ROUTES.offers) || "/offers/index.html";
-  }
-
-  async function api(url, options) {
-    var res = await fetch(url, Object.assign({ credentials: "same-origin", headers: { "content-type": "application/json" } }, options || {}));
-    var body = await res.json().catch(function () { return {}; });
-    return { res: res, body: body };
-  }
-
-  function showApp(session) {
-    viewer = session;
-    loginPanel.hidden = true;
-    appPanel.hidden = false;
-    sessionLine.textContent = t("signedIn") + " " + session.name + " · " + session.role;
-    restoreDraft().then(function () { loadLeads(); });
-  }
-
-  function showLogin() {
-    viewer = null;
-    loginPanel.hidden = false;
-    appPanel.hidden = true;
-  }
-
-  async function loadSession() {
-    try {
-      var got = await api("/api/field/session", { method: "GET", headers: {} });
-      if (got.res.ok) showApp(got.body);
-      else showLogin();
-    } catch (_) {
-      showLogin();
-    }
-  }
-
-  async function loadLeads() {
-    try {
-      var got = await api("/api/field/leads", { method: "GET", headers: {} });
-      if (!got.res.ok) {
-        list.textContent = t("empty");
-        return;
-      }
-      var leads = got.body.leads || [];
-      if (!leads.length) {
-        list.textContent = t("empty");
-        return;
-      }
-      list.innerHTML = leads.map(function (lead) {
-        return '<article class="lead-card"><b>' + escapeHtml(lead.business || lead.name) + "</b><span>" + escapeHtml(lead.name) + " · " + escapeHtml(lead.phone) + "</span><span>" + escapeHtml(lead.status) + " · " + escapeHtml(lead.owner) + "</span></article>";
-      }).join("");
-    } catch (_) {
-      list.textContent = t("empty");
-    }
-  }
-
-  function escapeHtml(value) {
-    return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
-  function renderSuccess(body, action) {
-    var persistence = body.persistence;
-    var title = persistence === "DUPLICATE" ? t("duplicate") : t("recorded");
-    result.hidden = false;
-    result.innerHTML =
-      "<strong>" + escapeHtml(title) + "</strong>" +
-      "<p>" + t("owner") + ": " + escapeHtml(body.owner || "Mike") + "</p>" +
-      "<p>" + escapeHtml(crmText(body.delivery)) + "</p>" +
-      "<p>" + escapeHtml(flyerText(body.delivery)) + "</p>" +
-      (body.followUpDue ? "<p>" + t("follow") + ": " + escapeHtml(body.followUpDue) + "</p>" : "") +
-      (action === "save_and_send_offers" ? "<p>" + t("offersHint") + "</p>" : "");
-    setStatus(formStatus, title, "ok");
-  }
-
-  loginForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    setStatus(loginStatus, "", "");
-    try {
-      var got = await api("/api/field/login", {
-        method: "POST",
-        body: JSON.stringify({ username: loginForm.username.value, password: loginForm.password.value })
-      });
-      if (got.res.status === 503) return setStatus(loginStatus, t("blocked"), "error");
-      if (!got.res.ok) return setStatus(loginStatus, t("unauthorized"), "error");
-      showApp(got.body);
-    } catch (_) {
-      setStatus(loginStatus, t("blocked"), "error");
-    }
+  function showLogin(){loginPanel.hidden=false;appPanel.hidden=true;}
+  function resetForm(){leadForm.reset();leadForm.interest.value="Printing";idempotencyKey=newKey();result.hidden=true;result.innerHTML="";clearDraft();syncInterest();setStatus(formStatus,"","");leadForm.business.focus();}
+  loginForm.addEventListener("submit",function(event){
+    event.preventDefault();api("/api/field/login",{method:"POST",body:JSON.stringify({username:loginForm.username.value,password:loginForm.password.value})}).then(function(got){if(got.res.status===503)return setStatus(loginStatus,t("blocked"),"error");if(!got.res.ok)return setStatus(loginStatus,t("unauthorized"),"error");showApp(got.body,false);}).catch(function(){setStatus(loginStatus,t("blocked"),"error");});
   });
-
-  d.getElementById("sign-out").addEventListener("click", async function () {
-    await api("/api/field/logout", { method: "POST", body: "{}" });
-    showLogin();
+  d.getElementById("sign-out").addEventListener("click",function(){if(preview){w.location.href="/field/index.html";return;}api("/api/field/logout",{method:"POST",body:"{}"}).then(showLogin);});
+  d.querySelectorAll("[data-interest]").forEach(function(button){button.addEventListener("click",function(){leadForm.interest.value=button.getAttribute("data-interest");syncInterest();});});
+  leadForm.addEventListener("submit",async function(event){
+    event.preventDefault();var data=payload(),error=validate(data);if(error)return setStatus(formStatus,error,"error");
+    await protectDraft(data);var button=leadForm.querySelector(".save-button");button.disabled=true;result.hidden=true;
+    if(preview){setTimeout(function(){button.disabled=false;setStatus(formStatus,t("previewSaved"),"ok");renderResult({persistence:"RECORDED",delivery:[]},data);},250);return;}
+    api("/api/field/leads",{method:"POST",body:JSON.stringify(data)}).then(function(got){if(!got.res.ok||!got.body.id){setStatus(formStatus,(got.body&&got.body.error)||t("notRecorded"),"error");return;}clearDraft();setStatus(formStatus,got.body.persistence==="DUPLICATE"?t("duplicate"):t("recorded"),"ok");renderResult(got.body,data);loadLeads();}).catch(function(){setStatus(formStatus,t("offline"),"error");}).then(function(){button.disabled=false;});
   });
-
-  leadForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    var action = pendingAction || "save";
-    var payload = formPayload(action);
-    await protectDraft(payload);
-    result.hidden = true;
-    Array.prototype.forEach.call(leadForm.querySelectorAll("button[type='submit']"), function (btn) { btn.disabled = true; });
-    try {
-      var got = await api("/api/field/leads", { method: "POST", body: JSON.stringify(payload) });
-      if (!got.res.ok || !got.body.id) {
-        setStatus(formStatus, (got.body && got.body.error) || t("notRecorded") + " " + t("draftKept"), "error");
-        return;
-      }
-      clearDraft();
-      renderSuccess(got.body, action);
-      if (action === "save_and_send_offers") w.open(offersUrl(), "_blank", "noopener");
-      if (action === "save_and_open_whatsapp") w.open(whatsappUrl(payload), "_blank", "noopener");
-      loadLeads();
-    } catch (_) {
-      setStatus(formStatus, t("offline"), "error");
-    } finally {
-      Array.prototype.forEach.call(leadForm.querySelectorAll("button[type='submit']"), function (btn) { btn.disabled = false; });
-    }
-  });
-
-  Array.prototype.forEach.call(leadForm.querySelectorAll("button[data-action]"), function (btn) {
-    btn.addEventListener("click", function () { pendingAction = btn.getAttribute("data-action"); });
-  });
-
-  d.getElementById("another").addEventListener("click", function () {
-    leadForm.reset();
-    leadForm.interest.value = "Printing";
-    idempotencyKey = newKey();
-    result.hidden = true;
-    result.innerHTML = "";
-    setStatus(formStatus, "", "");
-    clearDraft();
-    leadForm.name.focus();
-  });
-
-  d.documentElement.addEventListener("vral:lang", applyCopy);
-  applyCopy();
-  loadSession();
-})(window, document);
+  d.documentElement.addEventListener("vral:lang",function(){applyCopy();loadLeads();});
+  applyCopy();syncInterest();
+  if(localPreview())showApp({name:"Local preview",role:"experience"},true);
+  else api("/api/field/session",{method:"GET",headers:{}}).then(function(got){if(got.res.ok)showApp(got.body,false);else showLogin();}).catch(showLogin);
+})(window,document);

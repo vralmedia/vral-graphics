@@ -49,13 +49,14 @@
   function tickets(product) {
     var c = copy();
     return product.offers.map(function (offer) {
+      var shown = catalog.displayOffer(offer, c.lang());
       var href = catalog.quoteHref(product.id, offer.sku, query);
       var label = product.cta === "measure" ? c.t("measure") : c.t("request");
       var cls = product.cta === "measure" ? "ticket ticket-measure" : "ticket";
       return (
         '<a class="' + cls + '" href="' + esc(href) + '" data-sku="' + esc(offer.sku) + '">' +
-          "<b>" + esc(offer.priceLabel) + "</b>" +
-          "<small>" + esc(offer.detail) + "</small>" +
+          "<b>" + esc(shown.priceLabel) + "</b>" +
+          "<small>" + esc(shown.detail) + "</small>" +
           '<span class="cta">' + esc(label) + "</span>" +
         "</a>"
       );

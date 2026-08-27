@@ -23,7 +23,8 @@
     var product = catalog && catalog.product(id);
     if (!product) return "";
     return product.offers.slice(0, 2).map(function (offer) {
-      return '<div class="offer-chip"><strong>' + escapeHTML(offer.priceLabel) + '</strong><span>' + escapeHTML(offer.detail) + "</span></div>";
+      var shown = catalog.displayOffer(offer, window.VG_I18N && window.VG_I18N.lang());
+      return '<div class="offer-chip"><strong>' + escapeHTML(shown.priceLabel) + '</strong><span>' + escapeHTML(shown.detail) + "</span></div>";
     }).join("");
   }
 
@@ -60,10 +61,34 @@
       button.setAttribute("aria-pressed", on ? "true" : "false");
     });
     if (window.VralReggie) window.VralReggie.setProduct(id);
+    if (window.VralJobStore) window.VralJobStore.saveDraft({ product: id, source: "home-live-desk" });
     if (announce) {
       var live = document.querySelector("[data-live-product]");
       if (live) live.textContent = t("selectedProduct") + " " + t(data.title) + ".";
     }
+  }
+
+  var PATH = {
+    choose: { image: "assets/products/cards.webp", status: "pathChooseStatus", alt: "cardsAlt" },
+    approve: { image: "assets/products/menus.webp", status: "pathApproveStatus", alt: "menusAlt" },
+    get: { image: "assets/products/signs.webp", status: "pathGetStatus", alt: "signsAlt" }
+  };
+
+  function renderPath(step) {
+    var data = PATH[step] || PATH.choose;
+    var image = document.querySelector("[data-path-image]");
+    var status = document.querySelector("[data-path-status]");
+    if (image) { image.src = data.image; image.alt = t(data.alt); }
+    if (status) status.textContent = t(data.status);
+    document.querySelectorAll("[data-path-step]").forEach(function (button) {
+      button.setAttribute("aria-selected", button.getAttribute("data-path-step") === step ? "true" : "false");
+    });
+  }
+
+  function bindPath() {
+    document.querySelectorAll("[data-path-step]").forEach(function (button) {
+      button.addEventListener("click", function () { renderPath(button.getAttribute("data-path-step")); });
+    });
   }
 
   function applyCopy() {
@@ -94,6 +119,7 @@
   document.documentElement.addEventListener("vral:lang", function () { window.setTimeout(applyCopy, 0); });
   applyCopy();
   bindProducts();
+  bindPath();
   bindReggie();
   renderProduct(selected, false);
 })();

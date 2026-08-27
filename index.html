@@ -19,9 +19,9 @@
       <section class="live-desk" aria-labelledby="desk-title">
         <div class="shell desk-shell">
           <div class="desk-intro">
-            <p class="trust-line" data-i18n="trustLine">Quality printing for less.</p>
+            <p class="trust-line" data-i18n="trustLine">Miami print desk</p>
             <h1 id="desk-title" data-i18n="deskTitle">What are we making?</h1>
-            <p class="desk-support" data-i18n="deskSupport">Choose a product. We’ll handle design, print and delivery.</p>
+            <p class="desk-support" data-i18n="deskSupport">Choose it. Approve it. Get it.</p>
           </div>
           <div class="product-shelf" role="list" aria-label="Print products" data-i18n-aria="productShelfLabel">
             <button class="product-object is-selected" type="button" role="listitem" data-product="business-cards" aria-pressed="true">
@@ -57,25 +57,57 @@
             </div>
             <div class="reggie-dock"><div class="reggie-host" data-reggie="desk"><img class="reggie-fallback" src="assets/mascot/reggie-static.svg" width="180" height="180" alt="" /></div></div>
           </section>
-          <a class="help-choice" href="/quote/index.html?product=unsure" data-i18n="helpChoose">Help me choose</a>
+          <a class="help-choice" href="/quote/index.html?product=unsure&amp;source=home-help" data-i18n="helpChoose">Help me choose</a>
           <p class="visually-hidden" data-live-product aria-live="polite"></p>
           <p class="visually-hidden" data-reggie-live aria-live="polite"></p>
         </div>
       </section>
+      <section id="how-it-works" class="press-path" aria-labelledby="path-title">
+        <div class="shell path-layout">
+          <div class="path-copy">
+            <h2 id="path-title" data-i18n="pathTitle">Three moves. One team.</h2>
+            <div class="path-tabs" role="tablist" aria-label="How it works" data-i18n-aria="pathLabel">
+              <button type="button" role="tab" aria-selected="true" data-path-step="choose"><span>1</span><b data-i18n="pathChoose">Choose</b><small data-i18n="pathChooseNote">Tell us the job.</small></button>
+              <button type="button" role="tab" aria-selected="false" data-path-step="approve"><span>2</span><b data-i18n="pathApprove">Approve</b><small data-i18n="pathApproveNote">See it first.</small></button>
+              <button type="button" role="tab" aria-selected="false" data-path-step="get"><span>3</span><b data-i18n="pathGet">Get it</b><small data-i18n="pathGetNote">Pickup or delivery.</small></button>
+            </div>
+          </div>
+          <div class="path-visual" aria-live="polite">
+            <span class="path-status" data-path-status data-i18n="pathChooseStatus">Your product is on the desk.</span>
+            <img data-path-image src="assets/products/cards.webp" width="900" height="600" alt="A stack of full-color business cards" data-i18n-alt="cardsAlt" loading="lazy" />
+            <span class="registration-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </div>
+        </div>
+      </section>
       <section class="proof-reel" aria-labelledby="proof-title">
         <div class="shell proof-layout">
-          <div class="proof-copy"><h2 id="proof-title" data-i18n="proofTitle">Made to be seen.</h2><p data-i18n="proofSteps">Designed. Printed. Delivered.</p></div>
-          <div class="proof-pieces" aria-hidden="true"><img src="assets/products/menus.webp" width="900" height="900" alt="" loading="lazy" /><img src="assets/products/banners.webp" width="900" height="900" alt="" loading="lazy" /><img src="assets/products/signs.webp" width="900" height="900" alt="" loading="lazy" /></div>
+          <div class="proof-copy"><h2 id="proof-title" data-i18n="proofTitle">Print that shows up.</h2><p data-i18n="proofSteps">Cards to storefronts.</p></div>
+          <div class="proof-pieces"><img src="assets/products/menus.webp" width="900" height="900" alt="An open folded menu" data-i18n-alt="menusAlt" loading="lazy" /><img src="assets/products/banners.webp" width="900" height="900" alt="A partially unrolled vinyl banner" data-i18n-alt="bannersAlt" loading="lazy" /><img src="assets/products/signs.webp" width="900" height="900" alt="A printed sidewalk A-frame sign" data-i18n-alt="signsAlt" loading="lazy" /></div>
         </div>
       </section>
       <section class="confidence" aria-label="Why Vral Graphics" data-i18n-aria="confidenceLabel">
         <div class="shell confidence-line"><span>Miami</span><i aria-hidden="true"></i><span data-i18n="proofBefore">Proof before print</span><i aria-hidden="true"></i><span>English / Español</span><i aria-hidden="true"></i><span data-i18n="humanConfirmation">Human confirmation</span></div>
       </section>
-      <section class="show-us" aria-labelledby="show-title">
-        <div class="shell show-layout"><div><h2 id="show-title" data-i18n="notSure">Not sure?</h2><p data-i18n="showHelper">Add a photo or tell us the goal.</p></div><a class="button-primary" href="/quote/index.html?product=unsure" data-i18n="showUs">Show us</a></div>
+      <section class="guide-band" aria-labelledby="guide-title">
+        <div class="shell guide-layout">
+          <div class="guide-reggie"><img src="assets/mascot/reggie-static.svg" width="180" height="180" alt="" /></div>
+          <div><h2 id="guide-title" data-i18n="notSure">Not sure what to print?</h2><p data-i18n="showHelper">Show us the goal. We’ll narrow it down.</p></div>
+          <a class="button-primary" href="/quote/index.html?product=unsure&amp;source=home-guide" data-i18n="showUs">Help me choose</a>
+        </div>
+      </section>
+      <section class="quick-answers" aria-labelledby="answers-title">
+        <div class="shell answers-layout">
+          <h2 id="answers-title" data-i18n="answersTitle">Good to know.</h2>
+          <div class="answer-list">
+            <details><summary data-i18n="answerDesignQ">Can you design it?</summary><p data-i18n="answerDesignA">Yes. Choose “I need design” when you build the job.</p></details>
+            <details><summary data-i18n="answerProofQ">Will I see it first?</summary><p data-i18n="answerProofA">Yes. Nothing moves to print before approval.</p></details>
+            <details><summary data-i18n="answerFilesQ">What can I send?</summary><p data-i18n="answerFilesA">Send the best file you have. We’ll check it after the request is saved.</p></details>
+            <details><summary data-i18n="answerFulfillQ">Pickup or delivery?</summary><p data-i18n="answerFulfillA">Choose either while building the job. Installation is confirmed when the product needs it.</p></details>
+          </div>
+        </div>
       </section>
     </main>
     <div data-vral-footer></div>
-    <script src="shared/routes.js"></script><script src="shared/site-nav.js"></script><script src="offers/catalog.js"></script><script src="i18n.js"></script><script src="assets/mascot/reggie.js"></script><script src="app.js"></script>
+    <script src="shared/routes.js"></script><script src="shared/site-nav.js"></script><script src="shared/job-store.js"></script><script src="offers/catalog.js"></script><script src="i18n.js"></script><script src="assets/mascot/reggie.js"></script><script src="app.js"></script>
   </body>
 </html>

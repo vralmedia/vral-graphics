@@ -124,14 +124,15 @@ test("filename is not treated as stored artwork", function () {
   assert.equal(intake.neverFilenameSuccess("stored"), false);
 });
 
-test("known products use a two-step request and artwork uploads only after save", function () {
+test("known products use focused microsteps and artwork uploads only after save", function () {
   var known = intake.emptyState();
   known.product = "business-cards";
-  assert.deepEqual(intake.steps(known), ["details", "contact"]);
-  assert.deepEqual(intake.steps(intake.emptyState()), ["product", "details", "contact"]);
+  assert.deepEqual(intake.steps(known), ["build", "artwork", "fulfillment", "contact"]);
+  assert.deepEqual(intake.steps(intake.emptyState()), ["product", "build", "artwork", "fulfillment", "contact"]);
   var quote = read("quote/quote.js");
   assert.match(quote, /post-upload/);
-  assert.equal(/stepArtwork\(/.test(quote), false);
+  assert.match(quote, /function stepArtwork\(\)/);
+  assert.equal((quote.match(/<input type=["']file["']/g) || []).length, 1);
 });
 
 test("public offers and quote files keep the contract", function () {

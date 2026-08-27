@@ -5,87 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>Field — Vral Graphics</title>
-    <meta name="theme-color" content="#071fdd" />
+    <meta name="theme-color" content="#f6f7fb" />
     <link rel="icon" href="../assets/vral-printmark.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../shared/page.css" />
     <link rel="stylesheet" href="./field.css" />
   </head>
-  <body data-page="field" data-mark="../assets/vral-printmark.png">
+  <body class="field-body" data-page="field" data-mark="../assets/vral-printmark.png">
     <div data-vral-header></div>
-    <main id="content" class="shell field-shell">
-      <p class="field-kicker" data-copy="kicker">Private field ticket</p>
-      <h1 data-copy="title">Field</h1>
-      <p class="field-lead" data-copy="lead">One-hand capture for Mike. Login required. Nothing is saved until the server says so.</p>
-
-      <section id="login-panel" class="ticket" aria-labelledby="login-heading">
-        <h2 id="login-heading" data-copy="loginTitle">Sign in</h2>
-        <form id="login-form" autocomplete="username">
-          <label>
-            <span data-copy="username">Username</span>
-            <input name="username" type="text" required autocomplete="username" />
-          </label>
-          <label>
-            <span data-copy="password">Password</span>
-            <input name="password" type="password" required autocomplete="current-password" />
-          </label>
-          <button class="btn btn-primary" type="submit" data-copy="signIn">Sign in</button>
+    <main id="content" class="field-shell">
+      <section id="login-panel" class="field-login" aria-labelledby="login-heading">
+        <img src="../assets/vral-printmark.png" width="64" height="64" alt="" />
+        <h1 id="login-heading" data-copy="loginTitle">Field sign in</h1>
+        <p data-copy="loginLead">Fast capture for conversations in the real world.</p>
+        <form id="login-form">
+          <label><span data-copy="username">Username</span><input name="username" required autocomplete="username" /></label>
+          <label><span data-copy="password">Password</span><input name="password" type="password" required autocomplete="current-password" /></label>
+          <button class="field-button is-primary" type="submit" data-copy="signIn">Sign in</button>
         </form>
-        <p id="login-status" class="status" role="status"></p>
+        <p id="login-status" class="field-status" role="status"></p>
       </section>
 
-      <section id="app-panel" class="ticket" hidden>
-        <div class="field-meta">
-          <p id="session-line"></p>
-          <button id="sign-out" class="btn btn-ghost" type="button" data-copy="signOut">Sign out</button>
+      <section id="app-panel" class="field-app" hidden>
+        <header class="field-head">
+          <div class="field-brand"><img src="../assets/vral-printmark.png" width="42" height="42" alt="" /><div><strong>Vral Graphics</strong><span data-copy="fieldMode">Field</span></div></div>
+          <div class="field-session"><span id="session-line"></span><button id="sign-out" type="button" data-copy="signOut">Sign out</button></div>
+        </header>
+        <div id="preview-banner" class="field-preview" hidden><strong data-copy="preview">Local experience preview</strong><span data-copy="previewNote">Nothing will be recorded.</span></div>
+        <div class="field-grid">
+          <section class="capture-panel" aria-labelledby="capture-title">
+            <div class="capture-title"><span data-copy="timePromise">About 60 seconds</span><h1 id="capture-title" data-copy="title">Quick capture</h1><p data-copy="lead">Save the conversation. The system handles the follow-up.</p></div>
+            <form id="lead-form" novalidate>
+              <div class="field-pair">
+                <label><span data-copy="business">Business</span><input name="business" required autocomplete="organization" /></label>
+                <label><span data-copy="name">Contact</span><input name="name" required autocomplete="name" /></label>
+              </div>
+              <div class="field-pair">
+                <label><span data-copy="phone">Phone / WhatsApp</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" /></label>
+                <label><span data-copy="email">Email</span><input name="email" type="email" autocomplete="email" inputmode="email" /></label>
+              </div>
+              <fieldset class="interest-picker">
+                <legend data-copy="need">What do they need?</legend>
+                <input name="interest" type="hidden" value="Printing" />
+                <div class="interest-options">
+                  <button type="button" data-interest="Business cards" data-copy="cards">Cards</button>
+                  <button type="button" data-interest="Flyers" data-copy="flyers">Flyers</button>
+                  <button type="button" data-interest="Menus" data-copy="menus">Menus</button>
+                  <button type="button" data-interest="Banners" data-copy="banners">Banners</button>
+                  <button type="button" data-interest="Window graphics" data-copy="windows">Windows</button>
+                  <button type="button" data-interest="Signs" data-copy="signs">Signs</button>
+                  <button type="button" data-interest="Other printing" data-copy="other">Other</button>
+                </div>
+              </fieldset>
+              <details class="more-details">
+                <summary data-copy="more">Add context</summary>
+                <label><span data-copy="address">Address <small data-copy="optional">optional</small></span><input name="address" autocomplete="street-address" /></label>
+                <label><span data-copy="notes">Note <small data-copy="optional">optional</small></span><textarea name="notes" data-copy-placeholder="notesPlaceholder" placeholder="What should happen next?"></textarea></label>
+              </details>
+              <label class="consent"><input name="consent" type="checkbox" /><span data-copy="consent">They asked to be contacted about printing.</span></label>
+              <div class="hp"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+              <button class="field-button is-primary save-button" type="submit" data-copy="save">Save lead</button>
+            </form>
+            <p id="form-status" class="field-status" role="status"></p>
+            <section id="result" class="field-result" hidden></section>
+          </section>
+          <aside class="recent-panel">
+            <div class="recent-head"><h2 data-copy="mine">Recent leads</h2><span data-copy="private">Only what you can see</span></div>
+            <div id="lead-list"><div class="field-skeleton"></div><div class="field-skeleton"></div></div>
+          </aside>
         </div>
-
-        <form id="lead-form">
-          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <label>
-            <span data-copy="name">Name</span>
-            <input name="name" type="text" required autocomplete="name" inputmode="text" />
-          </label>
-          <label>
-            <span data-copy="phone">Phone</span>
-            <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" />
-          </label>
-          <label>
-            <span data-copy="email">Email</span>
-            <input name="email" type="email" required autocomplete="email" inputmode="email" />
-          </label>
-          <label>
-            <span data-copy="address">Address</span>
-            <input name="address" type="text" required autocomplete="street-address" />
-          </label>
-          <label>
-            <span data-copy="business">Business</span>
-            <input name="business" type="text" required autocomplete="organization" />
-          </label>
-          <label>
-            <span data-copy="interest">Interest</span>
-            <input name="interest" type="text" value="Printing" />
-          </label>
-          <label class="consent">
-            <input name="consent" type="checkbox" />
-            <span data-copy="consent">They asked to be contacted about printing.</span>
-          </label>
-          <div class="actions">
-            <button class="btn btn-primary" type="submit" data-action="save" data-copy="save">Save lead</button>
-            <button class="btn btn-yellow" type="submit" data-action="save_and_send_offers" data-copy="saveOffers">Save and send offers</button>
-            <button class="btn btn-ink" type="submit" data-action="save_and_open_whatsapp" data-copy="saveWhatsapp">Save and open WhatsApp</button>
-            <button class="btn btn-ghost" type="button" id="another" data-copy="another">Create another lead</button>
-          </div>
-        </form>
-        <p id="form-status" class="status" role="status"></p>
-        <section id="result" class="result" hidden></section>
-
-        <section class="mine" aria-labelledby="mine-heading">
-          <h2 id="mine-heading" data-copy="mine">Leads you can see</h2>
-          <div id="lead-list"></div>
-        </section>
       </section>
     </main>
     <div data-vral-footer></div>

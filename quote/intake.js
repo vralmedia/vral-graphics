@@ -67,7 +67,7 @@
   function steps(state) {
     var list = [];
     if (needsProductStep(state)) list.push("product");
-    list.push("details", "contact");
+    list.push("build", "artwork", "fulfillment", "contact");
     return list;
   }
 
@@ -102,14 +102,18 @@
   function validate(state, step) {
     var errors = [];
     if (step === "product" && !state.product) errors.push("need_product");
-    if (step === "details") {
+    if (step === "build") {
       if ((state.product === "unsure" || state.product === "packaging") && !state.goal) errors.push("need_goal");
       if (needsMeasurements(state.product)) {
         if (!state.width || !state.height) errors.push("need_measure");
       }
+    }
+    if (step === "artwork") {
+      if (!state.artwork) errors.push("need_artwork");
+    }
+    if (step === "fulfillment") {
       if (!state.fulfillment) errors.push("need_fulfillment");
       if ((state.fulfillment === "delivery" || state.install === "yes") && !state.address) errors.push("need_address");
-      if (!state.artwork) errors.push("need_artwork");
     }
     if (step === "contact") {
       if (!state.name) errors.push("need_name");

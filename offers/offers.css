@@ -194,7 +194,7 @@
   position: absolute;
   inset: 0;
   border: 1px solid var(--ink);
-  background: var(--white) url("../assets/print-cards.png") center/cover;
+  background: var(--white) url("../assets/print-cards.jpg") center/cover;
   box-shadow: 4px 5px 0 var(--ink);
 }
 .card-stack i:nth-child(1) { transform: rotate(-9deg) translate(-8px, 10px); }
@@ -203,7 +203,7 @@
 
 .piece-flyers {
   min-height: 300px;
-  background: var(--white) url("../assets/print-postcard.png") center/cover;
+  background: var(--white) url("../assets/print-postcard.jpg") center/cover;
 }
 .piece-menus {
   display: grid;
@@ -241,7 +241,7 @@
   min-height: 280px;
   background:
     linear-gradient(180deg, rgba(18, 199, 255, 0.28), rgba(255, 255, 255, 0.2)),
-    url("../assets/print-poster.png") center/cover;
+    url("../assets/print-poster.jpg") center/cover;
   outline: 14px solid #d7dde8;
   outline-offset: -14px;
 }

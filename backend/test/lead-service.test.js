@@ -43,3 +43,4 @@ test("retries configured delivery jobs and records final delivery state", async 
 });
 
 test("rejects missing ordered fields, bad contacts, and malformed idempotency keys", function () { var errors = validate({ name: "", phone: "12", email: "wrong", idempotencyKey: "short" }).errors; assert.ok(errors.length >= 6); assert.match(errors.join("|"), /address is required/); assert.match(errors.join("|"), /idempotencyKey is invalid/); });
+test("field quick capture accepts one contact method without inventing address data", async function () { var s = await service(); var result = await s.instance.submit({ name: "Mia", phone: "3055550111", business: "Mia Studio", interest: "Menus" }, { clientKey: "quick", quickCapture: true }); assert.equal(result.statusCode, 202); assert.equal(result.lead.email, ""); assert.equal(result.lead.address, ""); });

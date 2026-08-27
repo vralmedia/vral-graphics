@@ -4,39 +4,51 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Admin — Vral Graphics</title>
-    <meta name="theme-color" content="#071fdd" />
+    <title>Operations — Vral Graphics</title>
+    <meta name="theme-color" content="#f6f7fb" />
     <link rel="icon" href="../assets/vral-printmark.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../shared/page.css" />
     <link rel="stylesheet" href="./admin.css" />
   </head>
-  <body data-page="admin" data-mark="../assets/vral-printmark.png">
+  <body class="ops-body" data-page="admin" data-mark="../assets/vral-printmark.png">
     <div data-vral-header></div>
-    <main id="content" class="shell admin-shell">
-      <p class="admin-kicker" data-copy="kicker">Press room board</p>
-      <h1 data-copy="title">Leads</h1>
-      <p class="admin-lead" data-copy="lead">Mike sees his own tickets. Anthony sees every ticket. Paid never appears before a verified payment webhook.</p>
-
-      <section id="login-panel" class="board-login" aria-labelledby="login-heading">
-        <h2 id="login-heading" data-copy="loginTitle">Sign in</h2>
+    <main id="content">
+      <section id="login-panel" class="ops-login" aria-labelledby="login-heading">
+        <img src="../assets/vral-printmark.png" width="68" height="68" alt="" />
+        <h1 id="login-heading" data-copy="loginTitle">Operations sign in</h1>
+        <p data-copy="loginLead">One job. One thread. Every team.</p>
         <form id="login-form">
           <label><span data-copy="username">Username</span><input name="username" required autocomplete="username" /></label>
           <label><span data-copy="password">Password</span><input name="password" type="password" required autocomplete="current-password" /></label>
-          <button class="btn btn-primary" type="submit" data-copy="signIn">Sign in</button>
+          <button class="ops-button is-primary" type="submit" data-copy="signIn">Sign in</button>
         </form>
-        <p id="login-status" class="status" role="status"></p>
+        <p id="login-status" class="ops-status" role="status"></p>
       </section>
 
-      <section id="board-panel" hidden>
-        <div class="board-meta">
-          <p id="session-line"></p>
-          <button id="sign-out" class="btn btn-ghost" type="button" data-copy="signOut">Sign out</button>
+      <section id="board-panel" class="ops-app" hidden>
+        <aside class="ops-nav">
+          <div class="ops-workspace"><img src="../assets/vral-printmark.png" width="36" height="36" alt="" /><div><strong>Vral Graphics</strong><span data-copy="workspace">Operations</span></div></div>
+          <nav aria-label="Operations">
+            <button type="button" data-view="today" aria-current="page"><span aria-hidden="true">●</span><b data-copy="today">Today</b></button>
+            <button type="button" data-view="exceptions"><span aria-hidden="true">!</span><b data-copy="exceptions">Exceptions</b><i data-exception-count>0</i></button>
+            <button type="button" data-view="jobs"><span aria-hidden="true">▤</span><b data-copy="jobs">Jobs</b></button>
+            <button type="button" data-view="customers"><span aria-hidden="true">◎</span><b data-copy="customers">Customers</b></button>
+            <button type="button" data-view="pipeline"><span aria-hidden="true">→</span><b data-copy="pipeline">Pipeline</b></button>
+          </nav>
+          <div class="ops-nav-foot"><span id="session-line"></span><button id="sign-out" type="button" data-copy="signOut">Sign out</button></div>
+        </aside>
+        <div class="ops-main">
+          <header class="ops-topbar">
+            <div><h1 id="view-title">Today</h1><p id="view-lead"></p></div>
+            <label class="ops-search"><span class="visually-hidden" data-copy="search">Search</span><input id="global-search" type="search" data-copy-placeholder="searchPlaceholder" placeholder="Search jobs or customers" /></label>
+          </header>
+          <div id="preview-banner" class="preview-banner" hidden><strong data-copy="preview">Local experience preview</strong><span data-copy="previewNote">Synthetic data. Never production.</span></div>
+          <p id="board-status" class="ops-status" role="status"></p>
+          <div id="ops-view" class="ops-view" aria-live="polite"></div>
         </div>
-        <p id="board-status" class="status" role="status"></p>
-        <div id="board" class="board" data-paid-rule="webhook-verified"></div>
       </section>
     </main>
     <div data-vral-footer></div>

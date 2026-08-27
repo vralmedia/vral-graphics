@@ -5,11 +5,14 @@
     home: "/",
     need: "/#desk-title",
     work: "/#proof-title",
+    how: "/#how-it-works",
     offers: "/offers/index.html",
     quote: "/quote/index.html",
     help: "/quote/index.html?product=unsure",
     field: "/field/index.html",
     admin: "/admin/index.html",
+    jobs: "/jobs/index.html",
+    track: "/jobs/index.html#track",
     privacy: "/legal/privacy/index.html",
     terms: "/legal/terms/index.html",
     accessibility: "/legal/accessibility/index.html",
@@ -39,10 +42,15 @@
     return id ? ROUTES.quote + "?product=" + id : ROUTES.quote;
   }
 
+  function jobUrl(id) {
+    return ROUTES.jobs + (id ? "?id=" + encodeURIComponent(id) : "");
+  }
+
   w.VralRoutes = {
     ROUTES: ROUTES,
     PRODUCTS: PRODUCTS,
     CONTACT: CONTACT,
     quoteUrl: quoteUrl,
+    jobUrl: jobUrl,
   };
 })(window);

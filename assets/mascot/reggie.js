@@ -13,6 +13,10 @@
     packaging: "pack",
     unsure: ""
   };
+  var PRODUCT_COPY = {
+    "business-cards": "cards", "flyers-postcards": "flyers", "brochures-menus": "menus",
+    banners: "banners", "window-graphics": "windows", "signs-aframes": "signs", packaging: "packaging"
+  };
 
   var MARKUP =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" class="reggie" data-state="idle" focusable="false" aria-hidden="true">' +
@@ -72,7 +76,7 @@
       approved: "reggieApproved",
       paid: "reggiePaid"
     };
-    live.textContent = i18n.t(map[state] || "reggieIdle", { product: product || "" });
+    live.textContent = i18n.t(map[state] || "reggieIdle", { product: product ? i18n.t(PRODUCT_COPY[product] || product) : "" });
   }
 
   function paint(node, state, product) {

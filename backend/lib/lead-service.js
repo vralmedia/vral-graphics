@@ -21,8 +21,9 @@ function emailKey(value) {
   return clean(value, 254).toLowerCase();
 }
 
-function validate(input) {
+function validate(input, options) {
   input = input && typeof input === "object" ? input : {};
+  options = options || {};
   var lead = {
     name: clean(input.name, 160),
     phone: clean(input.phone, 64),
@@ -42,9 +43,13 @@ function validate(input) {
   };
   var errors = [];
   if (!lead.name) errors.push("name is required");
-  if (!lead.phone) errors.push("phone is required");
-  if (!lead.email) errors.push("email is required");
-  if (!lead.address) errors.push("address is required");
+  if (options.quickCapture) {
+    if (!lead.phone && !lead.email) errors.push("phone or email is required");
+  } else {
+    if (!lead.phone) errors.push("phone is required");
+    if (!lead.email) errors.push("email is required");
+    if (!lead.address) errors.push("address is required");
+  }
   if (!lead.business) errors.push("business is required");
   if (lead.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) errors.push("email is invalid");
   if (lead.phone && phoneKey(lead.phone).length < 7) errors.push("phone is invalid");
@@ -182,7 +187,7 @@ function createLeadService(options) {
 
   async function submitInner(input, context) {
     context = context || {};
-    var checked = validate(input);
+    var checked = validate(input, { quickCapture: context.quickCapture === true });
     var now = Date.now();
     if (checked.lead.honeypot) return { ok: true, statusCode: 202, suppressed: "HONEYPOT" };
     if (checked.errors.length) return { ok: false, statusCode: 422, errors: checked.errors };
@@ -364,6 +369,12 @@ function createLeadService(options) {
   }
 
   async function markPaymentVerifiedInner(id, eventId) {
+    eventId = clean(eventId, 160);
+    if (!eventId) {
+      var invalid = new Error("payment eventId is required");
+      invalid.statusCode = 400;
+      throw invalid;
+    }
     var current = await getInner(id);
     if (!current) {
       var missing = new Error("lead not found");
@@ -372,7 +383,7 @@ function createLeadService(options) {
     }
     var at = new Date().toISOString();
     if (current.paymentVerified !== true) {
-      await append({ type: "payment", leadId: id, eventId: clean(eventId, 160) || null, at: at, verified: true, actor: "payment-webhook" });
+      await append({ type: "payment", leadId: id, eventId: eventId, at: at, verified: true, actor: "payment-webhook" });
     }
     if (current.status !== "Paid") {
       await append({ type: "status", leadId: id, from: current.status, to: "Paid", at: at, actor: "payment-webhook" });

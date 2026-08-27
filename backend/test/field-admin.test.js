@@ -130,6 +130,21 @@ test("Paid cannot be set from admin before a verified payment webhook", async fu
   await close(ctx.server);
 });
 
+test("payment verification rejects a missing provider event id", async function () {
+  var ctx = await boot();
+  var created = await ctx.service.submit(form, { owner: "Mike", source: "Field", clientKey: "payment-event-guard" });
+  var verify = await fetch("http://127.0.0.1:" + ctx.port + "/api/internal/payment-verified", {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: "Bearer server-key" },
+    body: JSON.stringify({ leadId: created.lead.id, eventId: "" })
+  });
+  assert.equal(verify.status, 400);
+  var unchanged = await ctx.service.get(created.lead.id);
+  assert.equal(unchanged.paymentVerified, false);
+  assert.notEqual(unchanged.status, "Paid");
+  await close(ctx.server);
+});
+
 test("same-origin GET without Origin still lists leads when Sec-Fetch-Site is same-origin", async function () {
   var ctx = await boot();
   await ctx.service.submit(form, { owner: "Mike", source: "Field", clientKey: "g" });
@@ -139,6 +154,19 @@ test("same-origin GET without Origin still lists leads when Sec-Fetch-Site is sa
   });
   assert.equal(listed.status, 200);
   assert.equal((await listed.json()).leads.length, 1);
+  await close(ctx.server);
+});
+
+test("operations endpoint returns the server-derived exception snapshot", async function () {
+  var ctx = await boot();
+  await ctx.service.submit(form, { owner: "Mike", source: "Field", clientKey: "ops" });
+  var anthony = await login(ctx.port, "anthony", "ant-pass-123");
+  var response = await fetch("http://127.0.0.1:" + ctx.port + "/api/admin/operations", { headers: { origin: ORIGIN, cookie: anthony.cookie } });
+  var body = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(body.jobs.length, 1);
+  assert.equal(body.jobs[0].nextAction.code, "contact_customer");
+  assert.equal(body.metrics.newRequests, 1);
   await close(ctx.server);
 });
 

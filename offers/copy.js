@@ -27,7 +27,7 @@
       checkoutNote: "Card prices are confirmed on the server. This page does not send a price.",
       other: "Need something else? Start a print request.",
       hint: "Arrow keys move the rack. Enter opens the request.",
-      footerNote: "Listed prices are the flyer offers. A person at Vral confirms the job before production.",
+      footerNote: "Listed prices are current print offers. A person at Vral confirms the job before production.",
       noscript: "JavaScript is off. The offers are listed below. Request them on WhatsApp or open /quote/index.html."
     },
     es: {
@@ -55,7 +55,7 @@
       checkoutNote: "El precio de las tarjetas lo confirma el servidor. Esta página no envía un precio.",
       other: "¿Necesitas otra cosa? Empieza un pedido de impresión.",
       hint: "Las flechas mueven el rack. Enter abre el pedido.",
-      footerNote: "Los precios listados son las ofertas de los flyers. Una persona en Vral confirma el trabajo antes de producir.",
+      footerNote: "Los precios listados son ofertas actuales de impresión. Una persona en Vral confirma el trabajo antes de producir.",
       noscript: "JavaScript está apagado. Las ofertas están abajo. Pídelas por WhatsApp o abre /quote/index.html."
     }
   };

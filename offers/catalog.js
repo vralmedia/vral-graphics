@@ -99,6 +99,26 @@
     }
   };
 
+  var ES_OFFERS = {
+    business_card_1000_free_when_vral_designs: { priceLabel: "Impresión gratis", detail: "1,000 cuando Vral crea el diseño" },
+    business_card_1000: { priceLabel: "$99", detail: "1,000 a todo color" },
+    business_card_2500: { priceLabel: "$139", detail: "2,500 a todo color" },
+    business_card_5000: { priceLabel: "$159", detail: "5,000 a todo color" },
+    flyer_5000_4x6_twosided: { priceLabel: "$199", detail: "5,000 · 4 × 6 · a todo color · dos caras" },
+    brochure_menu_1000: { priceLabel: "$299", detail: "1,000 · 8.5 × 11 · doblez incluido" },
+    brochure_menu_2500: { priceLabel: "$399", detail: "2,500 · 8.5 × 11 · doblez incluido" },
+    brochure_menu_5000: { priceLabel: "$495", detail: "5,000 · 8.5 × 11 · doblez incluido" },
+    banner_sqft: { priceLabel: "$6 / pie²", detail: "A todo color. Confirmamos ancho, alto e instalación." },
+    window_wrap_sqft: { priceLabel: "$7 / pie²", detail: "Vinilo a todo color. Primero medimos el vidrio." },
+    aframe: { priceLabel: "$199", detail: "A-frame. Confirmamos tamaño y caras en el pedido." },
+    packaging: { priceLabel: "Presupuesto", detail: "Empaque personalizado. Confirmamos el alcance contigo." }
+  };
+
+  function displayOffer(offer, language) {
+    var source = language === "es" && offer ? ES_OFFERS[offer.sku] : null;
+    return source || { priceLabel: offer && offer.priceLabel || "", detail: offer && offer.detail || "" };
+  }
+
   function allOffers() {
     var list = [];
     Object.keys(PRODUCTS).forEach(function (pid) {
@@ -192,5 +212,6 @@
     parseSearch: parseSearch,
     quoteHref: quoteHref,
     checkoutBody: checkoutBody
+    ,displayOffer: displayOffer
   };
 });

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Reggie, Vral Graphics registration mark">
   <rect width="240" height="240" fill="#f6f7fb"/>
   <g fill="none" stroke-width="10" stroke-linecap="square">
-    <path stroke="#ffd21c" d="M28 118h28M42 104v28"/>
+    <path stroke="#6f7cff" d="M28 118h28M42 104v28"/>
     <path stroke="#12c7ff" transform="rotate(28 188 58)" d="M174 58h28M188 44v28"/>
     <path stroke="#ff2f88" d="M112 196h28M126 182v28"/>
   </g>

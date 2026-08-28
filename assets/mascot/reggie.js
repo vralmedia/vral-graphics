@@ -23,10 +23,10 @@
       '<g class="reggie-ghosts">' +
         '<circle class="ghost-c" cx="112" cy="114" r="74" fill="#12c7ff"/>' +
         '<circle class="ghost-m" cx="128" cy="122" r="74" fill="#ff2f88"/>' +
-        '<circle class="ghost-y" cx="120" cy="108" r="74" fill="#ffd21c"/>' +
+        '<circle class="ghost-y" cx="120" cy="108" r="74" fill="#6f7cff"/>' +
       "</g>" +
       '<g class="reggie-marks" fill="none" stroke-width="10" stroke-linecap="square">' +
-        '<path class="mark-y" stroke="#ffd21c" d="M28 118h28M42 104v28"/>' +
+        '<path class="mark-y" stroke="#6f7cff" d="M28 118h28M42 104v28"/>' +
         '<path class="mark-c" stroke="#12c7ff" transform="rotate(28 188 58)" d="M174 58h28M188 44v28"/>' +
         '<path class="mark-m" stroke="#ff2f88" d="M112 196h28M126 182v28"/>' +
       "</g>" +

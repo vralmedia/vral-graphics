@@ -64,12 +64,12 @@
 .ops-table small { margin-top:3px;color:#667087; }
 .status-pill { display:inline-flex;min-height:25px;align-items:center;padding:0 8px;border-radius:13px;background:#edf0f6;color:#384359;font-size:.68rem;font-weight:800;white-space:nowrap; }
 .status-pill[data-state="Paid"],.status-pill[data-state="Completed"] { background:#d9f7e4;color:#185d34; }
-.status-pill[data-state="Payment Pending"],.status-pill[data-state="Awaiting Approval"] { background:#fff1bd;color:#634b00; }
+.status-pill[data-state="Payment Pending"],.status-pill[data-state="Awaiting Approval"] { background:#e7ebff;color:#13258f; }
 .status-pill[data-state="Lost"] { background:#f8dfe6;color:#8c173a; }
 .exception-list { display:grid; }
 .exception-row { display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;padding:15px 18px;border-bottom:1px solid #e7eaf0; }
 .exception-row:last-child { border-bottom:0; }
-.exception-icon { display:grid;width:28px;height:28px;place-items:center;border-radius:50%;background:#fff1bd;color:#634b00;font-weight:900; }
+.exception-icon { display:grid;width:28px;height:28px;place-items:center;border-radius:50%;background:#e7ebff;color:#13258f;font-weight:700; }
 .exception-row b,.exception-row small { display:block; }
 .exception-row small { margin-top:4px;color:#667087; }
 .exception-row button { min-height:34px;padding:0 10px;border:1px solid #9ca6b8;border-radius:6px;background:var(--white);cursor:pointer;font-size:.72rem;font-weight:750; }

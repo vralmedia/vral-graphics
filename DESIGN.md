@@ -11,7 +11,7 @@ One print job, one thread, one clear next action. The experience should feel as 
 - Use real product imagery for cards, flyers, menus, banners, windows, and signs.
 - Keep each screen to one decision whenever possible.
 - Show direct, verified wording; never invent price, turnaround, testimonial, guarantee, or production state.
-- Keep the expressive Vral press identity: blue, ink black, registration yellow/cyan/pink, physical print layers, and Reggie as a responsive guide.
+- Keep the expressive Vral press identity: blue, ink black, registration cyan/pink/periwinkle, physical print layers, and Reggie as a responsive guide.
 - Never expose backend, auth, relay, CRM, or infrastructure status on a public marketing page.
 
 ## Product surfaces

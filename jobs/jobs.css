@@ -44,4 +44,4 @@
 .track-form input { min-width:0;flex:1;min-height:48px;padding:10px 12px;border:2px solid var(--ink);font-size:16px; }
 .track-message { min-height:1.4em;font-weight:700; }
 @media (max-width:780px) { .jobs-head{align-items:start;flex-direction:column}.job-layout{grid-template-columns:1fr}.next-action{box-shadow:6px 6px 0 var(--yellow)} }
-@media (max-width:480px) { .track-form{flex-direction:column}.job-spec div{grid-template-columns:1fr;gap:4px}.jobs-head h1{font-size:3.6rem}.quote-summary{align-items:flex-start;flex-direction:column}.proof-preview{min-height:220px}.proof-preview img,.proof-preview iframe{height:360px}.proof-actions .job-button{width:100%} }
+@media (max-width:480px) { .jobs-shell{padding-block:36px 64px}.empty-jobs{margin:0;padding:28px 20px;box-shadow:7px 8px 0 var(--cyan)}.empty-jobs img{width:92px}.empty-jobs h1{font-size:3rem}.track-form{flex-direction:column}.job-spec div{grid-template-columns:1fr;gap:4px}.jobs-head h1{font-size:3.2rem}.quote-summary{align-items:flex-start;flex-direction:column}.proof-preview{min-height:220px}.proof-preview img,.proof-preview iframe{height:360px}.proof-actions .job-button{width:100%} }

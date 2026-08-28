@@ -7,3 +7,4 @@
 .legal-copy h2:first-child { margin-top: 0; }
 .legal-copy p { margin: 0 0 14px; color: #30384a; line-height: 1.65; }
 .legal-updated { margin-top: 28px; color: var(--muted); font-size: .78rem; }
+@media (max-width:520px) { .legal-shell{padding:42px 0 64px}.legal-shell h1{margin-bottom:20px;font-size:3.5rem}.legal-copy{padding:22px 18px;box-shadow:6px 7px 0 var(--yellow)} }

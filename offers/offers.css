@@ -347,11 +347,23 @@
 
 @media (max-width: 768px) {
   .reggie-slot { width: 64px; height: 64px; top: 18px; right: 12px; }
+  .rack-copy { padding: 34px 0 0; }
+  .rack h1 { max-width: 8ch; margin-bottom: 10px; font-size: clamp(3rem, 13vw, 4.4rem); }
+  .rack-lead { max-width: 28ch; margin-bottom: 22px; font-size: .96rem; }
+  .rack-hint { display: none; }
+  .rack-tabs { margin-inline: -14px; padding-inline: 14px; }
+  .rack-tab { min-height: 46px; padding: 9px 13px 12px; }
+  .rack-stage { min-height: 0; padding-top: 20px; }
   .specimen { inset: 40px 0 auto 0; width: auto; }
   .specimen,
   .specimen.is-next { transform: translateX(0) rotate(0) scale(0.92); opacity: 0; }
   .specimen.is-focus { transform: none; opacity: 1; }
-  .specimens { min-height: 420px; }
+  .specimens { min-height: 390px; }
+  .piece { min-height: 300px; padding: 12px; box-shadow: 9px 10px 0 var(--ink); }
+  .piece-photo { min-height: 300px; }
+  .live { margin-top: 0; }
+  .live > div > p:first-child { display: none; }
+  .tickets { margin-top: 22px; }
   .ticket { grid-template-columns: 1fr; }
 }
 

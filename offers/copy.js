@@ -4,7 +4,7 @@
   var COPY = {
     en: {
       title: "Fresh off the press.",
-      lead: "One piece at a time, the way a print rack works. Pick the sample in front. We confirm the job before anything is paid or printed.",
+      lead: "Pick a product. We confirm the job before print.",
       live: "Showing",
       tabs: "Print samples",
       tickets: "This offer",
@@ -32,7 +32,7 @@
     },
     es: {
       title: "Saliendo de la prensa.",
-      lead: "Una pieza a la vez, como un rack de imprenta. Elige la muestra de enfrente. Confirmamos el trabajo antes de cobrar o imprimir.",
+      lead: "Elige un producto. Confirmamos el trabajo antes de imprimir.",
       live: "Mostrando",
       tabs: "Muestras de impresión",
       tickets: "Esta oferta",

@@ -21,6 +21,10 @@
   state.campaign = query.campaign || state.campaign;
   state.rep_id = query.rep_id || state.rep_id;
   if (query.design === "front" || query.design === "front_back") state.design = query.design;
+  if (state.product && !state.sku) {
+    var initialProduct = catalog.product(state.product);
+    state.sku = initialProduct && initialProduct.offers[0] ? initialProduct.offers[0].sku : "";
+  }
   intake.applyCatalog(state, catalog);
   if (w.VralSite && w.VralSite.lang) state.language = w.VralSite.lang();
   if (!state.idempotencyKey) state.idempotencyKey = intake.makeIdempotencyKey();
@@ -57,7 +61,7 @@
   }
   function currentStep() { return intake.steps(state)[stepIndex] || "contact"; }
   function choice(name, value, label, note) {
-    return '<button type="button" class="choice" data-field="' + name + '" data-value="' + esc(value) + '" aria-pressed="' + (state[name] === value) + '"><span>' + esc(label) + "</span>" + (note ? "<small>" + esc(note) + "</small>" : "") + "</button>";
+    return '<button type="button" class="choice" data-choice="' + esc(value) + '" data-field="' + name + '" data-value="' + esc(value) + '" aria-pressed="' + (state[name] === value) + '"><span>' + esc(label) + "</span>" + (note ? "<small>" + esc(note) + "</small>" : "") + "</button>";
   }
   function field(name, label, attrs, optional) {
     return '<label class="field"><span>' + esc(label) + (optional ? ' <small>' + esc(t("optional")) + "</small>" : "") + '</span><input name="' + name + '" value="' + esc(state[name]) + '" ' + (attrs || "") + " /></label>";
@@ -103,8 +107,11 @@
     if (intake.needsMeasurements(state.product)) {
       body += '<div class="split">' + field("width", t("width"), 'inputmode="decimal" placeholder="96"') + field("height", t("height"), 'inputmode="decimal" placeholder="48"') + '</div><p class="unit-note">' + esc(t("units")) + "</p>";
     }
-    body += textarea("goal", t("goal"), t("goalPh"), state.product !== "unsure" && state.product !== "packaging");
-    body += textarea("notes", t("notes"), t("notesShortPh"), true);
+    if (state.product === "unsure" || state.product === "packaging") {
+      body += textarea("goal", t("goal"), t("goalPh"), false);
+    } else {
+      body += '<details class="extra-details"' + (state.goal || state.notes ? " open" : "") + '><summary><span>' + esc(t("addContext")) + '</span><small>' + esc(t("addContextNote")) + '</small></summary><div>' + textarea("goal", t("goal"), t("goalPh"), true) + textarea("notes", t("notes"), t("notesShortPh"), true) + '</div></details>';
+    }
     return body;
   }
 
@@ -179,8 +186,10 @@
     var list = intake.steps(state);
     if (stepIndex >= list.length) stepIndex = list.length - 1;
     var step = currentStep();
-    var actions = result ? "" : '<div class="actions">' + (stepIndex > 0 ? '<button type="button" class="qbtn" data-back>' + esc(t("back")) + "</button>" : "") + '<button type="submit" class="qbtn qbtn-primary"' + (sending ? " disabled" : "") + ">" + esc(step === "contact" ? t("send") : t("next")) + "</button></div>";
-    host.innerHTML = '<div class="quote-hero"><h1>' + esc(t("title")) + "</h1><p>" + esc(t("leadShort")) + '</p></div><div class="quote-layout"><form class="crop-card quote-form" novalidate><div class="progress"><span>' + esc(t("stepOf", { n: stepIndex + 1, total: list.length })) + '</span><span class="marks" aria-hidden="true">' + list.map(function (_, i) { return "<i class='" + (i <= stepIndex ? "is-on" : "") + "'></i>"; }).join("") + "</span></div>" + errorBox() + bodyFor(step) + actions + '</form><aside class="ticket-aside" aria-live="polite"><div class="ticket-reggie"><img src="../assets/mascot/reggie-static.svg" width="72" height="72" alt=""></div><h2>' + esc(t("ticket")) + "</h2>" + ticket() + "</aside></div>";
+    var nextKey = step === "build" ? "continueArtwork" : step === "artwork" ? "continueDelivery" : step === "fulfillment" ? "continueContact" : "next";
+    var actions = result ? "" : '<div class="actions">' + (stepIndex > 0 ? '<button type="button" class="qbtn" data-back>' + esc(t("back")) + "</button>" : "") + '<button type="submit" class="qbtn qbtn-primary"' + (sending ? " disabled" : "") + ">" + esc(step === "contact" ? t("send") : t(nextKey)) + "</button></div>";
+    var ticketOpen = w.matchMedia && w.matchMedia("(min-width: 861px)").matches ? " open" : "";
+    host.innerHTML = '<div class="quote-hero"><h1>' + esc(t("title")) + "</h1><p>" + esc(t("leadShort")) + '</p></div><div class="quote-layout"><form class="crop-card quote-form" novalidate><div class="progress"><span>' + esc(t("stepOf", { n: stepIndex + 1, total: list.length })) + '</span><span class="marks" aria-hidden="true">' + list.map(function (_, i) { return "<i class='" + (i <= stepIndex ? "is-on" : "") + "'></i>"; }).join("") + "</span></div>" + errorBox() + bodyFor(step) + actions + '</form><details class="ticket-aside" aria-live="polite"' + ticketOpen + '><summary><span>' + esc(t("yourJob")) + '</span><b>' + esc(productLabel(state.product) || t("emptyTicket")) + '</b></summary><div class="ticket-body"><div class="ticket-reggie"><img src="../assets/mascot/reggie-static.svg" width="72" height="72" alt=""></div><h2>' + esc(t("ticket")) + "</h2>" + ticket() + "</div></details></div>";
     bind();
   }
 
@@ -201,6 +210,17 @@
     saveDraft();
     stepIndex = Math.min(stepIndex + 1, intake.steps(state).length - 1);
     render();
+    revealStep();
+  }
+
+  function revealStep() {
+    w.requestAnimationFrame(function () {
+      var form = host.querySelector(".quote-form");
+      var heading = form && form.querySelector(".step-heading h2");
+      if (!form) return;
+      form.scrollIntoView({ block: "start", behavior: w.matchMedia && w.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      if (heading) { heading.setAttribute("tabindex", "-1"); heading.focus({ preventScroll: true }); }
+    });
   }
 
   function bind() {
@@ -226,16 +246,16 @@
       });
     });
     var change = host.querySelector("[data-change-product]");
-    if (change) change.addEventListener("click", function () { state.product = ""; state.sku = ""; stepIndex = 0; saveDraft(); render(); });
+    if (change) change.addEventListener("click", function () { state.product = ""; state.sku = ""; stepIndex = 0; saveDraft(); render(); revealStep(); });
     var back = host.querySelector("[data-back]");
-    if (back) back.addEventListener("click", function () { readInputs(form); saveDraft(); stepIndex = Math.max(0, stepIndex - 1); render(); });
+    if (back) back.addEventListener("click", function () { readInputs(form); saveDraft(); stepIndex = Math.max(0, stepIndex - 1); render(); revealStep(); });
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       readInputs(form);
       saveDraft();
       errors = intake.validate(state, currentStep());
       if (errors.length) return render();
-      if (currentStep() !== "contact") { stepIndex += 1; return render(); }
+      if (currentStep() !== "contact") { stepIndex += 1; render(); return revealStep(); }
       send();
     });
     var upload = host.querySelector(".post-upload");

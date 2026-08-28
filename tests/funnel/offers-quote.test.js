@@ -135,6 +135,15 @@ test("known products use focused microsteps and artwork uploads only after save"
   assert.equal((quote.match(/<input type=["']file["']/g) || []).length, 1);
 });
 
+test("quote keeps attention on one step and reveals the order summary only at the end", function () {
+  var quote = read("quote/quote.js");
+  assert.match(quote, /function offerIcon\(offer\)/);
+  assert.match(quote, /offer-choice.*is-featured/);
+  assert.match(quote, /function finalReview\(\)/);
+  assert.match(quote, /stepContact[\s\S]*finalReview\(\)/);
+  assert.equal(quote.includes("ticket-aside"), false);
+});
+
 test("public offers and quote files keep the contract", function () {
   var text = surface();
   assert.match(read("offers/index.html"), /data-page="offers"/);

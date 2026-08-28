@@ -34,3 +34,12 @@ test("shared routes keep field private and quote productized", function () {
   assert.match(routes, /business-cards/);
   assert.equal(routes.includes("17864617465"), false);
 });
+
+test("desktop header is brand-only while mobile keeps the menu", function () {
+  var nav = read("shared/site-nav.js");
+  var css = read("shared/page.css");
+  assert.equal(nav.includes("header-actions"), false);
+  assert.match(nav, /menu-toggle/);
+  assert.match(css, /\.site-nav\{display:none\}/);
+  assert.match(css, /@media\(max-width:860px\)[\s\S]*\.site-nav\{position:fixed/);
+});

@@ -82,16 +82,27 @@
     }).join("") + "</div>";
   }
 
+  function offerIcon(offer) {
+    var featured = offer && offer.sku === "business_card_1000_free_when_vral_designs";
+    if (featured) {
+      return '<span class="offer-icon offer-icon-free" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 19h32v21H8zM6 13h36v8H6zM24 13v27M24 13c-7 0-10-3-10-6 0-2 2-4 5-4 4 0 5 6 5 10Zm0 0c7 0 10-3 10-6 0-2-2-4-5-4-4 0-5 6-5 10Z"/></svg></span>';
+    }
+    var qty = Number(offer && offer.qty || 0), layers = qty >= 5000 ? 3 : qty >= 2500 ? 2 : 1;
+    var cards = layers === 3 ? '<rect x="8" y="9" width="28" height="21" rx="3"/><rect x="10" y="13" width="28" height="21" rx="3"/>' : layers === 2 ? '<rect x="9" y="11" width="28" height="21" rx="3"/>' : "";
+    return '<span class="offer-icon" aria-hidden="true"><svg viewBox="0 0 48 48">' + cards + '<rect x="12" y="16" width="28" height="21" rx="3"/><path d="M17 22h11M17 27h17"/></svg></span>';
+  }
+
   function offerChoices(product) {
     if (!product || product.kind === "measure" || !product.offers.length) return "";
     if (product.offers.length === 1) {
       var only = product.offers[0];
       var onlyShown = catalog.displayOffer(only, state.language);
-      return '<div class="selected-offer"><strong>' + esc(onlyShown.priceLabel) + "</strong><span>" + esc(onlyShown.detail) + "</span></div>";
+      return '<div class="selected-offer">' + offerIcon(only) + '<span class="offer-copy"><strong>' + esc(onlyShown.priceLabel) + "</strong><span>" + esc(onlyShown.detail) + "</span></span></div>";
     }
     return '<div class="field"><span>' + esc(t("qty")) + '</span><div class="choices offer-list">' + product.offers.map(function (offer) {
       var shown = catalog.displayOffer(offer, state.language);
-      return '<button type="button" class="choice offer-choice" data-offer="' + esc(offer.sku) + '" aria-pressed="' + (state.sku === offer.sku) + '"><strong>' + esc(shown.priceLabel) + "</strong><span>" + esc(shown.detail) + "</span></button>";
+      var featured = offer.sku === "business_card_1000_free_when_vral_designs";
+      return '<button type="button" class="choice offer-choice' + (featured ? " is-featured" : "") + '" data-offer="' + esc(offer.sku) + '" aria-pressed="' + (state.sku === offer.sku) + '">' + offerIcon(offer) + '<span class="offer-copy"><strong>' + esc(shown.priceLabel) + "</strong><span>" + esc(shown.detail) + "</span></span></button>";
     }).join("") + "</div></div>";
   }
 
@@ -140,7 +151,7 @@
       '<div class="split">' + field("phone", t("phone"), 'autocomplete="tel" inputmode="tel"') + field("email", t("email"), 'type="email" autocomplete="email"') + "</div>" +
       '<label class="choice consent"><input type="checkbox" name="consentContact"' + (state.consentContact ? " checked" : "") + "><span>" + esc(t("consentContact")) + "</span></label>" +
       '<label class="choice consent"><input type="checkbox" name="consentOffers"' + (state.consentOffers ? " checked" : "") + "><span>" + esc(t("consentOffers")) + "</span></label>" +
-      '<div class="honeypot"><label>Website<input name="website" tabindex="-1" autocomplete="off" value="' + esc(state.website) + '"></label></div>';
+      '<div class="honeypot"><label>Website<input name="website" tabindex="-1" autocomplete="off" value="' + esc(state.website) + '"></label></div>' + finalReview();
   }
 
   function fileStatus() {
@@ -169,8 +180,12 @@
   }
 
   function ticket() {
-    var rows = [[t("productQ"), productLabel(state.product)], [t("qty"), state.quantity], [t("goal"), state.goal], [t("artQ"), state.artwork], [t("fulfill"), state.fulfillment], [t("neededBy"), state.neededBy]].filter(function (row) { return row[1]; });
+    var rows = [[t("productLabel"), productLabel(state.product)], [t("quantityLabel"), state.quantity], [t("goal"), state.goal], [t("artworkLabel"), state.artwork], [t("deliveryLabel"), state.fulfillment], [t("neededLabel"), state.neededBy]].filter(function (row) { return row[1]; });
     return rows.length ? "<dl>" + rows.map(function (row) { return "<div><dt>" + esc(row[0]) + "</dt><dd>" + esc(row[1]) + "</dd></div>"; }).join("") + "</dl>" : '<p class="empty-ticket">' + esc(t("emptyTicket")) + "</p>";
+  }
+
+  function finalReview() {
+    return '<details class="final-ticket"><summary><span>' + esc(t("reviewQ")) + '</span><b aria-hidden="true">+</b></summary><div class="final-ticket-body"><h3>' + esc(t("ticket")) + "</h3>" + ticket() + "</div></details>";
   }
 
   function bodyFor(step) {
@@ -188,8 +203,7 @@
     var step = currentStep();
     var nextKey = step === "build" ? "continueArtwork" : step === "artwork" ? "continueDelivery" : step === "fulfillment" ? "continueContact" : "next";
     var actions = result ? "" : '<div class="actions">' + (stepIndex > 0 ? '<button type="button" class="qbtn" data-back>' + esc(t("back")) + "</button>" : "") + '<button type="submit" class="qbtn qbtn-primary"' + (sending ? " disabled" : "") + ">" + esc(step === "contact" ? t("send") : t(nextKey)) + "</button></div>";
-    var ticketOpen = w.matchMedia && w.matchMedia("(min-width: 861px)").matches ? " open" : "";
-    host.innerHTML = '<div class="quote-hero"><h1>' + esc(t("title")) + "</h1><p>" + esc(t("leadShort")) + '</p></div><div class="quote-layout"><form class="crop-card quote-form" novalidate><div class="progress"><span>' + esc(t("stepOf", { n: stepIndex + 1, total: list.length })) + '</span><span class="marks" aria-hidden="true">' + list.map(function (_, i) { return "<i class='" + (i <= stepIndex ? "is-on" : "") + "'></i>"; }).join("") + "</span></div>" + errorBox() + bodyFor(step) + actions + '</form><details class="ticket-aside" aria-live="polite"' + ticketOpen + '><summary><span>' + esc(t("yourJob")) + '</span><b>' + esc(productLabel(state.product) || t("emptyTicket")) + '</b></summary><div class="ticket-body"><div class="ticket-reggie"><img src="../assets/mascot/reggie-static.svg" width="72" height="72" alt=""></div><h2>' + esc(t("ticket")) + "</h2>" + ticket() + "</div></details></div>";
+    host.innerHTML = '<div class="quote-hero"><h1>' + esc(t("title")) + "</h1><p>" + esc(t("leadShort")) + '</p></div><div class="quote-layout"><form class="crop-card quote-form" novalidate><div class="progress"><span>' + esc(t("stepOf", { n: stepIndex + 1, total: list.length })) + '</span><span class="marks" aria-hidden="true">' + list.map(function (_, i) { return "<i class='" + (i <= stepIndex ? "is-on" : "") + "'></i>"; }).join("") + "</span></div>" + errorBox() + bodyFor(step) + actions + "</form></div>";
     bind();
   }
 

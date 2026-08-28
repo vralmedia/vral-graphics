@@ -4,7 +4,7 @@
   var COLUMNS = ["New", "Contacted", "Quoted", "Awaiting Artwork", "Awaiting Approval", "Payment Pending", "Paid", "In Production", "Ready", "Completed", "Lost"];
   var COPY = {
     en: {
-      workspace:"Operations",loginTitle:"Operations sign in",loginLead:"One job. One thread. Every team.",username:"Username",password:"Password",signIn:"Sign in",signOut:"Sign out",
+      workspace:"Operations",loginTitle:"Operations sign in",loginLead:"One job. One thread. Every team.",username:"Email or username",password:"Password",signIn:"Sign in",signOut:"Sign out",
       blocked:"Operations login is not configured. No session was simulated.",unauthorized:"That sign-in did not work.",today:"Today",exceptions:"Exceptions",jobs:"Jobs",customers:"Customers",pipeline:"Pipeline",
       search:"Search",searchPlaceholder:"Search jobs or customers",preview:"Local experience preview",previewNote:"Synthetic data. Never production.",
       todayLead:"The work that needs a decision now.",exceptionsLead:"Only work that left the normal path.",jobsLead:"Every active job, one operational truth.",customersLead:"Accounts with their current work attached.",pipelineLead:"Flow without a horizontal Kanban.",
@@ -14,7 +14,7 @@
       paidBlocked:"Paid stays unavailable until a verified payment webhook.",move:"Move to",signedIn:"Signed in as",loading:"Loading live operations…",contact:"Contact",jobDetails:"Job details",activity:"Activity",source:"Source",received:"Received",notes:"Notes",noActivity:"No activity yet.",call:"Call",emailAction:"Email",stageActions:"Stage actions"
     },
     es: {
-      workspace:"Operaciones",loginTitle:"Entrada de operaciones",loginLead:"Un trabajo. Un hilo. Todo el equipo.",username:"Usuario",password:"Contraseña",signIn:"Entrar",signOut:"Salir",
+      workspace:"Operaciones",loginTitle:"Entrada de operaciones",loginLead:"Un trabajo. Un hilo. Todo el equipo.",username:"Correo o usuario",password:"Contraseña",signIn:"Entrar",signOut:"Salir",
       blocked:"El acceso de operaciones no está configurado. No se simuló una sesión.",unauthorized:"Ese acceso no funcionó.",today:"Hoy",exceptions:"Excepciones",jobs:"Trabajos",customers:"Clientes",pipeline:"Flujo",
       search:"Buscar",searchPlaceholder:"Buscar trabajos o clientes",preview:"Vista local de experiencia",previewNote:"Datos sintéticos. Nunca producción.",
       todayLead:"El trabajo que necesita una decisión ahora.",exceptionsLead:"Solo lo que salió del camino normal.",jobsLead:"Cada trabajo activo, una sola verdad.",customersLead:"Cuentas con su trabajo actual.",pipelineLead:"Flujo sin un Kanban horizontal.",

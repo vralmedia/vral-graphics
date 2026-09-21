@@ -1,0 +1,63 @@
+name: Deploy to Google Cloud
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: production-vral-graphics
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  PROJECT_ID: vral-unified-core
+  PROJECT_NUMBER: "59238145434"
+  REGION: us-east1
+  REPOSITORY: vral-apps
+  SERVICE: vral-graphics
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/59238145434/locations/global/workloadIdentityPools/github-actions/providers/github
+          service_account: github-deployer@vral-unified-core.iam.gserviceaccount.com
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build immutable image
+        run: |
+          gcloud builds submit \
+            --project="$PROJECT_ID" \
+            --tag="$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$SERVICE:$GITHUB_SHA"
+
+      - name: Deploy revision
+        run: |
+          gcloud run deploy "$SERVICE" \
+            --project="$PROJECT_ID" \
+            --region="$REGION" \
+            --image="$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$SERVICE:$GITHUB_SHA" \
+            --allow-unauthenticated \
+            --min-instances=0 \
+            --max-instances=3 \
+            --cpu=1 \
+            --memory=256Mi \
+            --concurrency=80 \
+            --timeout=60 \
+            --set-env-vars="RELEASE_SHA=$GITHUB_SHA"
+
+      - name: Verify public release
+        run: |
+          URL="$(gcloud run services describe "$SERVICE" --project="$PROJECT_ID" --region="$REGION" --format='value(status.url)')"
+          curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 5 "$URL" >/dev/null
+          echo "Production URL: $URL" >> "$GITHUB_STEP_SUMMARY"

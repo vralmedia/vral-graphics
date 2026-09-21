@@ -54,7 +54,7 @@ jobs:
             --memory=256Mi \
             --concurrency=80 \
             --timeout=60 \
-            --set-env-vars="RELEASE_SHA=$GITHUB_SHA"
+            --update-env-vars="RELEASE_SHA=$GITHUB_SHA"
 
       - name: Verify public release
         run: |
